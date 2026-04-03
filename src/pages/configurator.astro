@@ -1747,4 +1747,268 @@ const getBlockMeta = (id: string) => {
   updateSchematic(selectedBlockIds.get());
   applyViewBox(0);
   requestAnimationFrame(onScroll);
+
+  // ── Mobile Modal Preview ────────────────────────────────────────────────
+  // Create modal elements dynamically (or add them directly to your HTML)
+  const modalHTML = `
+<div id="preview-modal" class="fixed inset-0 z-[200] bg-on-background/98 backdrop-blur-sm hidden flex-col" style="display: none;">
+  <!-- Modal Header -->
+  <div class="flex justify-between items-center p-4 border-b border-white/10 bg-on-background sticky top-0 z-10">
+    <div>
+      <h3 class="font-headline font-black text-white uppercase tracking-tighter text-xl">Live Preview</h3>
+      <p class="text-white/40 text-[10px] uppercase tracking-widest mt-0.5">Your page — building in real time</p>
+    </div>
+    <button id="close-modal" class="text-white p-2 hover:bg-white/10 transition-colors rounded">
+      <span class="material-symbols-outlined">close</span>
+    </button>
+  </div>
+
+  <!-- Modal Content - Scrollable -->
+  <div class="flex-1 overflow-y-auto p-4 space-y-6">
+    <!-- Schematic Preview Card -->
+    <div class="bg-white rounded-lg overflow-hidden border-[3px] border-on-background/20">
+      <div class="p-3 bg-surface-container border-b border-on-background/10">
+        <p class="text-[10px] font-black uppercase tracking-widest text-on-surface-variant flex items-center gap-2">
+          <span class="w-2 h-2 bg-secondary-container rounded-full animate-pulse"></span>
+          LIVE VISUALISATION
+        </p>
+      </div>
+      <div class="p-4">
+        <svg
+          id="modal-schematic"
+          viewBox="0 0 200 160"
+          xmlns="http://www.w3.org/2000/svg"
+          width="100%"
+          height="auto"
+          preserveAspectRatio="xMidYMid meet"
+          style="display:block;"
+        >
+          <!-- Same SVG content as your main schematic -->
+          <!-- Copy ALL SVG elements from your original schematic here -->
+        </svg>
+      </div>
+    </div>
+
+    <!-- Selected Items Summary -->
+    <div class="bg-surface-container-lowest rounded-lg border-[2px] border-on-background/10 overflow-hidden">
+      <div class="p-4 border-b border-on-background/10 bg-surface-container">
+        <h4 class="font-headline font-black text-sm uppercase tracking-tighter flex items-center gap-2">
+          <span class="material-symbols-outlined text-secondary-container text-base">checklist</span>
+          Selected Building Blocks
+        </h4>
+      </div>
+      <div id="modal-selected-list" class="divide-y divide-on-background/10">
+        <!-- Dynamic content -->
+        <div class="p-8 text-center text-on-surface-variant text-sm italic">
+          No blocks selected yet. Tap some items above to see them appear here.
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Stats -->
+    <div class="grid grid-cols-2 gap-3">
+      <div class="bg-primary-container/10 p-4 rounded-lg border border-primary-container/20">
+        <p class="text-[9px] font-black uppercase tracking-widest text-primary-container mb-1">Items Added</p>
+        <p id="modal-count" class="font-headline font-black text-3xl tracking-tighter text-white">0</p>
+      </div>
+      <div class="bg-secondary-container/10 p-4 rounded-lg border border-secondary-container/20">
+        <p class="text-[9px] font-black uppercase tracking-widest text-secondary-container mb-1">Your Estimate</p>
+        <p id="modal-total" class="font-headline font-black text-3xl tracking-tighter text-secondary-container">€0</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Footer CTA -->
+  <div class="p-4 border-t border-white/10 bg-on-background sticky bottom-0">
+    <a
+      href="/summary-and-quote"
+      class="block w-full bg-secondary-container text-on-background text-center py-4 px-6 font-headline font-black text-base uppercase tracking-wider hard-shadow hover:-translate-y-0.5 transition-all flex items-center justify-between group"
+    >
+      <span>Continue to Quote</span>
+      <span class="material-symbols-outlined text-xl group-hover:translate-x-1 transition-transform">arrow_forward</span>
+    </a>
+    <p class="text-center text-white/30 text-[9px] uppercase tracking-widest mt-3">
+      Free · No obligation · Your selections are saved
+    </p>
+  </div>
+</div>
+`;
+
+  // Inject modal into body
+  const modalContainer = document.createElement("div");
+  modalContainer.innerHTML = modalHTML;
+  document.body.appendChild(modalContainer);
+
+  // Get modal elements
+  const modal = document.getElementById("preview-modal");
+  const modalSvg = document.getElementById("modal-schematic");
+  const modalSelectedList = document.getElementById("modal-selected-list");
+  const modalCount = document.getElementById("modal-count");
+  const modalTotal = document.getElementById("modal-total");
+  const closeModalBtn = document.getElementById("close-modal");
+
+  // Function to update modal content
+  function updateModal(selectedIds: string[], total: number) {
+    // Update count and total
+    if (modalCount) modalCount.textContent = String(selectedIds.length);
+    if (modalTotal) modalTotal.textContent = `€${total.toLocaleString()}`;
+
+    // Update schematic opacity in modal
+    if (modalSvg) {
+      document
+        .querySelectorAll('#modal-schematic [id^="bp-"]')
+        .forEach((el) => {
+          const id = (el as HTMLElement).id.replace("bp-", "");
+          const on = ALWAYS_ACTIVE.has(id) || selectedIds.includes(id);
+          (el as SVGGElement).style.opacity = on ? "1" : "0.12";
+        });
+    }
+
+    // Update selected items list
+    if (modalSelectedList) {
+      if (selectedIds.length === 0) {
+        modalSelectedList.innerHTML = `
+        <div class="p-8 text-center text-on-surface-variant text-sm italic">
+          No blocks selected yet. Tap some items above to see them appear here.
+        </div>
+      `;
+      } else {
+        modalSelectedList.innerHTML = selectedIds
+          .map((id) => {
+            const block = BLOCKS[id];
+            const meta = getBlockMeta(id);
+            return `
+          <div class="flex items-center justify-between p-4 hover:bg-white/5 transition-colors">
+            <div class="flex items-center gap-3">
+              <span class="material-symbols-outlined text-secondary-container text-base">${meta.icon}</span>
+              <div>
+                <p class="font-headline font-black text-sm uppercase tracking-tighter text-white">${meta.label}</p>
+                <p class="text-white/40 text-[9px] uppercase tracking-widest">${block?.price ? `€${block.price}` : ""}</p>
+              </div>
+            </div>
+            <span class="text-secondary-container font-mono text-sm font-bold">€${block?.price || 0}</span>
+          </div>
+        `;
+          })
+          .join("");
+      }
+    }
+  }
+
+  // Sticky mobile preview button
+  const mobilePreviewBtn = document.createElement("button");
+  mobilePreviewBtn.id = "mobile-preview-btn";
+  mobilePreviewBtn.className =
+    "fixed bottom-6 left-4 right-4 z-50 lg:hidden bg-on-background text-white border-[3px] border-secondary-container py-4 px-6 font-headline font-black uppercase tracking-wider hard-shadow flex items-center justify-between active:translate-y-0.5 transition-all";
+  mobilePreviewBtn.innerHTML = `
+  <span class="flex items-center gap-2">
+    <span class="material-symbols-outlined">visibility</span>
+    Live Preview
+  </span>
+  <span class="flex items-center gap-3">
+    <span id="mobile-preview-count" class="text-secondary-container font-bold">0</span>
+    <span class="text-white/40">|</span>
+    <span id="mobile-preview-total" class="text-secondary-container font-bold">€0</span>
+    <span class="material-symbols-outlined text-secondary-container">arrow_forward</span>
+  </span>
+`;
+  document.body.appendChild(mobilePreviewBtn);
+
+  const mobilePreviewCount = document.getElementById("mobile-preview-count");
+  const mobilePreviewTotal = document.getElementById("mobile-preview-total");
+
+  // Open modal
+  mobilePreviewBtn.addEventListener("click", () => {
+    const ids = selectedBlockIds.get();
+    const total = totalPrice.get();
+    updateModal(ids, total);
+    if (modal) {
+      modal.classList.remove("hidden");
+      modal.style.display = "flex";
+      document.body.style.overflow = "hidden"; // Prevent background scroll
+    }
+  });
+
+  // Close modal
+  if (closeModalBtn) {
+    closeModalBtn.addEventListener("click", () => {
+      if (modal) {
+        modal.classList.add("hidden");
+        modal.style.display = "none";
+        document.body.style.overflow = "";
+      }
+    });
+  }
+
+  // Close modal on backdrop click
+  if (modal) {
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) {
+        modal.classList.add("hidden");
+        modal.style.display = "none";
+        document.body.style.overflow = "";
+      }
+    });
+  }
+
+  // Update mobile preview button stats
+  function updateMobilePreviewButton(ids: string[], total: number) {
+    if (mobilePreviewCount) mobilePreviewCount.textContent = String(ids.length);
+    if (mobilePreviewTotal)
+      mobilePreviewTotal.textContent = `€${total.toLocaleString()}`;
+
+    // Change button appearance when items are selected
+    if (ids.length > 0) {
+      mobilePreviewBtn.classList.add(
+        "border-secondary-container",
+        "shadow-[0_4px_0_0_#C1F100]",
+      );
+    } else {
+      mobilePreviewBtn.classList.remove(
+        "border-secondary-container",
+        "shadow-[0_4px_0_0_#C1F100]",
+      );
+      mobilePreviewBtn.style.transform = "";
+    }
+  }
+
+  // ── Mobile preview button updates ────────────────────────────────────────
+  function updateMobilePreviewButton(ids: string[], total: number) {
+    if (mobilePreviewCount) mobilePreviewCount.textContent = String(ids.length);
+    if (mobilePreviewTotal)
+      mobilePreviewTotal.textContent = `€${total.toLocaleString()}`;
+
+    // Visual feedback when items are selected
+    if (ids.length > 0) {
+      mobilePreviewBtn.classList.add("border-secondary-container");
+      mobilePreviewBtn.style.boxShadow = "0 4px 0 0 #C1F100";
+    } else {
+      mobilePreviewBtn.classList.remove("border-secondary-container");
+      mobilePreviewBtn.style.boxShadow = "";
+    }
+  }
+
+  // Subscribe to selection changes
+  selectedBlockIds.subscribe((ids) => {
+    const total = totalPrice.get();
+    updateMobilePreviewButton(ids, total);
+
+    // Update modal if it's open
+    if (modal && modal.style.display === "flex") {
+      updateModal(ids, total);
+    }
+  });
+
+  // Subscribe to price changes separately
+  totalPrice.subscribe((total) => {
+    const ids = selectedBlockIds.get();
+    updateMobilePreviewButton(ids, total);
+
+    if (modal && modal.style.display === "flex") {
+      updateModal(ids, total);
+    }
+  });
+
+  // Initial update
+  updateMobilePreviewButton(selectedBlockIds.get(), totalPrice.get());
 </script>
