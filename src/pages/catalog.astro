@@ -1,0 +1,108 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { BLOCKS } from "../store/cart";
+
+const allBlocks = Object.values(BLOCKS);
+
+const getSpecs = (code: string) => {
+	if (code.startsWith("ARC"))
+		return {
+			type: "Structural",
+			latency: "0ms",
+			reactive: "High",
+			a11y: "AAA",
+		};
+	if (code.startsWith("MOD"))
+		return { type: "Modular", latency: "12ms", reactive: "Med", a11y: "AA" };
+	if (code.startsWith("FEA"))
+		return { type: "Neural", latency: "45ms", reactive: "High", a11y: "AA" };
+	return { type: "Asset", latency: "5ms", reactive: "N/A", a11y: "AAA" };
+};
+---
+
+<Layout>
+    <div class="fixed inset-0 grainy-overlay z-50 pointer-events-none opacity-5"></div>
+    <Header />
+
+    <main id="main-content" class="pt-32 pb-32 px-4 md:px-12 max-w-7xl mx-auto">
+        <!-- Hero Section -->
+        <section class="mb-24 relative">
+            <div class="absolute -top-10 -left-10 w-40 h-40 bg-primary-container/10 border-[3px] border-on-background dark:border-white -z-10 rotate-12"></div>
+            <div class="relative inline-block">
+                <h1 class="font-headline font-black text-6xl md:text-8xl lg:text-9xl leading-[0.85] uppercase tracking-tighter mb-8 text-on-background dark:text-white relative z-10">
+                    TECHNICAL<br/><span class="text-secondary-container">CATALOG</span>
+                </h1>
+                <div class="absolute -right-4 bottom-4 bg-primary-container w-1/2 h-8 -z-0"></div>
+            </div>
+            <p class="font-body text-xl md:text-2xl text-on-surface-variant dark:text-white/60 max-w-2xl border-l-[6px] border-on-background dark:border-white pl-6 leading-relaxed uppercase font-bold tracking-tight opacity-80">
+                The complete library of precision-engineered web components. Absolute transparency in specification, performance, and pricing.
+            </p>
+        </section>
+
+        <!-- Catalog Grid -->
+        <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {allBlocks.map((block) => {
+                const specs = getSpecs(block.code);
+                return (
+                    <div class="bg-surface dark:bg-on-background border-[3px] border-on-background dark:border-white p-8 hard-shadow hover:-translate-y-1 transition-all group relative overflow-hidden text-on-background">
+                        <div class="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-20 transition-opacity">
+                            <span class="material-symbols-outlined text-8xl" style="font-variation-settings: 'FILL' 1;">architecture</span>
+                        </div>
+                        
+                        <div class="relative z-10">
+                            <div class="flex justify-between items-start mb-8">
+                                <div class="space-y-1">
+                                    <span class="text-[10px] font-black uppercase tracking-[0.2em] text-primary-container dark:text-secondary-container">{block.code}</span>
+                                    <h2 class="font-headline font-black text-2xl uppercase tracking-tighter leading-none">{block.name}</h2>
+                                </div>
+                                <span class="font-mono font-bold text-lg">€{block.price}</span>
+                            </div>
+
+                            <p class="font-body text-xs font-medium uppercase leading-relaxed mb-8 opacity-70 line-clamp-3">
+                                {block.description}
+                            </p>
+
+                            <!-- Technical Specs Table -->
+                            <div class="grid grid-cols-2 gap-y-4 border-t border-on-background/10 dark:border-white/10 pt-6">
+                                <div class="space-y-0.5">
+                                    <p class="text-[11px] font-black uppercase text-on-surface-variant">Component Type</p>
+                                    <p class="font-headline font-bold text-[10px] uppercase">{specs.type}</p>
+                                </div>
+                                <div class="space-y-0.5 text-right">
+                                    <p class="text-[11px] font-black uppercase text-on-surface-variant">Base Latency</p>
+                                    <p class="font-headline font-bold text-[10px] uppercase">{specs.latency}</p>
+                                </div>
+                                <div class="space-y-0.5">
+                                    <p class="text-[11px] font-black uppercase text-on-surface-variant">Reactivity</p>
+                                    <p class="font-headline font-bold text-[10px] uppercase">{specs.reactive}</p>
+                                </div>
+                                <div class="space-y-0.5 text-right">
+                                    <p class="text-[11px] font-black uppercase text-on-surface-variant">A11Y Standard</p>
+                                    <p class="font-headline font-bold text-[10px] uppercase">{specs.a11y}</p>
+                                </div>
+                            </div>
+
+                            <a href="/configurator" class="mt-8 block w-full text-center border-[2px] border-on-background dark:border-white py-3 font-headline font-black text-[10px] uppercase tracking-widest hover:bg-on-background hover:text-white dark:hover:bg-white dark:hover:text-on-background transition-all">
+                                Select for Build
+                            </a>
+                        </div>
+                    </div>
+                )
+            })}
+        </section>
+
+        <!-- CTA -->
+        <section class="mt-32 p-12 bg-on-background dark:bg-primary-container text-white flex flex-col items-center justify-center text-center relative overflow-hidden">
+            <div class="grainy-overlay absolute inset-0 opacity-10"></div>
+            <h2 class="text-4xl md:text-6xl font-black font-headline uppercase tracking-tighter mb-8 relative z-10">Found Your Blocks?</h2>
+            <p class="text-xl font-bold uppercase max-w-xl opacity-60 mb-12 relative z-10 text-white">Every assembly begins with a single selection. Start your configuration now.</p>
+            <a href="/configurator" class="group relative w-full max-w-xl py-6 bg-secondary-container text-on-background text-2xl font-black font-headline uppercase tracking-widest border-[4px] border-white shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] hover:translate-x-[4px] hover:translate-y-[4px] transition-all inline-block">
+                Enter Configurator
+            </a>
+        </section>
+    </main>
+
+    <Footer variant="traditional" />
+</Layout>

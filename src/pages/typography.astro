@@ -1,0 +1,159 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+
+const fonts = [
+	{
+		num: "01",
+		name: "Inter",
+		family: "'Inter', sans-serif",
+		description:
+			"The current modern default. Designed specifically for screens, highly readable at any size. Used by Shopify, Mozilla, and thousands of SaaS companies. Works for tech, corporate, creative, and service businesses.",
+	},
+	{
+		num: "02",
+		name: "Open Sans",
+		family: "'Open Sans', sans-serif",
+		description:
+			"One of the most widely used sans-serifs on the web. Neutral, friendly, and extremely legible. A safe choice for almost any industry — professional services, healthcare, education, non-profits.",
+	},
+	{
+		num: "03",
+		name: "Roboto",
+		family: "'Roboto', sans-serif",
+		description:
+			"Google's system font. Clean, geometric, slightly mechanical. Used across Google products and Android. Ideal for tech, engineering, and modern corporate sites.",
+	},
+	{
+		num: "04",
+		name: "Montserrat",
+		family: "'Montserrat', sans-serif",
+		description:
+			"Bold, geometric, and distinctive. Has a strong presence at large sizes. Popular for headings in creative fields — fashion, design, architecture, agencies.",
+	},
+	{
+		num: "05",
+		name: "Poppins",
+		family: "'Poppins', sans-serif",
+		description:
+			"Rounded, modern geometric sans-serif. Friendly and approachable. Widely used in lifestyle, beauty, wellness, and small business sites.",
+	},
+	{
+		num: "06",
+		name: "Lato",
+		family: "'Lato', sans-serif",
+		description:
+			"Warm, professional, and balanced. Works across both headings and body text. Used by Airbnb and many corporate brands.",
+	},
+	{
+		num: "07",
+		name: "Nunito",
+		family: "'Nunito', sans-serif",
+		description:
+			"Rounded, friendly, and highly readable. Less corporate than Roboto or Open Sans. Common in wellness, childcare, and creative small businesses.",
+	},
+	{
+		num: "08",
+		name: "Source Sans 3",
+		family: "'Source Sans 3', sans-serif",
+		description:
+			"Adobe's open-source sans-serif. Clean, professional, and highly legible. Works for government, education, and technical documentation.",
+	},
+	{
+		num: "09",
+		name: "Merriweather",
+		family: "'Merriweather', serif",
+		description:
+			"The most popular serif for body text on screens. Traditional, trustworthy, and readable. Used for editorial, publishing, and law firms.",
+	},
+	{
+		num: "10",
+		name: "Playfair Display",
+		family: "'Playfair Display', serif",
+		description:
+			"High-contrast serif, typically used for headings only. Elegant and sophisticated. Common in luxury, fashion, and high-end service businesses.",
+	},
+];
+---
+
+<Layout>
+    <div class="fixed inset-0 grainy-overlay z-50 pointer-events-none opacity-5"></div>
+    <Header showDropdown={false} />
+
+    <main id="main-content" class="pt-32 pb-32 px-4 md:px-12 max-w-4xl mx-auto text-on-background">
+        <!-- Hero Title -->
+        <section class="mb-20 relative">
+            <div class="relative inline-block">
+                <h1 class="text-6xl md:text-8xl font-black font-headline uppercase leading-[0.85] tracking-tighter relative z-10">
+                    Typography<br/><span class="text-primary-container">Protocol</span>
+                </h1>
+                <div class="absolute -right-4 bottom-2 bg-secondary-container w-full h-1/2 -z-0"></div>
+            </div>
+            <p class="mt-8 text-xl font-bold max-w-2xl opacity-80 uppercase tracking-tight">
+                Top 10 industry-standard fonts curated for legibility, browser support, and structural neutrality.
+            </p>
+        </section>
+
+        <!-- Font List -->
+        <section class="space-y-24">
+            {fonts.map(font => (
+                <article class="space-y-6">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-on-background dark:bg-white text-white dark:text-on-background flex items-center justify-center font-black text-2xl">{font.num}</div>
+                        <h2 class="text-4xl md:text-5xl font-black uppercase tracking-tighter" style={`font-family: ${font.family}`}>{font.name}</h2>
+                    </div>
+                    <p class="text-lg md:text-xl font-medium opacity-70 leading-relaxed uppercase tracking-tight" style={`font-family: ${font.family}`}>
+                        {font.description}
+                    </p>
+                    <div class="p-6 bg-surface-container dark:bg-on-background/10 border-[2px] border-on-background dark:border-white/20 italic">
+                        <p class="text-sm opacity-60" style={`font-family: ${font.family}`}>The quick brown fox jumps over the lazy dog. 0123456789</p>
+                    </div>
+                </article>
+            ))}
+        </section>
+
+        <!-- Selection Guide -->
+        <section class="mt-32">
+            <h2 class="text-4xl font-black font-headline uppercase tracking-tighter mb-10">Industry Alignment</h2>
+            <div class="bg-surface dark:bg-on-background border-[3px] border-on-background dark:border-white hard-shadow p-8 overflow-x-auto">
+                <table class="w-full text-left min-w-[500px]">
+                    <thead>
+                        <tr class="border-b-[3px] border-on-background dark:border-white">
+                            <th class="py-4 font-black uppercase tracking-wider text-xs">Sector</th>
+                            <th class="py-4 font-black uppercase tracking-wider text-xs">Recommended Architecture</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-on-background/10 dark:divide-white/10">
+                        {[
+                            { sector: 'Tech / SaaS', fonts: 'Inter, Roboto, Source Sans' },
+                            { sector: 'Professional Services', fonts: 'Open Sans, Lato, Merriweather' },
+                            { sector: 'Creative / Design', fonts: 'Montserrat, Poppins, Playfair Display' },
+                            { sector: 'Lifestyle / Wellness', fonts: 'Poppins, Nunito, Lato' },
+                            { sector: 'Hospitality / Travel', fonts: 'Lato, Open Sans, Playfair Display' },
+                            { sector: 'Editorial / Publishing', fonts: 'Merriweather, Source Sans' }
+                        ].map(row => (
+                            <tr>
+                                <td class="py-6 font-headline font-black uppercase text-sm">{row.sector}</td>
+                                <td class="py-6 font-bold opacity-60 uppercase text-xs tracking-widest">{row.fonts}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Important Note -->
+        <section class="mt-20 bg-secondary-container text-on-background p-10 hard-shadow-sm border-[3px] border-on-background">
+            <div class="flex items-center gap-4 mb-4">
+                <span class="material-symbols-outlined font-black">info</span>
+                <h3 class="text-2xl font-black font-headline uppercase tracking-tighter">Constraint Protocol</h3>
+            </div>
+            <p class="text-lg font-bold leading-relaxed uppercase tracking-tight">
+                Most commercial assets use <span class="bg-on-background text-white px-2">2 fonts maximum</span>. One for primary directives (headings) and one for data delivery (body). Complexity beyond this degrades structural integrity.
+            </p>
+        </section>
+    </main>
+
+    <Footer variant="traditional" />
+</Layout>

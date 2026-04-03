@@ -1,0 +1,227 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+
+const steps = [
+  {
+    title: "Design",
+    id: "01",
+    description:
+      "You pick exactly what you need for your dream project. Every block is precision-engineered for performance and selected by you to ensure total architectural alignment with your goals.",
+    icon: "architecture",
+    color: "bg-surface-container-lowest dark:bg-on-background dark:text-white",
+    span: "md:col-span-1 lg:col-span-2", // Fixed: md:col-span-1 (1 of 4 cols)
+  },
+  {
+    title: "Build",
+    id: "02",
+    description:
+      "Our team will review your specific needs, visualising what look and feel you are aiming for and what your brand identity represents. We assemble your chosen components into a high-performance digital asset.",
+    icon: "construction",
+    color: "bg-primary-container text-white",
+    span: "md:col-span-1 lg:col-span-4", // Fixed: md:col-span-2 (2 of 4 cols)
+  },
+  {
+    title: "Launch",
+    id: "03",
+    description:
+      "We hit the launch sequence button. Final checks ensure you face the world in optimum fashion. We only hand over the keys and go live once you are 100% satisfied with the build.",
+    icon: "rocket_launch",
+    color: "bg-secondary-container text-on-background",
+    span: "md:col-span-1 lg:col-span-6", // Fixed: md:col-span-1 (1 of 4 cols)
+  },
+];
+
+const models = [
+  {
+    title: "Architectural Ownership",
+    subtitle: "Lump Sum Model",
+    description:
+      "Pay for the build, own the code. A traditional model for businesses that want a permanent digital asset on their own balance sheet.",
+    features: [
+      "One-time Build Fee",
+      "Full Code Handoff",
+      "Self-Managed Hosting",
+      "Lifetime Asset",
+    ],
+  },
+  {
+    title: "Digital Residency",
+    subtitle: "Subscription Model",
+    description:
+      "Low entry cost. We build, host, and maintain everything. You pay a monthly fee to keep your asset running at peak performance.",
+    features: [
+      "Small Initial Setup",
+      "Managed Performance",
+      "Continuous Updates",
+      "Technical Concierge",
+    ],
+  },
+];
+---
+
+<Layout>
+  <div class="fixed inset-0 grainy-overlay z-50 pointer-events-none opacity-5">
+  </div>
+  <Header />
+
+  <main id="main-content" class="pt-32 pb-32 px-4 md:px-12 max-w-7xl mx-auto">
+    <!-- Hero Section -->
+    <section class="mb-24 relative">
+      <div
+        class="absolute -top-10 -left-10 w-40 h-40 bg-secondary-container/10 border-[3px] border-on-background dark:border-white -z-10 rotate-12"
+      >
+      </div>
+      <div class="relative inline-block">
+        <h1
+          class="font-headline font-black text-6xl md:text-8xl lg:text-9xl leading-[0.85] uppercase tracking-tighter mb-8 text-on-background dark:text-white relative z-10"
+        >
+          HOW IT<br /><span class="text-primary-container">WORKS</span>
+        </h1>
+        <div
+          class="absolute -right-4 bottom-4 bg-secondary-container w-1/2 h-8 -z-0"
+        >
+        </div>
+      </div>
+      <p
+        class="font-body text-xl md:text-2xl text-on-surface-variant dark:text-white/80 max-w-2xl border-l-[6px] border-on-background dark:border-white pl-6 leading-relaxed uppercase font-bold tracking-tight opacity-80"
+      >
+        A zero-risk, industrial-grade process. You get the blueprint for free.
+        You only pay for the build when you're ready to break ground.
+      </p>
+    </section>
+
+    <!-- Zero-Risk Callout -->
+    <section
+      class="mb-24 p-8 bg-secondary-container border-[3px] border-on-background dark:border-white hard-shadow-sm flex flex-col md:flex-row items-center gap-8 text-on-background"
+    >
+      <div
+        class="w-24 h-24 bg-on-background dark:bg-white text-secondary-container flex items-center justify-center shrink-0"
+      >
+        <span
+          class="material-symbols-outlined text-6xl"
+          style="font-variation-settings: 'wght' 900;">verified_user</span
+        >
+      </div>
+      <div>
+        <h2
+          class="font-headline font-black text-3xl uppercase tracking-tighter mb-2"
+        >
+          The Zero-Risk Guarantee
+        </h2>
+        <p
+          class="font-body font-bold uppercase text-sm leading-tight opacity-80"
+        >
+          Your initial Technical Blueprint (PDF Proposal) is 100% free. No
+          obligations. No hidden fees. We prove the value before you spend a
+          cent.
+        </p>
+      </div>
+    </section>
+
+    <!-- Process Bento Grid -->
+    <section class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-8 mb-32">
+      {
+        steps.map((step) => (
+          <div
+            class={`${step.span} ${step.color} border-[3px] border-on-background dark:border-white p-10 flex flex-col justify-between hard-shadow hover:-translate-y-2 transition-all group relative overflow-hidden`}
+          >
+            <div class="grainy-overlay absolute inset-0 opacity-5" />
+            <div class="relative z-10">
+              <div class="flex justify-between items-start mb-12">
+                <div class="space-y-2">
+                  <span class="font-label text-xs font-black uppercase text-on-surface-variant tracking-widest">
+                    Phase {step.id}
+                  </span>
+                  <h2 class="font-headline font-black text-5xl md:text-6xl uppercase tracking-tighter leading-none">
+                    {step.title}
+                  </h2>
+                </div>
+                <span
+                  class="material-symbols-outlined text-5xl opacity-20 group-hover:opacity-100 transition-opacity"
+                  style="font-variation-settings: 'wght' 900;"
+                >
+                  {step.icon}
+                </span>
+              </div>
+              <p class="font-body text-lg md:text-xl font-medium leading-relaxed uppercase tracking-tight max-w-2xl">
+                {step.description}
+              </p>
+            </div>
+          </div>
+        ))
+      }
+    </section>
+
+    <!-- Strategy Models -->
+    <section class="mb-32">
+      <div class="flex items-center gap-4 mb-16">
+        <h2
+          class="text-4xl font-black font-headline uppercase tracking-tighter text-on-background dark:text-white"
+        >
+          Choose Your Strategy
+        </h2>
+        <div class="flex-grow h-[3px] bg-on-background dark:bg-white"></div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 text-on-background">
+        {
+          models.map((model) => (
+            <div class="bg-surface dark:bg-on-background dark:text-white border-[3px] border-on-background dark:border-white p-12 hard-shadow group hover:bg-on-background hover:text-white dark:hover:bg-white dark:hover:text-on-background transition-all">
+              <span class="font-label text-xs font-black uppercase text-primary-container mb-2 block group-hover:text-secondary-container">
+                {model.subtitle}
+              </span>
+              <h3 class="font-headline font-black text-4xl uppercase mb-6 tracking-tighter">
+                {model.title}
+              </h3>
+              <p class="font-body text-lg mb-8 opacity-70 uppercase font-bold tracking-tight">
+                {model.description}
+              </p>
+              <ul class="space-y-4">
+                {model.features.map((feature) => (
+                  <li class="flex items-center gap-3 font-headline font-black text-sm uppercase">
+                    <span class="w-2 h-2 bg-secondary-container" />
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- Post-Launch Section -->
+    <section
+      class="bg-on-background dark:bg-white text-white dark:text-on-background p-12 border-[3px] border-on-background dark:border-white hard-shadow relative overflow-hidden"
+    >
+      <div class="grainy-overlay absolute inset-0 opacity-10"></div>
+      <div class="relative z-10 max-w-4xl">
+        <h3
+          class="font-headline font-black text-3xl md:text-4xl uppercase tracking-tighter text-secondary-container dark:text-primary-container mb-6 italic"
+        >
+          Post-Launch Partnership
+        </h3>
+        <p
+          class="font-body text-xl md:text-2xl font-bold leading-relaxed uppercase tracking-tight border-l-4 border-white dark:border-on-background pl-8"
+        >
+          When you are up and running, we will always be one click away to help
+          and guide you on your digital journey, leaving you to fully
+          concentrate on the core objectives of your business.
+        </p>
+      </div>
+    </section>
+
+    <!-- Final CTA -->
+    <div class="mt-24 text-center">
+      <a
+        href="/start"
+        class="group relative w-full max-w-2xl py-8 bg-secondary-container text-on-background text-4xl font-black font-headline uppercase tracking-widest border-[4px] border-white dark:border-on-background hard-shadow hover:translate-x-[4px] hover:translate-y-[4px] transition-all inline-block"
+      >
+        INITIATE PROJECT
+      </a>
+    </div>
+  </main>
+
+  <Footer variant="traditional" />
+</Layout>

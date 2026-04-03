@@ -1,0 +1,115 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+
+const terminologies = [
+	{
+		term: "SSG",
+		fullName: "Static Site Generation",
+		description:
+			"Pre-rendering web pages at build time. This ensures lightning-fast delivery and absolute security as there is no live database to exploit during user visits.",
+		span: "md:col-span-2 lg:col-span-3",
+		color: "bg-surface-container-lowest",
+	},
+	{
+		term: "SEO",
+		fullName: "Search Engine Optimization",
+		description:
+			"The technical and creative discipline of ensuring your digital asset is discoverable by search algorithms. We focus on 'Technical SEO'—the structural integrity that bots love.",
+		span: "md:col-span-2 lg:col-span-3",
+		color: "bg-secondary-container",
+	},
+	{
+		term: "Neo-Brutalism",
+		fullName: "Design Philosophy",
+		description:
+			"A digital aesthetic that rejects soft shadows and gradients in favor of bold strokes, high contrast, and raw transparency. It projects confidence and technical honesty.",
+		span: "md:col-span-4 lg:col-span-2",
+		color: "bg-primary-container text-white",
+	},
+	{
+		term: "A11y",
+		fullName: "Accessibility",
+		description:
+			"Designing for everyone. We ensure your site is navigable by screen readers and usable by individuals with varying degrees of ability, following WCAG protocols.",
+		span: "md:col-span-2 lg:col-span-2",
+		color: "bg-surface-container-highest",
+	},
+	{
+		term: "Hydration",
+		fullName: "Technical Execution",
+		description:
+			"The process of 'bringing to life' static HTML with interactive JavaScript. We optimize this to ensure zero lag between sight and touch.",
+		span: "md:col-span-2 lg:col-span-2",
+		color: "bg-surface-container-lowest",
+	},
+	{
+		term: "Responsive",
+		fullName: "Fluid Architecture",
+		description:
+			"A single codebase that morphs to fit any screen—from an ultra-wide workstation to a handheld device. No compromises on layout integrity.",
+		span: "md:col-span-4 lg:col-span-4",
+		color: "bg-surface-container-lowest",
+	},
+	{
+		term: "Schema",
+		fullName: "Structured Data",
+		description:
+			"Invisible code that tells search engines exactly what your content is—whether a product, an event, or an organization. Essential for rich search results.",
+		span: "md:col-span-4 lg:col-span-2",
+		color: "bg-tertiary-fixed text-on-tertiary-fixed",
+	},
+];
+---
+
+<Layout>
+    <div class="fixed inset-0 grainy-overlay z-50 pointer-events-none opacity-5"></div>
+    <Header />
+
+    <main id="main-content" class="pt-32 pb-32 px-4 md:px-12 max-w-7xl mx-auto">
+        <!-- Hero Section -->
+        <section class="mb-24 relative">
+            <div class="absolute -top-10 -left-10 w-40 h-40 bg-secondary-container/10 border-[3px] border-on-background dark:border-white -z-10 rotate-12"></div>
+            <div class="relative inline-block">
+                <h1 class="font-headline font-black text-6xl md:text-8xl lg:text-9xl leading-[0.85] uppercase tracking-tighter mb-8 text-on-background dark:text-white relative z-10">
+                    DON'T BE<br/><span class="text-primary-container">BAMBOOZLED</span>
+                </h1>
+                <div class="absolute -right-4 bottom-4 bg-secondary-container w-1/2 h-8 -z-0"></div>
+            </div>
+            <p class="font-body text-xl md:text-2xl text-on-surface-variant dark:text-white/60 max-w-2xl border-l-[6px] border-on-background dark:border-white pl-6 leading-relaxed uppercase font-bold tracking-tight opacity-80">
+                The web industry is full of jargon designed to confuse. We prefer clarity. Here is the technical blueprint for the terms we use every day.
+            </p>
+        </section>
+
+        <!-- Bento Grid -->
+        <section class="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-6 gap-6">
+            {terminologies.map((item) => (
+                <div class={`${item.span} ${item.color} border-[3px] border-on-background dark:border-white p-8 flex flex-col justify-between hard-shadow-sm hover:-translate-y-1 hover:-translate-x-1 transition-all group`}>
+                    <div class="flex justify-between items-start mb-12">
+                        <div class="space-y-1">
+                            <h2 class="font-headline font-black text-4xl uppercase leading-none dark:text-white">{item.term}</h2>
+                            <p class="font-label text-xs font-bold uppercase opacity-60 dark:text-white/60">{item.fullName}</p>
+                        </div>
+                        <span class="material-symbols-outlined opacity-20 group-hover:opacity-100 transition-opacity dark:text-white">info</span>
+                    </div>
+                    <div>
+                        <p class="font-body text-sm font-medium leading-relaxed uppercase tracking-tight dark:text-white/80">{item.description}</p>
+                    </div>
+                </div>
+            ))}
+        </section>
+
+        <!-- CTA Section -->
+        <section class="mt-32 p-12 bg-on-background dark:bg-primary-container text-white flex flex-col items-center justify-center text-center relative overflow-hidden">
+            <div class="grainy-overlay absolute inset-0 opacity-10"></div>
+            <h2 class="text-4xl md:text-6xl font-black font-headline uppercase tracking-tighter mb-8 relative z-10">Still Have Questions?</h2>
+            <p class="text-xl font-bold uppercase max-w-xl opacity-60 mb-12 relative z-10">We believe in radical transparency. If a term isn't clear, ask us directly during your consultation.</p>
+            <a href="/start" class="group relative w-full max-w-xl py-6 bg-secondary-container text-on-background text-2xl font-black font-headline uppercase tracking-widest border-[4px] border-white hard-shadow hover:translate-x-[4px] hover:translate-y-[4px] transition-all inline-block">
+                Start Your Build
+            </a>
+        </section>
+    </main>
+
+    <Footer variant="traditional" />
+</Layout>

@@ -1,0 +1,219 @@
+---
+interface Props {
+	hideOnMobile?: boolean;
+	showProgress?: boolean;
+	variant?: "bar" | "traditional";
+}
+
+const {
+	hideOnMobile = false,
+	showProgress = true,
+	variant = "bar",
+} = Astro.props;
+---
+
+{
+	variant === "bar" ? (
+		<footer
+			class:list={[
+				"fixed bottom-0 left-0 w-full flex justify-end items-center px-8 gap-0 bg-[#FCF9F8] dark:bg-[#1A1A1A] border-t-[3px] border-[#1A1A1A] z-50 h-20",
+				{ "hidden md:flex": hideOnMobile },
+			]}
+		>
+			{showProgress && (
+				<div id="footer-progress-zone" class="mr-auto flex items-center gap-8">
+					<div class="hidden md:flex items-center gap-6">
+						<div class="flex flex-col">
+							<span class="text-[10px] font-black uppercase opacity-50 leading-none mb-1">
+								Current Config
+							</span>
+							<div class="flex items-baseline gap-2">
+								<span
+									class="font-headline font-black text-2xl tracking-tighter"
+									id="footer-total"
+								>
+									€0.00
+								</span>
+								<span
+									class="text-[10px] font-bold uppercase bg-secondary-container px-2 py-0.5 border border-on-background"
+									id="footer-count"
+								>
+									0 Blocks
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			)}
+
+			<div class="flex h-full">
+				<a
+					href="/how-it-works"
+					class="flex flex-col items-center justify-center text-[#1A1A1A] dark:text-[#FCF9F8] p-4 font-body text-[12px] font-black uppercase hover:invert transition-all duration-100 active:translate-y-1 border-x-[1px] border-on-background/10"
+				>
+					<span class="material-symbols-outlined mb-1" aria-hidden="true">
+						help_center
+					</span>
+					Support
+				</a>
+				<a
+					href="/configurator"
+					class="flex flex-col items-center justify-center text-[#1A1A1A] dark:text-[#FCF9F8] p-4 font-body text-[12px] font-black uppercase hover:invert transition-all duration-100 active:translate-y-1 border-r-[1px] border-on-background/10"
+				>
+					<span class="material-symbols-outlined mb-1" aria-hidden="true">
+						payments
+					</span>
+					Costs
+				</a>
+				<a
+					href="/start"
+					class="flex flex-col items-center justify-center bg-[#8A2BE2] text-white p-4 h-full font-body text-[12px] font-black uppercase hover:invert transition-all duration-100 active:translate-y-1"
+				>
+					<span class="material-symbols-outlined mb-1" aria-hidden="true">
+						mail
+					</span>
+					Contact Us
+				</a>
+			</div>
+		</footer>
+	) : (
+		<footer class="bg-on-background text-white py-24 px-8 border-t-[3px] border-on-background relative overflow-hidden">
+			<div class="grainy-overlay absolute inset-0 opacity-10 pointer-events-none" />
+			<div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-16 relative z-10">
+				<!-- Brand Column -->
+				<div class="md:col-span-4 space-y-8">
+					<div class="text-3xl font-black tracking-widest font-headline">
+						WEB-YOUR-WAY
+					</div>
+					<p class="text-sm font-medium opacity-50 uppercase leading-relaxed max-w-xs">
+						REJECTING TECH-MINIMALISM IN FAVOUR OF CONFIDENT, STRUCTURAL, AND
+						UNAPOLOGETICALLY BOLD ARCHITECTURE.
+					</p>
+					<div class="flex gap-4">
+						{["Twitter", "LinkedIn", "Instagram"].map((social) => (
+							<a
+								href="#"
+								class="w-10 h-10 border border-white/20 flex items-center justify-center hover:bg-secondary-container hover:text-on-background transition-colors"
+							>
+								<span class="material-symbols-outlined text-lg">
+									{social === "Twitter"
+										? "close"
+										: social === "LinkedIn"
+											? "share"
+											: "photo_camera"}
+								</span>
+							</a>
+						))}
+					</div>
+				</div>
+
+				<!-- Links Columns -->
+				<div class="md:col-span-8 grid grid-cols-2 md:grid-cols-3 gap-12">
+					<div class="space-y-6">
+						<h4 class="font-headline font-black uppercase tracking-widest text-secondary-container text-xs">
+							Platform
+						</h4>
+						<nav class="flex flex-col gap-4">
+							<a
+								href="/how-it-works"
+								class="text-sm font-bold uppercase opacity-60 hover:opacity-100 transition-opacity"
+							>
+								How it Works
+							</a>
+							<a
+								href="/terminology"
+								class="text-sm font-bold uppercase opacity-60 hover:opacity-100 transition-opacity"
+							>
+								Terminology
+							</a>
+							<a
+								href="/catalog"
+								class="text-sm font-bold uppercase opacity-60 hover:opacity-100 transition-opacity"
+							>
+								Technical Catalog
+							</a>
+						</nav>
+					</div>
+
+					<div class="space-y-6">
+						<h4 class="font-headline font-black uppercase tracking-widest text-secondary-container text-xs">
+							Build
+						</h4>
+						<nav class="flex flex-col gap-4">
+							<a
+								href="/configurator"
+								class="text-sm font-bold uppercase opacity-60 hover:opacity-100 transition-opacity"
+							>
+								Configurator
+							</a>
+							<a
+								href="/start"
+								class="text-sm font-bold uppercase opacity-60 hover:opacity-100 transition-opacity"
+							>
+								Start Questionnaire
+							</a>
+							<a
+								href="/colour-palette"
+								class="text-sm font-bold uppercase opacity-60 hover:opacity-100 transition-opacity"
+							>
+								Colour Palettes
+							</a>
+						</nav>
+					</div>
+
+					<div class="space-y-6 col-span-2 md:col-span-1">
+						<h4 class="font-headline font-black uppercase tracking-widest text-secondary-container text-xs">
+							Legal
+						</h4>
+						<nav class="flex flex-col gap-4">
+							<a
+								href="#"
+								class="text-sm font-bold uppercase opacity-60 hover:opacity-100 transition-opacity"
+							>
+								Privacy Policy
+							</a>
+							<a
+								href="#"
+								class="text-sm font-bold uppercase opacity-60 hover:opacity-100 transition-opacity"
+							>
+								Terms of Service
+							</a>
+							<a
+								href="#"
+								class="text-sm font-bold uppercase opacity-60 hover:opacity-100 transition-opacity"
+							>
+								Cookie Policy
+							</a>
+						</nav>
+					</div>
+				</div>
+			</div>
+
+			<div class="max-w-7xl mx-auto mt-24 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6 relative z-10">
+				<p class="text-[10px] font-black uppercase tracking-[0.3em] opacity-30">
+					© 2024 WEB-YOUR-WAY. ALL RIGHTS RESERVED.
+				</p>
+				<p class="text-[10px] font-black uppercase tracking-[0.3em] opacity-30">
+					BUILT WITH ASTRO & TAILWIND 4
+				</p>
+			</div>
+		</footer>
+	)
+}
+
+<script>
+	import { totalPrice, selectedBlockIds } from "../store/cart";
+
+	const totalEl = document.getElementById("footer-total");
+	const countEl = document.getElementById("footer-count");
+
+	if (totalEl && countEl) {
+		totalPrice.subscribe((price) => {
+			totalEl.textContent = `€${price.toLocaleString()}.00`;
+		});
+
+		selectedBlockIds.subscribe((ids) => {
+			countEl.textContent = `${ids.length} Block${ids.length === 1 ? "" : "s"}`;
+		});
+	}
+</script>

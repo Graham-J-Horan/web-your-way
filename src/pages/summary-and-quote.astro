@@ -1,0 +1,738 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<Layout>
+  <div
+    id="blueprint-overlay"
+    class="fixed inset-0 z-[200] bg-on-background flex flex-col items-center justify-center p-8 transition-opacity duration-300"
+  >
+    <div class="max-w-md w-full space-y-8">
+      <div class="flex items-center gap-4">
+        <div
+          class="w-12 h-12 bg-secondary-container animate-pulse border-[3px] border-white"
+        >
+        </div>
+        <h2
+          class="font-headline font-black text-2xl text-white uppercase tracking-widest"
+        >
+          Your quote is almost ready
+        </h2>
+      </div>
+      <div
+        class="h-4 w-full bg-white/10 border-[2px] border-white overflow-hidden"
+      >
+        <div
+          id="blueprint-progress"
+          class="h-full bg-secondary-container w-0 transition-all duration-[700ms] ease-out"
+        >
+        </div>
+      </div>
+      <div
+        class="space-y-2 font-mono text-[10px] text-white/40 uppercase tracking-tighter"
+      >
+        <p class="animate-pulse">Getting your quote ready...</p>
+        <p class="animate-pulse delay-75">Reviewing your selections...</p>
+        <p class="animate-pulse delay-150">Almost there...</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="fixed inset-0 grainy-overlay z-50 pointer-events-none opacity-5">
+  </div>
+  <Header isFunnel={true} />
+
+  <!-- Background Watermark -->
+  <div
+    class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.03] pointer-events-none -z-10 select-none"
+  >
+    <span
+      class="material-symbols-outlined text-[600px] text-on-background"
+      style="font-variation-settings: 'FILL' 1;">architecture</span
+    >
+  </div>
+
+  <main
+    id="main-content"
+    class="pt-32 pb-24 px-4 md:px-12 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12"
+  >
+    <!-- Left Column: The Invoice Summary -->
+    <div class="lg:col-span-7 space-y-12 text-on-background">
+      <header class="space-y-2">
+        <div
+          class="inline-block bg-secondary-container text-on-background border-2 border-on-background dark:border-white px-3 py-1 font-label text-xs font-black uppercase tracking-widest"
+        >
+          Quote #WYW-2024-<span id="quote-id-display">...</span>
+        </div>
+        <h1
+          class="text-5xl md:text-7xl font-headline font-black uppercase tracking-tighter leading-none"
+        >
+          Summary <span class="text-primary-container">&amp;</span> Quote
+        </h1>
+      </header>
+
+      <!-- Strategic Alignment Summary -->
+      <div
+        id="profile-alignment"
+        class="grid grid-cols-1 md:grid-cols-3 gap-4"
+        style="display:none;"
+      >
+        <!-- Populated by JS -->
+      </div>
+
+      <!-- Invoice Table -->
+      <div
+        class="bg-surface-container-lowest border-[3px] border-on-background dark:border-white hard-shadow relative overflow-hidden"
+      >
+        <div
+          class="grain-texture absolute inset-0 pointer-events-none opacity-5"
+        >
+        </div>
+        <div
+          class="grid grid-cols-12 border-b-[3px] border-on-background dark:border-white bg-surface-container font-label font-black text-sm uppercase tracking-wider p-4 text-on-background"
+        >
+          <div class="col-span-8">Selected Item Description</div>
+          <div class="col-span-4 text-right">Investment</div>
+        </div>
+        <div
+          id="selected-blocks-list"
+          class="divide-y-[3px] divide-on-background dark:divide-white"
+        >
+          <div
+            class="p-12 text-center opacity-50 uppercase font-bold tracking-widest"
+          >
+            Initializing technical blueprint...
+          </div>
+        </div>
+        <div
+          class="bg-on-background dark:bg-white text-surface dark:text-on-background p-8 flex flex-col md:flex-row justify-between items-end md:items-center gap-4"
+        >
+          <div
+            class="font-headline font-black uppercase text-2xl tracking-tighter"
+          >
+            Build Value Total
+          </div>
+          <div
+            id="total-price-display"
+            class="text-4xl sm:text-6xl md:text-8xl font-headline font-black tracking-tighter text-secondary-container dark:text-primary-container"
+          >
+            €0.00
+          </div>
+        </div>
+      </div>
+
+      <!-- Investment Strategy Selection -->
+      <div class="space-y-8">
+        <div class="flex items-center gap-4">
+          <h2
+            class="text-4xl font-black font-headline uppercase tracking-tighter"
+          >
+            Investment Strategy
+          </h2>
+          <div class="flex-grow h-[3px] bg-on-background dark:bg-white"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <label class="group cursor-pointer">
+            <input
+              type="radio"
+              name="payment-model"
+              value="ownership"
+              class="hidden peer"
+              checked
+            />
+            <div
+              class="border-[3px] border-on-background dark:border-white p-8 bg-surface dark:bg-on-background peer-checked:bg-on-background dark:peer-checked:bg-white peer-checked:text-white dark:peer-checked:text-on-background transition-all hard-shadow group-hover:-translate-y-1"
+            >
+              <div class="flex justify-between items-start mb-4">
+                <h3 class="font-headline font-black text-2xl uppercase">
+                  Ownership
+                </h3>
+                <span
+                  class="material-symbols-outlined text-primary-container peer-checked:text-secondary-container"
+                  >account_balance</span
+                >
+              </div>
+              <p class="text-xs font-bold uppercase opacity-60 mb-4">
+                Lump Sum Build Fee
+              </p>
+              <p class="text-sm font-medium uppercase leading-relaxed mb-6">
+                Pay for the construction, own the source code. Best for
+                permanent capital assets.
+              </p>
+              <div
+                class="flex items-center gap-2 text-primary-container group-has-[:checked]:text-secondary-container"
+              >
+                <span class="material-symbols-outlined text-sm"
+                  >picture_as_pdf</span
+                >
+                <span class="text-[10px] font-black uppercase tracking-widest"
+                  >+ Free Proposal Document</span
+                >
+              </div>
+            </div>
+          </label>
+
+          <label class="group cursor-pointer">
+            <input
+              type="radio"
+              name="payment-model"
+              value="residency"
+              class="hidden peer"
+            />
+            <div
+              class="border-[3px] border-on-background dark:border-white p-8 bg-surface dark:bg-on-background peer-checked:bg-on-background dark:peer-checked:bg-white peer-checked:text-white dark:peer-checked:text-on-background transition-all hard-shadow group-hover:-translate-y-1"
+            >
+              <div class="flex justify-between items-start mb-4">
+                <h3 class="font-headline font-black text-2xl uppercase">
+                  Residency
+                </h3>
+                <span
+                  class="material-symbols-outlined text-primary-container peer-checked:text-secondary-container"
+                  >domain</span
+                >
+              </div>
+              <p class="text-xs font-bold uppercase opacity-60 mb-4">
+                Subscription Model
+              </p>
+              <p class="text-sm font-medium uppercase leading-relaxed mb-6">
+                Lower setup cost. We manage hosting, security, and performance.
+                We own the code.
+              </p>
+              <div
+                class="flex items-center gap-2 text-primary-container group-has-[:checked]:text-secondary-container"
+              >
+                <span class="material-symbols-outlined text-sm"
+                  >picture_as_pdf</span
+                >
+                <span class="text-[10px] font-black uppercase tracking-widest"
+                  >+ Free Proposal Document</span
+                >
+              </div>
+            </div>
+          </label>
+        </div>
+
+        <!-- Subscription Tiers -->
+        <div
+          id="subscription-tiers"
+          class="hidden space-y-6 pt-6 animate-in fade-in slide-in-from-top-4 duration-500"
+        >
+          <div class="flex items-center gap-4">
+            <h3
+              class="text-xl font-black font-headline uppercase tracking-tighter opacity-60 text-center w-full"
+            >
+              Select Residency Tier
+            </h3>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-on-background">
+            <label class="cursor-pointer">
+              <input
+                type="radio"
+                name="sub-tier"
+                value="basic"
+                class="hidden peer"
+                checked
+              />
+              <div
+                class="border-[3px] border-on-background dark:border-white p-6 bg-surface dark:bg-on-background peer-checked:bg-secondary-container dark:peer-checked:text-on-background transition-all text-center group"
+              >
+                <h4 class="font-headline font-black uppercase text-lg mb-1">
+                  Basic
+                </h4>
+                <p class="font-mono font-black text-2xl mb-4">
+                  €49<span class="text-xs opacity-60">/mo</span>
+                </p>
+                <ul
+                  class="text-[10px] uppercase font-bold space-y-1 opacity-60 text-left"
+                >
+                  <li>• Managed Hosting</li>
+                  <li>• Security Patches</li>
+                  <li>• 1 Tweak / mo</li>
+                </ul>
+              </div>
+            </label>
+            <label class="cursor-pointer">
+              <input
+                type="radio"
+                name="sub-tier"
+                value="premium"
+                class="hidden peer"
+              />
+              <div
+                class="border-[3px] border-on-background dark:border-white p-6 bg-surface dark:bg-on-background peer-checked:bg-secondary-container dark:peer-checked:text-on-background transition-all text-center group"
+              >
+                <h4 class="font-headline font-black uppercase text-lg mb-1">
+                  Premium
+                </h4>
+                <p class="font-mono font-black text-2xl mb-4">
+                  €99<span class="text-xs opacity-60">/mo</span>
+                </p>
+                <ul
+                  class="text-[10px] uppercase font-bold space-y-1 opacity-60 text-left"
+                >
+                  <li>• Global CDN</li>
+                  <li>• SEO Monitoring</li>
+                  <li>• 3 Tweaks / mo</li>
+                </ul>
+              </div>
+            </label>
+            <label class="cursor-pointer">
+              <input
+                type="radio"
+                name="sub-tier"
+                value="gold"
+                class="hidden peer"
+              />
+              <div
+                class="border-[3px] border-on-background dark:border-white p-6 bg-surface dark:bg-on-background peer-checked:bg-secondary-container dark:peer-checked:text-on-background transition-all text-center group"
+              >
+                <h4 class="font-headline font-black uppercase text-lg mb-1">
+                  Gold
+                </h4>
+                <p class="font-mono font-black text-2xl mb-4">
+                  €199<span class="text-xs opacity-60">/mo</span>
+                </p>
+                <ul
+                  class="text-[10px] uppercase font-bold space-y-1 opacity-60 text-left"
+                >
+                  <li>• VIP Priority</li>
+                  <li>• AI Journeys</li>
+                  <li>• Unlimited Updates</li>
+                </ul>
+              </div>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Right Column: Strategic Breakdown -->
+  <div class="lg:col-span-5 space-y-8 flex flex-col">
+    <!-- Modular Asset Integrity Visualization -->
+    <div
+      class="bg-on-background dark:bg-white text-surface dark:text-on-background p-8 border-[3px] border-on-background dark:border-white hard-shadow relative overflow-hidden"
+    >
+      <div
+        class="grain-texture absolute inset-0 pointer-events-none opacity-10"
+      >
+      </div>
+      <div class="relative z-10 space-y-6">
+        <div class="flex justify-between items-center">
+          <h2
+            class="font-headline font-black text-xl uppercase tracking-widest"
+          >
+            Asset Integrity Check
+          </h2>
+          <span
+            id="integrity-status"
+            class="text-[10px] font-black uppercase px-2 py-1 bg-secondary-container text-on-background"
+            >System Active</span
+          >
+        </div>
+
+        <!-- Isometric Stack Container -->
+        <div
+          class="py-12 flex justify-center items-center h-64 perspective-[1000px]"
+        >
+          <div
+            id="modular-stack"
+            class="relative w-48 h-full flex flex-col-reverse justify-center items-center gap-2 transform rotate-x-[30deg] rotate-z-[-15deg] transition-all duration-1000"
+          >
+            <!-- Blocks will be injected here -->
+          </div>
+        </div>
+
+        <div
+          class="grid grid-cols-2 gap-4 border-t border-white/10 dark:border-on-background/10 pt-6"
+        >
+          <div class="space-y-1">
+            <p class="text-[9px] font-black uppercase text-on-surface-variant">
+              Vital Components
+            </p>
+            <p
+              id="vital-count"
+              class="font-headline font-bold text-sm uppercase tracking-tight"
+            >
+              0/4 SECURED
+            </p>
+          </div>
+          <div class="space-y-1 text-right">
+            <p class="text-[9px] font-black uppercase text-on-surface-variant">
+              Assembly State
+            </p>
+            <p
+              id="assembly-state"
+              class="font-headline font-bold text-sm uppercase tracking-tight"
+            >
+              FRAGMENTED
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      id="strategy-card"
+      class="bg-primary-container text-white p-8 border-[3px] border-on-background dark:border-white hard-shadow relative overflow-hidden sticky top-32"
+    >
+      <div class="grain-texture absolute inset-0 pointer-events-none opacity-5">
+      </div>
+      <div class="relative z-10 space-y-8">
+        <div class="flex items-center gap-3">
+          <span class="material-symbols-outlined text-4xl">payments</span>
+          <h2
+            id="strategy-title"
+            class="font-headline font-black text-2xl uppercase tracking-tighter leading-none"
+          >
+            Ownership Model
+          </h2>
+        </div>
+
+        <div class="space-y-6">
+          <div
+            class="flex justify-between items-end border-b border-white/20 pb-4"
+          >
+            <div class="space-y-1">
+              <p class="text-[10px] font-black uppercase opacity-60">
+                Immediate Payment
+              </p>
+              <p
+                class="font-headline font-black text-xl uppercase tracking-widest"
+              >
+                Initial Deposit
+              </p>
+            </div>
+            <span
+              id="initial-payment-display"
+              class="text-4xl font-headline font-black text-secondary-container"
+              >€0.00</span
+            >
+          </div>
+
+          <div
+            id="monthly-row"
+            class="flex justify-between items-end border-b border-white/20 pb-4"
+            style="display:none;"
+          >
+            <div class="space-y-1">
+              <p class="text-[10px] font-black uppercase opacity-60">
+                Recurring Fee
+              </p>
+              <p
+                class="font-headline font-black text-xl uppercase tracking-widest"
+              >
+                Monthly Residency
+              </p>
+            </div>
+            <span
+              id="monthly-payment-display"
+              class="text-4xl font-headline font-black text-secondary-container"
+              >€0.00</span
+            >
+          </div>
+
+          <div
+            id="final-row"
+            class="flex justify-between items-end border-b border-white/20 pb-4"
+          >
+            <div class="space-y-1">
+              <p class="text-[10px] font-black uppercase opacity-60">
+                On Launch
+              </p>
+              <p
+                class="font-headline font-black text-xl uppercase tracking-widest"
+              >
+                Handoff Balance
+              </p>
+            </div>
+            <span
+              id="balance-payment-display"
+              class="text-4xl font-headline font-black text-secondary-container"
+              >€0.00</span
+            >
+          </div>
+        </div>
+
+        <div
+          class="bg-black/20 p-4 border-l-4 border-secondary-container italic"
+        >
+          <p
+            id="strategy-note"
+            class="text-xs font-bold uppercase leading-relaxed opacity-80"
+          >
+            Ownership model requires a 20% commencement retainer to break
+            ground. Balance is due upon technical handoff.
+          </p>
+        </div>
+
+        <div class="space-y-4 pt-4">
+          <a
+            href="/contact-and-finalise"
+            class="w-full bg-secondary-container text-on-background border-[3px] border-on-background dark:border-white py-6 px-8 font-headline font-black text-2xl uppercase tracking-tighter hard-shadow hover:-translate-y-1 hover:-translate-x-1 active:translate-x-0 active:translate-y-0 active:shadow-none transition-all flex items-center justify-between group"
+          >
+            <span>Proceed</span>
+            <span
+              class="material-symbols-outlined text-3xl group-hover:translate-x-2 transition-transform"
+              >arrow_forward</span
+            >
+          </a>
+          <a
+            href="/configurator"
+            class="w-full bg-white/10 border-[2px] border-white/20 py-4 px-8 font-headline font-bold text-sm uppercase tracking-tight hover:bg-white/20 transition-colors flex items-center justify-center gap-2"
+          >
+            <span class="material-symbols-outlined text-sm">tune</span>
+            Modify Build
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<Footer hideOnMobile={true} />
+
+<script>
+  import {
+    selectedBlocks,
+    totalPrice,
+    paymentModel,
+    subscriptionTier,
+    setupFee,
+    profileData,
+  } from "../store/cart";
+  import {
+    BUSINESS_LABELS,
+    GOAL_LABELS,
+    TIMELINE_LABELS,
+  } from "../data/labels";
+
+  const listContainer = document.getElementById("selected-blocks-list");
+  const totalPriceDisplay = document.getElementById("total-price-display");
+  const subTiersContainer = document.getElementById("subscription-tiers");
+  const profileAlignmentEl = document.getElementById("profile-alignment");
+
+  // Right Card Elements
+  const strategyTitle = document.getElementById("strategy-title");
+  const initialDisplay = document.getElementById("initial-payment-display");
+  const monthlyDisplay = document.getElementById("monthly-payment-display");
+  const balanceDisplay = document.getElementById("balance-payment-display");
+  const monthlyRow = document.getElementById("monthly-row");
+  const finalRow = document.getElementById("final-row");
+  const strategyNote = document.getElementById("strategy-note");
+
+  // Modular Stack Elements
+  const modularStack = document.getElementById("modular-stack");
+  const vitalCountDisplay = document.getElementById("vital-count");
+  const assemblyStateDisplay = document.getElementById("assembly-state");
+  const integrityStatus = document.getElementById("integrity-status");
+
+  const VITAL_GROUPS = [
+    {
+      name: "Core Architecture",
+      ids: ["responsive-layout", "ssg-engine"],
+      label: "ARC",
+    },
+    { name: "Access Layer", ids: ["responsive-navbar"], label: "NAV" },
+    { name: "Engagement Hub", ids: ["hero-section"], label: "HERO" },
+    { name: "Closure System", ids: ["footer-complex"], label: "FOOT" },
+  ];
+
+  function updateProfileAlignment() {
+    const pf = profileData.get();
+    if (!pf.businessType && !pf.primaryGoal) return;
+
+    if (profileAlignmentEl) {
+      profileAlignmentEl.style.display = "grid";
+
+      const items = [
+        {
+          icon: "business_center",
+          label: "Sector",
+          value: BUSINESS_LABELS[pf.businessType] || "...",
+        },
+        {
+          icon: "flag",
+          label: "Objective",
+          value: GOAL_LABELS[pf.primaryGoal] || "...",
+        },
+        {
+          icon: "schedule",
+          label: "Timeline",
+          value: pf.timeline ? TIMELINE_LABELS[pf.timeline] : "...",
+        },
+      ];
+
+      profileAlignmentEl.innerHTML = items
+        .map(
+          (item) => `
+                <div class="flex items-start gap-3 bg-secondary-container/5 border border-on-background/10 p-4">
+                    <span class="material-symbols-outlined text-primary-container text-xl shrink-0">${item.icon}</span>
+                    <div>
+                        <p class="text-[9px] font-black uppercase text-on-surface-variant mb-1">${item.label}</p>
+                        <p class="font-headline font-black text-xs uppercase tracking-tight text-on-background">${item.value}</p>
+                    </div>
+                </div>
+            `,
+        )
+        .join("");
+    }
+  }
+
+  function updateModularVisualization() {
+    const selectedIds = selectedBlocks.get().map((b) => b.id);
+    let securedCount = 0;
+
+    if (modularStack) {
+      modularStack.innerHTML = VITAL_GROUPS.map((group, index) => {
+        const isPresent = group.ids.some((id) => selectedIds.includes(id));
+        if (isPresent) securedCount++;
+
+        const colorClass = isPresent
+          ? "bg-secondary-container border-white"
+          : "border-secondary-container/30 shadow-[0_0_15px_rgba(193,241,0,0.3)]";
+        const textColor = isPresent
+          ? "text-on-background"
+          : "text-secondary-container animate-pulse";
+        const label = isPresent ? group.label : "MISSING";
+
+        return `
+                    <div class="relative w-40 h-12 border-[2px] ${colorClass} flex items-center justify-center transition-all duration-700 transform hover:scale-105" style="z-index: ${10 - index}; margin-bottom: -10px;">
+                        <span class="font-headline font-black text-xs uppercase tracking-widest ${textColor}">${label}</span>
+                        ${!isPresent ? '<div class="absolute inset-0 bg-secondary-container/5 animate-pulse"></div>' : ""}
+                    </div>
+                `;
+      }).join("");
+    }
+
+    if (vitalCountDisplay)
+      vitalCountDisplay.textContent = `${securedCount}/4 SECURED`;
+    if (assemblyStateDisplay) {
+      assemblyStateDisplay.textContent =
+        securedCount === 4 ? "STRUCTURAL COMPLETION" : "FRAGMENTED";
+      assemblyStateDisplay.className = `font-headline font-bold text-sm uppercase tracking-tight ${securedCount === 4 ? "text-secondary-container" : ""}`;
+    }
+    if (integrityStatus) {
+      integrityStatus.textContent =
+        securedCount === 4 ? "INTEGRITY VERIFIED" : "SYSTEM ACTIVE";
+      integrityStatus.className = `text-[10px] font-black uppercase px-2 py-1 ${securedCount === 4 ? "bg-secondary-container text-on-background" : "bg-primary-container text-white"}`;
+    }
+  }
+
+  function updateSummary() {
+    const total = totalPrice.get();
+    const model = paymentModel.get();
+    const tier = subscriptionTier.get();
+    const setup = setupFee.get();
+
+    if (totalPriceDisplay)
+      totalPriceDisplay.textContent = `€${total.toLocaleString()}.00`;
+
+    if (model === "ownership") {
+      subTiersContainer?.classList.add("hidden");
+      if (strategyTitle) strategyTitle.textContent = "Ownership Model";
+      if (monthlyRow) monthlyRow.style.display = "none";
+      if (finalRow) finalRow.style.display = "flex";
+
+      const deposit = Math.floor(total * 0.2);
+      const balance = total - deposit;
+
+      if (initialDisplay)
+        initialDisplay.textContent = `€${deposit.toLocaleString()}.00`;
+      if (balanceDisplay)
+        balanceDisplay.textContent = `€${balance.toLocaleString()}.00`;
+      if (strategyNote)
+        strategyNote.textContent =
+          "Ownership model requires a 20% commencement retainer to break ground. Balance is due upon technical handoff.";
+    } else {
+      subTiersContainer?.classList.remove("hidden");
+      if (strategyTitle) strategyTitle.textContent = "Residency Model";
+      if (monthlyRow) monthlyRow.style.display = "flex";
+      if (finalRow) finalRow.style.display = "none";
+
+      const monthlyPrices = { basic: 49, premium: 99, gold: 199 };
+      const monthly = monthlyPrices[tier];
+
+      if (initialDisplay)
+        initialDisplay.textContent = `€${setup.toLocaleString()}.00`;
+      if (monthlyDisplay)
+        monthlyDisplay.textContent = `€${monthly.toLocaleString()}.00`;
+      if (strategyNote)
+        strategyNote.textContent =
+          "Residency model requires a 25% setup fee. Ongoing performance and hosting is managed via your monthly subscription.";
+    }
+  }
+
+  // Listen for model changes
+  document.querySelectorAll('input[name="payment-model"]').forEach((input) => {
+    input.addEventListener("change", (e) => {
+      paymentModel.set((e.target as HTMLInputElement).value as any);
+      updateSummary();
+    });
+  });
+
+  // Listen for tier changes
+  document.querySelectorAll('input[name="sub-tier"]').forEach((input) => {
+    input.addEventListener("change", (e) => {
+      subscriptionTier.set((e.target as HTMLInputElement).value as any);
+      updateSummary();
+    });
+  });
+
+  // Generate / Restore stable Quote ID
+  const quoteDisplay = document.getElementById("quote-id-display");
+  if (quoteDisplay) {
+    let quoteId = sessionStorage.getItem("wyw-quote-id");
+    if (!quoteId) {
+      quoteId = (Math.floor(Math.random() * 900) + 100).toString();
+      sessionStorage.setItem("wyw-quote-id", quoteId);
+    }
+    quoteDisplay.textContent = quoteId;
+  }
+
+  if (listContainer) {
+    selectedBlocks.subscribe((blocks) => {
+      if (blocks.length === 0) {
+        listContainer.innerHTML = `<div class="p-12 text-center opacity-50 uppercase font-bold tracking-widest text-on-background">No blocks selected.</div>`;
+        return;
+      }
+      listContainer.innerHTML = blocks
+        .map(
+          (block) => `
+                <div class="grid grid-cols-12 p-6 hover:bg-secondary-fixed transition-colors text-on-background">
+                    <div class="col-span-8 space-y-1">
+                        <div class="flex items-center gap-3">
+                            <span class="text-[10px] font-black uppercase text-on-surface-variant bg-on-background/5 dark:bg-white/5 px-1.5 py-0.5 border border-on-background/10 dark:border-white/10">${block.code}</span>
+                            <h3 class="font-headline font-extrabold text-xl uppercase italic">${block.name}</h3>
+                        </div>
+                        <p class="text-on-surface-variant dark:text-white text-sm font-medium uppercase opacity-70">${block.description}</p>
+                    </div>
+                    <div class="col-span-4 text-right flex flex-col justify-center">
+                        <span class="font-label font-bold text-lg">€${block.price.toLocaleString()}</span>
+                    </div>
+                </div>
+            `,
+        )
+        .join("");
+      updateSummary();
+      updateModularVisualization();
+      updateProfileAlignment();
+    });
+  }
+
+  // Blueprint Overlay Animation
+  window.addEventListener("load", () => {
+    const overlay = document.getElementById("blueprint-overlay");
+    const progress = document.getElementById("blueprint-progress");
+    if (overlay && progress) {
+      setTimeout(() => (progress.style.width = "100%"), 50);
+      setTimeout(() => {
+        overlay.style.opacity = "0";
+        setTimeout(() => (overlay.style.display = "none"), 300);
+      }, 800);
+    }
+  });
+</script>

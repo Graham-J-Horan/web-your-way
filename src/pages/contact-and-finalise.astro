@@ -1,0 +1,1322 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+
+const PALETTES = [
+  {
+    id: "classic-corporate",
+    name: "Classic & Professional",
+    personality: "Trusted · Established · Serious",
+    swatch: ["#0A5C8E", "#1C4E80", "#FFFFFF"],
+    for: "Solicitors, accountants, finance, estate agents",
+  },
+  {
+    id: "warm-local",
+    name: "Warm & Welcoming",
+    personality: "Friendly · Approachable · Local",
+    swatch: ["#1E6F5C", "#E6B422", "#F4EBD0"],
+    for: "Restaurants, cafés, health, wellness, hospitality",
+  },
+  {
+    id: "bold-creative",
+    name: "Bold & Creative",
+    personality: "Energetic · Confident · Memorable",
+    swatch: ["#FF6B6B", "#4ECDC4", "#FFE66D"],
+    for: "Designers, photographers, agencies, entertainment",
+  },
+  {
+    id: "minimal-luxe",
+    name: "Minimal & Premium",
+    personality: "Clean · Refined · Understated luxury",
+    swatch: ["#111111", "#C4A484", "#F5F5F0"],
+    for: "Fashion, beauty, interior design, premium brands",
+  },
+  {
+    id: "nature-sustainable",
+    name: "Natural & Sustainable",
+    personality: "Organic · Calm · Eco-conscious",
+    swatch: ["#2F5D3A", "#7DA98A", "#C17B4C"],
+    for: "Eco, garden, food, wellness, outdoor businesses",
+  },
+  {
+    id: "modern-tech",
+    name: "Modern & Technical",
+    personality: "Sharp · Digital-native · Forward",
+    swatch: ["#635BFF", "#0A0A0F", "#00D09C"],
+    for: "Tech, SaaS, startups, digital services",
+  },
+];
+
+const FONT_PAIRS = [
+  {
+    id: "classic-authority",
+    name: "Classic Authority",
+    feeling: "Established · Trustworthy · Traditional",
+    sample: "Your Business Name",
+    sampleBody: "Quality service you can rely on.",
+    headStyle: "font-family:Georgia,serif;font-weight:700;font-size:1.3rem;",
+    bodyStyle:
+      "font-family:Arial,sans-serif;font-weight:400;font-size:0.85rem;",
+  },
+  {
+    id: "modern-clean",
+    name: "Modern & Clean",
+    feeling: "Contemporary · Confident · Clear",
+    sample: "Your Business Name",
+    sampleBody: "Quality service you can rely on.",
+    headStyle:
+      "font-family:Arial,sans-serif;font-weight:900;letter-spacing:-0.02em;font-size:1.3rem;",
+    bodyStyle:
+      "font-family:Arial,sans-serif;font-weight:400;font-size:0.85rem;",
+  },
+  {
+    id: "warm-friendly",
+    name: "Warm & Friendly",
+    feeling: "Approachable · Human · Local",
+    sample: "Your Business Name",
+    sampleBody: "Quality service you can rely on.",
+    headStyle:
+      "font-family:Georgia,serif;font-weight:600;font-style:italic;font-size:1.3rem;",
+    bodyStyle:
+      "font-family:Arial,sans-serif;font-weight:400;letter-spacing:0.01em;font-size:0.85rem;",
+  },
+  {
+    id: "bold-statement",
+    name: "Bold Statement",
+    feeling: "Direct · Energetic · Impactful",
+    sample: "YOUR BUSINESS NAME",
+    sampleBody: "Quality service you can rely on.",
+    headStyle:
+      "font-family:Arial,sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:0.05em;font-size:1.2rem;",
+    bodyStyle:
+      "font-family:Arial,sans-serif;font-weight:400;font-size:0.85rem;",
+  },
+  {
+    id: "refined-minimal",
+    name: "Refined & Minimal",
+    feeling: "Premium · Understated · Editorial",
+    sample: "Your Business Name",
+    sampleBody: "Quality service you can rely on.",
+    headStyle:
+      "font-family:Georgia,serif;font-weight:300;letter-spacing:0.04em;font-size:1.35rem;",
+    bodyStyle:
+      "font-family:Arial,sans-serif;font-weight:300;letter-spacing:0.03em;font-size:0.85rem;",
+  },
+];
+---
+
+<Layout>
+  <!-- Data passing for client-side script -->
+  <div
+    id="form-config"
+    data-palettes={JSON.stringify(PALETTES)}
+    data-fonts={JSON.stringify(FONT_PAIRS)}
+    class="sr-only"
+  >
+  </div>
+
+  <div
+    id="provisioning-overlay"
+    class="fixed inset-0 z-[200] bg-on-background flex flex-col items-center justify-center p-8 transition-opacity duration-700 opacity-0 pointer-events-none"
+  >
+    <div class="max-w-xl w-full space-y-10">
+      <div class="flex items-center gap-6">
+        <div
+          class="w-16 h-16 bg-secondary-container animate-spin border-[4px] border-white"
+        >
+        </div>
+        <div>
+          <h2
+            class="font-headline font-black text-3xl text-white uppercase tracking-widest"
+          >
+            Sending your brief
+          </h2>
+          <p
+            id="provisioning-status"
+            class="font-mono text-secondary-container text-xs uppercase tracking-[0.3em] mt-1"
+          >
+            Preparing your quote...
+          </p>
+        </div>
+      </div>
+      <div
+        class="h-6 w-full bg-white/10 border-[3px] border-white overflow-hidden relative"
+      >
+        <div
+          id="provisioning-progress"
+          class="h-full bg-secondary-container w-0 transition-all duration-500 ease-out"
+        >
+        </div>
+        <div
+          class="absolute inset-0 flex items-center justify-center mix-blend-difference"
+        >
+          <span
+            id="progress-percent"
+            class="font-headline font-black text-xs text-white uppercase"
+            >0%</span
+          >
+        </div>
+      </div>
+      <div
+        id="tech-logs"
+        class="bg-black/40 border border-white/10 p-6 h-28 font-mono text-[10px] text-white/40 uppercase space-y-1 overflow-hidden"
+      >
+      </div>
+      <div id="success-message" class="hidden text-center space-y-8">
+        <div
+          class="bg-secondary-container text-on-background p-8 border-[4px] border-white hard-shadow"
+        >
+          <h3 class="font-headline font-black text-4xl uppercase mb-2">
+            Brief received
+          </h3>
+          <p class="font-body font-bold text-sm uppercase">
+            Reference: <span id="success-ref">...</span>
+          </p>
+        </div>
+        <p
+          class="text-white font-medium text-sm leading-relaxed max-w-md mx-auto opacity-60"
+        >
+          Your free proposal document will be with you within 24 hours. No
+          obligation to proceed — it is yours to keep.
+        </p>
+        <a
+          href="/"
+          class="inline-block bg-white text-on-background px-12 py-4 font-headline font-black uppercase tracking-widest hover:bg-secondary-container transition-colors"
+        >
+          Back to homepage
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="fixed inset-0 grainy-overlay z-50 pointer-events-none opacity-5">
+  </div>
+  <Header isFunnel={true} />
+
+  <main id="main-content" class="pt-32 pb-32 px-4 md:px-12 max-w-7xl mx-auto">
+    <header class="mb-16 space-y-3">
+      <div class="inline-flex items-center gap-3">
+        <div
+          class="w-8 h-8 bg-secondary-container text-on-background flex items-center justify-center font-black text-sm"
+        >
+          3
+        </div>
+        <span
+          class="text-xs font-black uppercase tracking-widest opacity-60 text-on-background"
+          >Final step</span
+        >
+      </div>
+      <h1
+        class="text-5xl md:text-7xl font-headline font-black uppercase tracking-tighter leading-none text-on-background"
+      >
+        Almost there —<br /><span class="text-primary-container"
+          >make it yours</span
+        >
+      </h1>
+      <p
+        class="text-lg font-medium opacity-70 text-on-background max-w-2xl leading-relaxed"
+      >
+        Three quick choices about how your site should look, then your contact
+        details. We'll send a free detailed proposal within 24 hours.
+      </p>
+    </header>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+      <div class="lg:col-span-7 space-y-14">
+        <form id="build-form" class="space-y-14">
+          <!-- SECTION A: Colour direction -->
+          <fieldset class="space-y-6" id="section-palette">
+            <legend class="sr-only">Section A: Colour direction</legend>
+            <div class="flex items-center gap-4">
+              <div
+                class="w-10 h-10 bg-on-background text-white flex items-center justify-center font-black text-lg shrink-0"
+              >
+                A
+              </div>
+              <div class="flex-grow flex justify-between items-center">
+                <div>
+                  <h2
+                    class="text-2xl font-black font-headline uppercase tracking-tighter text-on-background"
+                  >
+                    Choose a colour direction
+                  </h2>
+                  <p
+                    class="text-sm font-medium opacity-60 text-on-background mt-0.5"
+                  >
+                    Pick the feeling that fits — we handle the exact colours and
+                    shades.
+                  </p>
+                </div>
+                <span
+                  class="validation-error hidden text-primary-container font-headline font-black text-xs uppercase tracking-widest bg-primary-container/10 px-3 py-1 border border-primary-container"
+                  >Required</span
+                >
+              </div>
+            </div>
+            <div
+              class="grid grid-cols-1 sm:grid-cols-2 gap-4 pl-14 transition-all duration-300"
+              id="palette-grid"
+            >
+              {
+                PALETTES.map((p) => (
+                  <label class="palette-option group relative flex flex-col p-5 bg-surface border-[3px] border-on-background cursor-pointer hard-shadow-sm hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[6px_6px_0px_0px_rgba(28,27,27,1)] transition-all has-[:checked]:border-secondary-container has-[:checked]:bg-secondary-container/10">
+                    <input
+                      type="radio"
+                      name="palette"
+                      value={p.id}
+                      class="sr-only"
+                    />
+                    <div class="flex gap-1.5 mb-4 items-center">
+                      {p.swatch.map((hex) => (
+                        <div
+                          class="w-8 h-8 border border-on-background/20 flex-shrink-0"
+                          style={`background-color:${hex}`}
+                        />
+                      ))}
+                      <div class="ml-auto w-8 h-8 border-[3px] border-on-background flex items-center justify-center group-has-[:checked]:bg-secondary-container transition-colors flex-shrink-0">
+                        <span
+                          class="material-symbols-outlined text-sm text-on-background hidden group-has-[:checked]:block"
+                          style="font-variation-settings:'wght' 900;"
+                        >
+                          check
+                        </span>
+                      </div>
+                    </div>
+                    <span class="font-headline font-black text-sm uppercase tracking-tight text-on-background mb-1">
+                      {p.name}
+                    </span>
+                    <span class="text-[11px] font-bold opacity-50 text-on-background mb-2">
+                      {p.personality}
+                    </span>
+                    <span class="text-[10px] font-medium text-on-surface-variant text-on-background leading-relaxed">
+                      {p.for}
+                    </span>
+                  </label>
+                ))
+              }
+            </div>
+            <div
+              class="ml-14 flex items-start gap-3 p-4 bg-surface-container border-l-[3px] border-secondary-container"
+            >
+              <span
+                class="material-symbols-outlined text-secondary-container text-lg shrink-0 mt-0.5"
+                >info</span
+              >
+              <p
+                class="text-xs font-medium text-on-surface-variant text-on-background leading-relaxed"
+              >
+                These are directions, not final decisions. Once we understand
+                your business we will refine the exact palette and share it
+                before building anything.
+              </p>
+            </div>
+          </fieldset>
+
+          <!-- SECTION B: Font style -->
+          <fieldset class="space-y-6" id="section-font">
+            <legend class="sr-only">Section B: Font style</legend>
+            <div class="flex items-center gap-4">
+              <div
+                class="w-10 h-10 bg-on-background text-white flex items-center justify-center font-black text-lg shrink-0"
+              >
+                B
+              </div>
+              <div class="flex-grow flex justify-between items-center">
+                <div>
+                  <h2
+                    class="text-2xl font-black font-headline uppercase tracking-tighter text-on-background"
+                  >
+                    Choose a type style
+                  </h2>
+                  <p
+                    class="text-sm font-medium opacity-60 text-on-background mt-0.5"
+                  >
+                    How should your text feel? Pick the personality — we handle
+                    the font selection.
+                  </p>
+                </div>
+                <span
+                  class="validation-error hidden text-primary-container font-headline font-black text-xs uppercase tracking-widest bg-primary-container/10 px-3 py-1 border border-primary-container"
+                  >Required</span
+                >
+              </div>
+            </div>
+            <div
+              class="space-y-3 pl-14 transition-all duration-300"
+              id="font-list"
+            >
+              {
+                FONT_PAIRS.map((fp) => (
+                  <label class="font-option group relative flex items-center gap-5 p-5 bg-surface border-[3px] border-on-background cursor-pointer hard-shadow-sm hover:-translate-y-0.5 hover:-translate-x-0.5 hover:shadow-[5px_5px_0px_0px_rgba(28,27,27,1)] transition-all has-[:checked]:border-secondary-container has-[:checked]:bg-secondary-container/10">
+                    <input
+                      type="radio"
+                      name="fontPair"
+                      value={fp.id}
+                      class="sr-only"
+                    />
+                    <div class="w-8 h-8 border-[3px] border-on-background flex-shrink-0 flex items-center justify-center group-has-[:checked]:bg-secondary-container transition-colors">
+                      <span
+                        class="material-symbols-outlined text-sm text-on-background hidden group-has-[:checked]:block"
+                        style="font-variation-settings:'wght' 900;"
+                      >
+                        check
+                      </span>
+                    </div>
+                    <div class="flex-grow min-w-0">
+                      <div
+                        class="mb-0.5 text-on-background truncate"
+                        style={fp.headStyle}
+                      >
+                        {fp.sample}
+                      </div>
+                      <div
+                        class="text-on-background opacity-60 truncate"
+                        style={fp.bodyStyle}
+                      >
+                        {fp.sampleBody}
+                      </div>
+                    </div>
+                    <div class="text-right shrink-0 hidden sm:block">
+                      <div class="font-headline font-black text-xs uppercase tracking-tight text-on-background">
+                        {fp.name}
+                      </div>
+                      <div class="text-[10px] font-medium text-on-surface-variant text-on-background leading-tight mt-0.5 max-w-[120px]">
+                        {fp.feeling}
+                      </div>
+                    </div>
+                  </label>
+                ))
+              }
+            </div>
+          </fieldset>
+
+          <!-- SECTION C: Brand in three words -->
+          <fieldset class="space-y-6">
+            <legend class="sr-only"
+              >Section C: Describe your brand in three words</legend
+            >
+            <div class="flex items-center gap-4">
+              <div
+                class="w-10 h-10 bg-on-background text-white flex items-center justify-center font-black text-lg shrink-0"
+              >
+                C
+              </div>
+              <div>
+                <h2
+                  class="text-2xl font-black font-headline uppercase tracking-tighter text-on-background"
+                >
+                  Describe your brand in three words
+                </h2>
+                <p
+                  class="text-sm font-medium opacity-60 text-on-background mt-0.5"
+                >
+                  No wrong answers. These guide every design decision we make.
+                </p>
+              </div>
+            </div>
+            <div class="pl-14 space-y-4">
+              <input
+                type="text"
+                name="brandWords"
+                id="brand-words-input"
+                maxlength="80"
+                class="w-full bg-surface border-[3px] border-on-background p-4 font-body font-bold focus:bg-secondary-fixed transition-colors outline-none text-on-background text-base"
+                placeholder="e.g. friendly, reliable, local"
+              />
+              <div id="brand-word-hints" class="flex flex-wrap gap-2"></div>
+              <p
+                class="text-xs font-medium text-on-surface-variant text-on-background"
+              >
+                Tap a word to add it. Examples: honest · expert · welcoming ·
+                bold · playful · calm · clean · professional
+              </p>
+            </div>
+          </fieldset>
+
+          <!-- SECTION D: Contact details -->
+          <fieldset class="space-y-6">
+            <legend class="sr-only">Section D: Your details</legend>
+            <div class="flex items-center gap-4">
+              <div
+                class="w-10 h-10 bg-on-background text-white flex items-center justify-center font-black text-lg shrink-0"
+              >
+                D
+              </div>
+              <div>
+                <h2
+                  class="text-2xl font-black font-headline uppercase tracking-tighter text-on-background"
+                >
+                  Your details
+                </h2>
+                <p
+                  class="text-sm font-medium opacity-60 text-on-background mt-0.5"
+                >
+                  Where should we send your free proposal?
+                </p>
+              </div>
+            </div>
+            <div class="pl-14 space-y-4">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="space-y-1.5">
+                  <label
+                    class="font-headline font-black uppercase text-xs tracking-widest text-on-surface-variant"
+                    >Your name</label
+                  >
+                  <input
+                    required
+                    type="text"
+                    name="clientName"
+                    class="w-full bg-surface border-[3px] border-on-background p-4 font-body font-bold focus:bg-secondary-fixed transition-colors outline-none text-on-background"
+                    placeholder="Juanjo García"
+                  />
+                </div>
+                <div class="space-y-1.5">
+                  <label
+                    class="font-headline font-black uppercase text-xs tracking-widest text-on-surface-variant"
+                    >Business name</label
+                  >
+                  <input
+                    required
+                    type="text"
+                    name="businessName"
+                    class="w-full bg-surface border-[3px] border-on-background p-4 font-body font-bold focus:bg-secondary-fixed transition-colors outline-none text-on-background"
+                    placeholder="Zum Rent a Van"
+                  />
+                </div>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="space-y-1.5">
+                  <label
+                    class="font-headline font-black uppercase text-xs tracking-widest text-on-surface-variant"
+                    >Email address</label
+                  >
+                  <input
+                    required
+                    type="email"
+                    name="email"
+                    class="w-full bg-surface border-[3px] border-on-background p-4 font-body font-bold focus:bg-secondary-fixed transition-colors outline-none text-on-background"
+                    placeholder="you@yourbusiness.com"
+                  />
+                </div>
+                <div class="space-y-1.5">
+                  <label
+                    class="font-headline font-black uppercase text-xs tracking-widest text-on-surface-variant"
+                    >Phone or WhatsApp (optional)</label
+                  >
+                  <input
+                    type="tel"
+                    name="phone"
+                    class="w-full bg-surface border-[3px] border-on-background p-4 font-body font-bold focus:bg-secondary-fixed transition-colors outline-none text-on-background"
+                    placeholder="+34 600 000 000"
+                  />
+                </div>
+              </div>
+              <div class="space-y-1.5">
+                <label
+                  class="font-headline font-black uppercase text-xs tracking-widest text-on-surface-variant"
+                  >Anything else we should know? (optional)</label
+                >
+                <textarea
+                  rows="3"
+                  name="notes"
+                  class="w-full bg-surface border-[3px] border-on-background p-4 font-body font-medium focus:bg-secondary-fixed transition-colors outline-none text-on-background resize-none"
+                  placeholder="Existing branding, a site you admire, a launch date, or anything that helps us understand your vision."
+                ></textarea>
+              </div>
+
+              <!-- Payment preference -->
+              <fieldset class="space-y-3">
+                <legend class="sr-only">How would you prefer to pay?</legend>
+                <label
+                  class="font-headline font-black uppercase text-xs tracking-widest text-on-surface-variant block"
+                  >How would you prefer to pay?</label
+                >
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <label class="group cursor-pointer">
+                    <input
+                      type="radio"
+                      name="strategy"
+                      value="ownership"
+                      class="hidden peer"
+                      checked
+                    />
+                    <div
+                      class="border-[3px] border-on-background p-5 bg-surface peer-checked:bg-on-background peer-checked:text-white transition-all"
+                    >
+                      <h4
+                        class="font-headline font-black uppercase text-base mb-1"
+                      >
+                        One-time payment
+                      </h4>
+                      <p class="text-xs font-bold opacity-60 leading-relaxed">
+                        Pay once. Own the code. Host it yourself or let us
+                        manage it.
+                      </p>
+                    </div>
+                  </label>
+                  <label class="group cursor-pointer">
+                    <input
+                      type="radio"
+                      name="strategy"
+                      value="residency"
+                      class="sr-only peer"
+                    />
+                    <div
+                      class="border-[3px] border-on-background p-5 bg-surface peer-checked:bg-on-background peer-checked:text-white transition-all"
+                    >
+                      <h4
+                        class="font-headline font-black uppercase text-base mb-1"
+                      >
+                        Monthly subscription
+                      </h4>
+                      <p class="text-xs font-bold opacity-60 leading-relaxed">
+                        Lower upfront cost. We build, host and maintain
+                        everything monthly.
+                      </p>
+                    </div>
+                  </label>
+                </div>
+              </fieldset>
+
+              <!-- Logo upload -->
+              <fieldset class="space-y-1.5" id="section-reference">
+                <legend class="sr-only"
+                  >Logo or design reference (optional)</legend
+                >
+                <div class="flex justify-between items-center">
+                  <label
+                    class="font-headline font-black uppercase text-xs tracking-widest text-on-surface-variant block"
+                    >Logo or design reference (optional)</label
+                  >
+                  <span
+                    id="file-error"
+                    class="validation-error hidden text-primary-container font-headline font-black text-xs uppercase tracking-widest bg-primary-container/10 px-3 py-1 border border-primary-container"
+                    >File too large</span
+                  >
+                </div>
+                <div class="relative group cursor-pointer">
+                  <input
+                    type="file"
+                    id="reference-input"
+                    name="reference"
+                    class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-20"
+                    accept="image/*,.pdf"
+                  />
+                  <div
+                    class="bg-surface border-[3px] border-dashed border-on-background/40 p-8 flex items-center justify-center gap-4 group-hover:bg-secondary-fixed transition-colors relative z-10"
+                  >
+                    <span
+                      class="material-symbols-outlined text-3xl text-on-surface-variant text-on-background"
+                      >cloud_upload</span
+                    >
+                    <div>
+                      <p
+                        class="font-headline font-black uppercase text-sm tracking-tight text-on-background"
+                      >
+                        Drop your logo or a site you like
+                      </p>
+                      <p
+                        class="font-body text-xs font-medium text-on-surface-variant uppercase text-on-background"
+                      >
+                        PNG, JPG, SVG or PDF — max 10MB
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+
+              <!-- Privacy note -->
+              <div
+                class="flex items-start gap-3 p-4 bg-surface-container border-[2px] border-on-background"
+              >
+                <span
+                  class="material-symbols-outlined text-primary-container text-lg shrink-0 mt-0.5"
+                  >lock</span
+                >
+                <p
+                  class="text-xs font-medium text-on-surface-variant text-on-background leading-relaxed"
+                >
+                  Your details are used only to prepare your proposal. We do not
+                  share them and will never contact you without your permission.
+                </p>
+              </div>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+
+      <!-- Right column: sticky summary + CTA -->
+      <div class="lg:col-span-5">
+        <div
+          class="bg-on-background text-white p-8 border-[3px] border-on-background shadow-[8px_8px_0px_0px_rgba(193,241,0,1)] relative overflow-hidden sticky top-32"
+        >
+          <div
+            class="grainy-overlay absolute inset-0 opacity-10 pointer-events-none"
+          >
+          </div>
+          <div class="relative z-10 space-y-6">
+            <div class="flex justify-between items-start">
+              <h2
+                id="final-strategy-title"
+                class="font-headline font-black text-xl uppercase tracking-tighter text-secondary-container"
+              >
+                One-time build
+              </h2>
+              <span class="material-symbols-outlined text-secondary-container"
+                >verified</span
+              >
+            </div>
+
+            <div
+              class="space-y-2 text-xs font-bold uppercase border-b border-white/10 pb-4"
+            >
+              <div class="flex justify-between opacity-60">
+                <span>Elements selected</span>
+                <span id="block-count-display">0</span>
+              </div>
+            </div>
+
+            <div class="space-y-3">
+              <div class="flex justify-between items-baseline">
+                <span class="text-[10px] font-black uppercase opacity-60"
+                  >Initial deposit (20%)</span
+                >
+                <span
+                  id="final-deposit-display"
+                  class="font-headline font-black text-2xl">€0</span
+                >
+              </div>
+              <div
+                id="final-recurring-row"
+                class="hidden flex justify-between items-baseline"
+              >
+                <span class="text-[10px] font-black uppercase opacity-60"
+                  >Monthly fee</span
+                >
+                <span
+                  id="final-recurring-display"
+                  class="font-headline font-black text-2xl text-secondary-container"
+                  >€0</span
+                >
+              </div>
+              <div
+                id="final-balance-row"
+                class="flex justify-between items-baseline"
+              >
+                <span class="text-[10px] font-black uppercase opacity-60"
+                  >Balance on delivery</span
+                >
+                <span
+                  id="final-balance-display"
+                  class="font-headline font-black text-2xl text-secondary-container"
+                  >€0</span
+                >
+              </div>
+            </div>
+
+            <!-- Style selection live summary -->
+            <div
+              id="style-summary"
+              class="border-t border-white/10 pt-4 space-y-2 hidden"
+            >
+              <p
+                class="text-[10px] font-black uppercase text-on-surface-variant/70"
+              >
+                Your style choices
+              </p>
+              <div
+                id="palette-summary"
+                class="text-xs font-bold uppercase opacity-70 flex items-center gap-2"
+              >
+              </div>
+              <div
+                id="font-summary"
+                class="text-xs font-bold uppercase opacity-70"
+              >
+              </div>
+              <div
+                id="words-summary"
+                class="text-xs font-bold opacity-50 italic"
+              >
+              </div>
+            </div>
+
+            <!-- What happens next -->
+            <div class="bg-white/5 border border-white/10 p-4">
+              <p
+                class="text-[10px] font-black uppercase text-on-surface-variant/70 mb-2"
+              >
+                What happens next
+              </p>
+              <p class="text-xs font-medium opacity-70 leading-relaxed">
+                We review your selections and send a detailed proposal to your
+                inbox within 24 hours. It is free, yours to keep, and there is
+                no obligation to proceed.
+              </p>
+            </div>
+
+            <button
+              id="initiate-btn"
+              type="submit"
+              form="build-form"
+              class="w-full bg-secondary-container text-on-background border-[3px] border-white py-6 px-8 font-headline font-black text-xl uppercase tracking-tighter shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)] active:translate-x-0 active:translate-y-0 active:shadow-none transition-all flex items-center justify-between group"
+            >
+              <span>Send my brief</span>
+              <span
+                class="material-symbols-outlined text-2xl group-hover:translate-x-1 transition-transform"
+                >send</span
+              >
+            </button>
+
+            <a
+              href="/summary-and-quote"
+              class="w-full bg-white/10 border border-white/20 py-3 px-6 font-headline font-bold text-xs uppercase tracking-widest hover:bg-white/20 transition-colors flex items-center justify-center gap-2 text-white"
+            >
+              <span class="material-symbols-outlined text-sm">arrow_back</span>
+              Back to quote
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <Footer hideOnMobile={true} />
+</Layout>
+
+<script>
+  import {
+    selectedBlockIds,
+    totalPrice,
+    paymentModel,
+    subscriptionTier,
+    setupFee,
+    styleChoices,
+    profileData,
+  } from "../store/cart";
+  import {
+    BUSINESS_LABELS,
+    GOAL_LABELS,
+    TIMELINE_LABELS,
+  } from "../data/labels";
+
+  // Parse data from hidden config element
+  const configEl = document.getElementById("form-config");
+  const paletteData: any[] = JSON.parse(
+    configEl?.getAttribute("data-palettes") || "[]",
+  );
+  const fontPairData: any[] = JSON.parse(
+    configEl?.getAttribute("data-fonts") || "[]",
+  );
+
+  // Quote summary
+  const blockCountEl = document.getElementById("block-count-display");
+  const stratTitleEl = document.getElementById("final-strategy-title");
+  const depositEl = document.getElementById("final-deposit-display");
+  const recurringEl = document.getElementById("final-recurring-display");
+  const balanceEl = document.getElementById("final-balance-display");
+  const recurringRow = document.getElementById("final-recurring-row");
+  const balanceRow = document.getElementById("final-balance-row");
+
+  function updateSummary() {
+    const total = totalPrice.get();
+    const model = paymentModel.get();
+    const tier = subscriptionTier.get();
+    const setup = setupFee.get();
+    const n = selectedBlockIds.get().length;
+
+    if (blockCountEl)
+      blockCountEl.textContent = `${n} item${n === 1 ? "" : "s"}`;
+
+    if (model === "ownership") {
+      if (stratTitleEl) stratTitleEl.textContent = "One-time build";
+      recurringRow?.classList.add("hidden");
+      balanceRow?.classList.remove("hidden");
+      const dep = Math.floor(total * 0.2);
+      if (depositEl) depositEl.textContent = `€${dep.toLocaleString()}`;
+      if (balanceEl)
+        balanceEl.textContent = `€${(total - dep).toLocaleString()}`;
+    } else {
+      if (stratTitleEl) stratTitleEl.textContent = "Monthly subscription";
+      recurringRow?.classList.remove("hidden");
+      balanceRow?.classList.add("hidden");
+      const monthly = { basic: 49, premium: 99, gold: 199 }[tier] || 49;
+      if (depositEl) depositEl.textContent = `€${setup.toLocaleString()}`;
+      if (recurringEl) recurringEl.textContent = `€${monthly}/mo`;
+    }
+  }
+
+  selectedBlockIds.subscribe(updateSummary);
+
+  document.querySelectorAll('input[name="strategy"]').forEach((input) => {
+    const radio = input as HTMLInputElement;
+    if (radio.value === paymentModel.get()) radio.checked = true;
+    radio.addEventListener("change", (e) => {
+      paymentModel.set((e.target as HTMLInputElement).value as any);
+      updateSummary();
+    });
+  });
+  updateSummary();
+
+  // Style summary panel
+  const styleSummaryEl = document.getElementById("style-summary");
+  const paletteSumEl = document.getElementById("palette-summary");
+  const fontSumEl = document.getElementById("font-summary");
+  const wordsSumEl = document.getElementById("words-summary");
+
+  function updateStyleSummary() {
+    const sc = styleChoices.get();
+    const anyStyle = sc.palette || sc.fontPair || sc.brandWords;
+    styleSummaryEl?.classList.toggle("hidden", !anyStyle);
+
+    if (sc.palette && paletteSumEl) {
+      const p = paletteData.find((x) => x.id === sc.palette);
+      if (p)
+        paletteSumEl.innerHTML =
+          p.swatch
+            .map(
+              (hex: string) =>
+                `<span style="display:inline-block;width:12px;height:12px;background:${hex};border:1px solid rgba(255,255,255,0.25);flex-shrink:0;"></span>`,
+            )
+            .join("") + `<span class="ml-1">${p.name}</span>`;
+    }
+    if (sc.fontPair && fontSumEl) {
+      const f = fontPairData.find((x) => x.id === sc.fontPair);
+      if (f) fontSumEl.textContent = f.name;
+    }
+    if (wordsSumEl)
+      wordsSumEl.textContent = sc.brandWords ? `"${sc.brandWords}"` : "";
+  }
+
+  // Palette radios
+  document.querySelectorAll('input[name="palette"]').forEach((input) => {
+    const radio = input as HTMLInputElement;
+    if (radio.value === styleChoices.get().palette) radio.checked = true;
+    radio.addEventListener("change", (e) => {
+      styleChoices.set({
+        ...styleChoices.get(),
+        palette: (e.target as HTMLInputElement).value,
+      });
+      updateStyleSummary();
+    });
+  });
+
+  // Font radios
+  document.querySelectorAll('input[name="fontPair"]').forEach((input) => {
+    const radio = input as HTMLInputElement;
+    if (radio.value === styleChoices.get().fontPair) radio.checked = true;
+    radio.addEventListener("change", (e) => {
+      styleChoices.set({
+        ...styleChoices.get(),
+        fontPair: (e.target as HTMLInputElement).value,
+      });
+      updateStyleSummary();
+    });
+  });
+
+  // Brand words
+  const brandInput = document.getElementById(
+    "brand-words-input",
+  ) as HTMLInputElement;
+  if (brandInput) {
+    brandInput.value = styleChoices.get().brandWords || "";
+    brandInput.addEventListener("input", (e) => {
+      styleChoices.set({
+        ...styleChoices.get(),
+        brandWords: (e.target as HTMLInputElement).value,
+      });
+      updateStyleSummary();
+    });
+  }
+
+  // Logo upload validation
+  const referenceInput = document.getElementById(
+    "reference-input",
+  ) as HTMLInputElement;
+  const fileError = document.getElementById("file-error");
+
+  if (referenceInput) {
+    referenceInput.addEventListener("change", () => {
+      const file = referenceInput.files?.[0];
+      if (file && file.size > 10 * 1024 * 1024) {
+        fileError?.classList.remove("hidden");
+        referenceInput.value = ""; // Clear the input
+      } else {
+        fileError?.classList.add("hidden");
+      }
+    });
+  }
+
+  updateStyleSummary();
+
+  // Contextual hints from profile
+  const hintMap: Record<string, string[]> = {
+    "local-service": ["reliable", "local", "trusted", "fast", "honest"],
+    "restaurant-cafe": ["welcoming", "delicious", "cosy", "fresh", "authentic"],
+    "retail-ecommerce": [
+      "quality",
+      "stylish",
+      "affordable",
+      "curated",
+      "modern",
+    ],
+    "creative-portfolio": [
+      "bold",
+      "creative",
+      "original",
+      "distinctive",
+      "passionate",
+    ],
+    "professional-services": [
+      "expert",
+      "professional",
+      "trustworthy",
+      "precise",
+      "clear",
+    ],
+    "not-sure": ["friendly", "quality", "honest", "local", "modern"],
+  };
+  const profile = profileData.get();
+  const hintsEl = document.getElementById("brand-word-hints");
+  if (hintsEl) {
+    const hints = hintMap[profile.businessType] || hintMap["not-sure"];
+    hintsEl.innerHTML = hints
+      .map(
+        (h) =>
+          `<button type="button" class="hint-pill px-3 py-1 border-[2px] border-on-background text-xs font-black uppercase tracking-wide text-on-background hover:bg-secondary-container transition-colors" data-word="${h}">${h}</button>`,
+      )
+      .join("");
+    hintsEl.querySelectorAll(".hint-pill").forEach((pill) => {
+      pill.addEventListener("click", () => {
+        const input = document.getElementById(
+          "brand-words-input",
+        ) as HTMLInputElement;
+        if (!input) return;
+        const words = input.value
+          ? input.value
+              .split(",")
+              .map((w) => w.trim())
+              .filter(Boolean)
+          : [];
+        const word = (pill as HTMLElement).dataset.word || "";
+        if (!words.includes(word) && words.length < 5) {
+          words.push(word);
+          input.value = words.join(", ");
+          styleChoices.set({ ...styleChoices.get(), brandWords: input.value });
+          updateStyleSummary();
+        }
+      });
+    });
+  }
+
+  // Validation state
+  function clearErrors() {
+    document
+      .querySelectorAll(".validation-error")
+      .forEach((el) => el.classList.add("hidden"));
+    document.querySelectorAll(".border-primary-container").forEach((el) => {
+      if (!el.classList.contains("bg-secondary-container")) {
+        el.classList.remove("border-primary-container");
+        el.classList.add("border-on-background");
+      }
+    });
+    document
+      .querySelectorAll("input[required], textarea[required]")
+      .forEach((el) => el.classList.remove("border-primary-container"));
+  }
+
+  function showSectionError(sectionId: string, gridId: string) {
+    const section = document.getElementById(sectionId);
+    const grid = document.getElementById(gridId);
+    if (section)
+      section.querySelector(".validation-error")?.classList.remove("hidden");
+    if (grid) {
+      grid.classList.add("border-2", "border-primary-container", "p-4", "-m-4");
+    }
+  }
+
+  // Form submission
+  const buildForm = document.getElementById("build-form") as HTMLFormElement;
+  const overlay = document.getElementById("provisioning-overlay");
+  const progressEl = document.getElementById("provisioning-progress");
+  const percentEl = document.getElementById("progress-percent");
+  const statusEl = document.getElementById("provisioning-status");
+  const techLogs = document.getElementById("tech-logs");
+  const successMsg = document.getElementById("success-message");
+  const successRef = document.getElementById("success-ref");
+
+  const logs = [
+    "Reading your selections...",
+    "Noting your style preferences...",
+    "Calculating your estimate...",
+    "Compiling your brand brief...",
+    "Preparing proposal document...",
+    "Adding your timeline details...",
+    "Reviewing your choices...",
+    "Almost ready...",
+    "Brief prepared successfully.",
+  ];
+
+  function addLog(msg: string, isError = false) {
+    if (!techLogs) return;
+    const div = document.createElement("div");
+    div.textContent = `> ${msg}`;
+    if (isError)
+      div.className = "text-primary-container font-black animate-pulse";
+    techLogs.appendChild(div);
+    techLogs.scrollTop = techLogs.scrollHeight;
+  }
+
+  // Real-time error clearing
+  document.querySelectorAll('input[name="palette"]').forEach((i) =>
+    i.addEventListener("change", () => {
+      document
+        .getElementById("section-palette")
+        ?.querySelector(".validation-error")
+        ?.classList.add("hidden");
+      document
+        .getElementById("palette-grid")
+        ?.classList.remove(
+          "border-2",
+          "border-primary-container",
+          "p-4",
+          "-m-4",
+        );
+    }),
+  );
+  document.querySelectorAll('input[name="fontPair"]').forEach((i) =>
+    i.addEventListener("change", () => {
+      document
+        .getElementById("section-font")
+        ?.querySelector(".validation-error")
+        ?.classList.add("hidden");
+      document
+        .getElementById("font-list")
+        ?.classList.remove(
+          "border-2",
+          "border-primary-container",
+          "p-4",
+          "-m-4",
+        );
+    }),
+  );
+  ["clientName", "businessName", "email"].forEach((name) => {
+    buildForm
+      ?.querySelector(`[name="${name}"]`)
+      ?.addEventListener("input", (e) => {
+        (e.target as HTMLElement).classList.remove("border-primary-container");
+      });
+  });
+
+  if (buildForm) {
+    buildForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      clearErrors();
+
+      const fd = new FormData(buildForm);
+      const sc = styleChoices.get();
+      const pf = profileData.get();
+
+      let firstError: HTMLElement | null = null;
+
+      // Manual Validation
+      if (!sc.palette) {
+        showSectionError("section-palette", "palette-grid");
+        firstError = firstError || document.getElementById("section-palette");
+      }
+      if (!sc.fontPair) {
+        showSectionError("section-font", "font-list");
+        firstError = firstError || document.getElementById("section-font");
+      }
+
+      // File size validation
+      const file = referenceInput?.files?.[0];
+      if (file && file.size > 10 * 1024 * 1024) {
+        fileError?.classList.remove("hidden");
+        firstError = firstError || document.getElementById("section-reference");
+      }
+
+      // Text fields validation
+      ["clientName", "businessName", "email"].forEach((name) => {
+        const input = buildForm.querySelector(
+          `[name="${name}"]`,
+        ) as HTMLInputElement;
+        if (!fd.get(name)) {
+          input?.classList.add("border-primary-container");
+          firstError = firstError || input;
+        }
+      });
+
+      if (firstError) {
+        firstError.scrollIntoView({ behavior: "smooth", block: "center" });
+        return;
+      }
+
+      if (overlay) {
+        overlay.style.opacity = "1";
+        overlay.style.pointerEvents = "auto";
+      }
+
+      // Prepare the comprehensive brief for Formspree
+      const brief = {
+        _subject: `New Project Brief: ${fd.get("businessName")} (${fd.get("clientName")})`,
+        contact: {
+          name: fd.get("clientName"),
+          business: fd.get("businessName"),
+          email: fd.get("email"),
+          phone: fd.get("phone"),
+          notes: fd.get("notes"),
+        },
+        style: {
+          palette: sc.palette,
+          fontPair: sc.fontPair,
+          brandWords: sc.brandWords,
+        },
+        build: {
+          blocks: selectedBlockIds.get(),
+          total: `€${totalPrice.get().toLocaleString()}`,
+          payment: fd.get("strategy"),
+        },
+        profile: {
+          businessType: pf.businessType,
+          primaryGoal: pf.primaryGoal,
+          assets: pf.assets,
+          timeline: pf.timeline,
+        },
+      };
+
+      let progress = 0,
+        logIndex = 0;
+      if (submissionInterval) clearInterval(submissionInterval);
+      submissionInterval = setInterval(async () => {
+        progress += Math.floor(Math.random() * 10) + 4;
+
+        if (progress >= 90 && progress < 100) {
+          // Pause at 90% until fetch is done (simulated or real)
+          progress = 90;
+        }
+
+        if (progressEl) progressEl.style.width = `${progress}%`;
+        if (percentEl) percentEl.textContent = `${progress}%`;
+
+        if (progress > logIndex * 11 && logIndex < logs.length) {
+          addLog(logs[logIndex]);
+          if (statusEl) statusEl.textContent = logs[logIndex];
+          logIndex++;
+        }
+      }, 380);
+
+      // Execute the actual transmission
+      try {
+        if (!import.meta.env.PUBLIC_FORMSPREE_URL) {
+          addLog("No submission endpoint configured", true);
+          if (statusEl) statusEl.textContent = "Configuration Error.";
+          clearInterval(submissionInterval);
+          setTimeout(() => {
+            if (overlay) {
+              overlay.style.opacity = "0";
+              overlay.style.pointerEvents = "none";
+            }
+          }, 3000);
+          return;
+        }
+
+        const response = await fetch(import.meta.env.PUBLIC_FORMSPREE_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify(brief),
+        });
+
+        if (response.ok) {
+          // Complete the animation
+          clearInterval(submissionInterval);
+          if (progressEl) progressEl.style.width = "100%";
+          if (percentEl) percentEl.textContent = "100%";
+
+          setTimeout(() => {
+            successMsg?.classList.remove("hidden");
+            techLogs?.classList.add("hidden");
+            if (statusEl) statusEl.textContent = "Brief sent successfully.";
+            if (successRef)
+              successRef.textContent = `WYW-${Math.floor(Math.random() * 90000) + 10000}`;
+
+            // Clear stores
+            selectedBlockIds.set([]);
+            styleChoices.set({ palette: "", fontPair: "", brandWords: "" });
+            profileData.set({
+              businessType: "",
+              primaryGoal: "",
+              assets: [],
+              timeline: "",
+            });
+          }, 600);
+        } else {
+          throw new Error("Transmission failed");
+        }
+      } catch (err) {
+        clearInterval(submissionInterval);
+
+        // Add error details to logs
+        addLog("Something went wrong — please try again.", true);
+
+        // Show error message in the overlay
+        if (statusEl) {
+          statusEl.textContent = "Failed to send. Please try again.";
+          statusEl.classList.add("text-primary-container", "animate-pulse");
+        }
+
+        // Create or show an error message box in the overlay
+        let errorBox = document.getElementById("error-message-box");
+        if (!errorBox && overlay) {
+          errorBox = document.createElement("div");
+          errorBox.id = "error-message-box";
+          errorBox.className =
+            "mt-8 p-6 bg-primary-container/20 border-[3px] border-primary-container text-center";
+          errorBox.innerHTML = `
+            <span class="material-symbols-outlined text-4xl text-primary-container mb-2">error</span>
+            <h3 class="font-headline font-black text-lg uppercase text-white mb-2">Submission Failed</h3>
+            <p class="text-sm text-white/80 mb-4">We couldn't send your brief. This might be a temporary issue.</p>
+            <button id="retry-submit" class="bg-secondary-container text-on-background px-6 py-3 font-headline font-black text-sm uppercase tracking-widest hover:bg-secondary-container/80 transition-colors">
+                Try Again
+            </button>
+        `;
+          overlay.querySelector(".max-w-xl")?.appendChild(errorBox);
+
+          // Add retry functionality
+          const retryBtn = document.getElementById("retry-submit");
+          if (retryBtn) {
+            retryBtn.addEventListener("click", () => {
+              errorBox.remove();
+              if (statusEl) {
+                statusEl.textContent = "Preparing your quote...";
+                statusEl.classList.remove(
+                  "text-primary-container",
+                  "animate-pulse",
+                );
+              }
+              // Resubmit the form
+              buildForm.dispatchEvent(new Event("submit"));
+            });
+          }
+        }
+
+        // Keep overlay visible longer so user can read error
+        setTimeout(() => {
+          if (overlay && !document.getElementById("error-message-box")) {
+            overlay.style.opacity = "0";
+            overlay.style.pointerEvents = "none";
+          }
+        }, 5000); // Longer timeout for error visibility
+      }
+    });
+  }
+
+  // Cleanup on navigation
+  window.addEventListener("beforeunload", () => {
+    if (submissionInterval) clearInterval(submissionInterval);
+  });
+</script>

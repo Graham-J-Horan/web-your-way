@@ -1,0 +1,1137 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<Layout>
+  <div class="fixed inset-0 grainy-overlay z-50 pointer-events-none opacity-5">
+  </div>
+  <Header showDropdown={false} showBackButton={false} isFunnel={false} />
+
+  <!-- Background watermark -->
+  <div
+    class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.025] pointer-events-none -z-10 select-none"
+  >
+    <span
+      class="material-symbols-outlined text-[600px] text-on-background"
+      style="font-variation-settings: 'FILL' 1;">help_outline</span
+    >
+  </div>
+
+  <main id="main-content" class="pt-28 pb-48 px-4 md:px-12 max-w-4xl mx-auto">
+    <!-- ── Progress indicator ──────────────────────────────────────── -->
+    <div class="mb-16 flex items-center gap-3">
+      <div
+        class="flex items-center gap-2 transition-all duration-500 sm:inline"
+        id="step-1-ui"
+      >
+        <div
+          class="w-8 h-8 bg-secondary-container text-on-background flex items-center justify-center font-black text-sm border-[2px] border-on-background transition-colors"
+          id="step-1-num"
+        >
+          1
+        </div>
+        <span
+          class="text-xs font-black uppercase tracking-widest text-on-background hidden md:inline"
+          id="step-1-text">Questions</span
+        >
+      </div>
+      <div
+        class="flex-grow h-[2px] bg-on-background/10 relative overflow-hidden"
+      >
+        <div
+          id="progress-line-1"
+          class="absolute inset-0 bg-secondary-container translate-x-full transition-transform duration-700"
+        >
+        </div>
+      </div>
+      <div
+        class="flex items-center gap-2 text-on-surface-variant transition-all duration-500 sm:inline"
+        id="step-2-ui"
+      >
+        <div
+          class="w-8 h-8 border-[2px] border-on-background text-on-background flex items-center justify-center font-black text-sm transition-colors"
+          id="step-2-num"
+        >
+          2
+        </div>
+        <span
+          class="text-xs font-black uppercase tracking-widest text-on-background hidden md:inline"
+          id="step-2-text">Recommendation</span
+        >
+      </div>
+      <div
+        class="flex-grow h-[2px] bg-on-background/10 relative overflow-hidden"
+      >
+        <div
+          id="progress-line-2"
+          class="absolute inset-0 bg-secondary-container translate-x-[-100%] transition-transform duration-700"
+        >
+        </div>
+      </div>
+      <div
+        class="flex items-center gap-2 text-on-surface-variant transition-all duration-500 sm:inline"
+        id="step-3-ui"
+      >
+        <div
+          class="w-8 h-8 border-[2px] border-on-background text-on-background flex items-center justify-center font-black text-sm transition-colors"
+          id="step-3-num"
+        >
+          3
+        </div>
+        <span
+          class="text-xs font-black uppercase tracking-widest text-on-background hidden md:inline"
+          id="step-3-text">Configurator</span
+        >
+      </div>
+    </div>
+
+    <!-- ── Page header ─────────────────────────────────────────────── -->
+    <section class="mb-16">
+      <div class="relative inline-block mb-6">
+        <h1
+          class="text-5xl md:text-7xl font-black font-headline uppercase leading-[0.88] tracking-tighter relative z-10 text-on-background"
+        >
+          First,<br />tell us<br /><span class="text-primary-container"
+            >about you</span
+          >
+        </h1>
+        <div
+          class="absolute -right-3 -bottom-2 bg-secondary-container w-3/4 h-3 -z-0"
+        >
+        </div>
+      </div>
+      <p
+        class="text-lg font-bold text-on-background leading-relaxed max-w-xl mt-6"
+      >
+        Four quick questions. No technical knowledge needed. Your answers help
+        us suggest the right starting point — you can change anything
+        afterwards.
+      </p>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════════════
+             THE FOUR QUESTIONS
+        ══════════════════════════════════════════════════════════════ -->
+    <div class="space-y-14" id="question-flow">
+      <!-- ── Q1: What kind of business ──────────────────────────── -->
+      <fieldset class="question-block" data-question="1">
+        <legend class="sr-only"
+          >1. What kind of business do you have? Pick the one that fits best —
+          it helps us suggest the right pages.</legend
+        >
+        <div class="flex items-start gap-4 mb-6">
+          <div
+            class="w-10 h-10 bg-on-background dark:bg-white text-white dark:text-on-background flex items-center justify-center font-black text-lg shrink-0 mt-1"
+          >
+            1
+          </div>
+          <div>
+            <h2
+              class="text-2xl md:text-3xl font-black font-headline uppercase tracking-tighter text-on-background leading-tight"
+            >
+              What kind of business do you have?
+            </h2>
+            <p class="text-sm font-medium opacity-60 text-on-background mt-1">
+              Pick the one that fits best — it helps us suggest the right pages.
+            </p>
+          </div>
+        </div>
+
+        <div
+          class="grid grid-cols-1 sm:grid-cols-2 gap-4 pl-14"
+          id="q1-options"
+        >
+          {
+            [
+              {
+                value: "local-service",
+                icon: "build",
+                label: "A local service business",
+                sub: "Plumber, cleaner, van hire, mechanic, electrician…",
+              },
+              {
+                value: "restaurant-cafe",
+                icon: "restaurant",
+                label: "A restaurant or café",
+                sub: "Food, drink, hospitality, takeaway…",
+              },
+              {
+                value: "retail-ecommerce",
+                icon: "storefront",
+                label: "A shop or online store",
+                sub: "Selling products — in person or online…",
+              },
+              {
+                value: "creative-portfolio",
+                icon: "brush",
+                label: "A creative or freelancer",
+                sub: "Photographer, designer, artist, consultant…",
+              },
+              {
+                value: "professional-services",
+                icon: "business_center",
+                label: "A professional practice",
+                sub: "Solicitor, accountant, estate agent, clinic…",
+              },
+              {
+                value: "not-sure",
+                icon: "help_outline",
+                label: "Not sure / something else",
+                sub: "We'll suggest a good starting point for you.",
+              },
+            ].map((opt) => (
+              <label class="q1-option group relative flex items-start gap-4 p-5 bg-surface dark:bg-on-background border-[3px] border-on-background dark:border-white cursor-pointer hard-shadow-sm hover:-translate-y-1 hover:-translate-x-1 transition-all has-[:checked]:border-secondary-container has-[:checked]:bg-secondary-container/10">
+                <input
+                  type="radio"
+                  name="business-type"
+                  value={opt.value}
+                  class="sr-only"
+                />
+                <div class="w-8 h-8 border-[3px] border-on-background dark:border-white flex-shrink-0 flex items-center justify-center group-has-[:checked]:bg-secondary-container transition-colors mt-0.5">
+                  <span
+                    class="material-symbols-outlined text-sm text-on-background hidden group-has-[:checked]:block"
+                    style="font-variation-settings: 'wght' 900;"
+                  >
+                    check
+                  </span>
+                </div>
+                <div class="flex-grow">
+                  <div class="flex items-center gap-2 mb-1">
+                    <span class="material-symbols-outlined text-xl text-on-surface-variant group-has-[:checked]:opacity-100  transition-opacity">
+                      {opt.icon}
+                    </span>
+                    <span class="font-headline font-black text-base uppercase tracking-tight text-on-background">
+                      {opt.label}
+                    </span>
+                  </div>
+                  <p class="text-xs font-medium opacity-50 text-on-background leading-relaxed">
+                    {opt.sub}
+                  </p>
+                </div>
+              </label>
+            ))
+          }
+        </div>
+      </fieldset>
+
+      <!-- ── Q2: What's the #1 goal ──────────────────────────────── -->
+      <fieldset
+        class="question-block text-on-surface-variant pointer-events-none transition-all duration-500"
+        data-question="2"
+      >
+        <legend class="sr-only"
+          >2. What's the most important thing your website should do? Pick one.
+          This shapes which sections matter most for you.</legend
+        >
+        <div class="flex items-start gap-4 mb-6">
+          <div
+            class="w-10 h-10 bg-on-background dark:bg-white text-white dark:text-on-background flex items-center justify-center font-black text-lg shrink-0 mt-1"
+          >
+            2
+          </div>
+          <div>
+            <h2
+              class="text-2xl md:text-3xl font-black font-headline uppercase tracking-tighter text-on-background leading-tight"
+            >
+              What's the most important thing your website should do?
+            </h2>
+            <p class="text-sm font-medium opacity-60 text-on-background mt-1">
+              Pick one. This shapes which sections matter most for you.
+            </p>
+          </div>
+        </div>
+
+        <div class="space-y-3 pl-14" id="q2-options">
+          {
+            [
+              {
+                value: "get-calls",
+                icon: "phone_in_talk",
+                label: "Get more phone calls and WhatsApp messages",
+                sub: "I want people to reach me directly — fast.",
+              },
+              {
+                value: "take-bookings",
+                icon: "event_available",
+                label: "Let customers book or enquire online",
+                sub: "I want a form, a booking system, or a WhatsApp flow.",
+              },
+              {
+                value: "show-work",
+                icon: "photo_library",
+                label: "Show what I do — my work, menu or products",
+                sub: "I want people to see what I offer before they contact me.",
+              },
+              {
+                value: "build-trust",
+                icon: "verified",
+                label: "Look professional and build trust",
+                sub: "I want a site that makes people confident to choose me.",
+              },
+              {
+                value: "be-found",
+                icon: "search",
+                label: "Be found on Google",
+                sub: "I want new customers to find me when they search.",
+              },
+            ].map((opt) => (
+              <label class="q2-option group relative flex items-start gap-4 p-5 bg-surface dark:bg-on-background border-[3px] border-on-background dark:border-white cursor-pointer hard-shadow-sm hover:-translate-y-0.5 hover:-translate-x-0.5 transition-all has-[:checked]:border-secondary-container has-[:checked]:bg-secondary-container/10">
+                <input
+                  type="radio"
+                  name="primary-goal"
+                  value={opt.value}
+                  class="sr-only"
+                />
+                <div class="w-8 h-8 border-[3px] border-on-background dark:border-white flex-shrink-0 flex items-center justify-center group-has-[:checked]:bg-secondary-container transition-colors mt-0.5">
+                  <span
+                    class="material-symbols-outlined text-sm text-on-background hidden group-has-[:checked]:block"
+                    style="font-variation-settings: 'wght' 900;"
+                  >
+                    check
+                  </span>
+                </div>
+                <div class="flex-grow">
+                  <div class="flex items-center gap-2 mb-1">
+                    <span class="material-symbols-outlined text-xl text-on-surface-variant group-has-[:checked]:opacity-100 text-on-background transition-opacity shrink-0">
+                      {opt.icon}
+                    </span>
+                    <span class="font-headline font-black text-base uppercase tracking-tight text-on-background block leading-tight">
+                      {opt.label}
+                    </span>
+                  </div>
+                  <p class="text-xs font-medium opacity-50 text-on-background leading-relaxed">
+                    {opt.sub}
+                  </p>
+                </div>
+              </label>
+            ))
+          }
+        </div>
+      </fieldset>
+
+      <!-- ── Q3: Do you already have assets ─────────────────────── -->
+      <fieldset
+        class="question-block text-on-surface-variant pointer-events-none transition-all duration-500"
+        data-question="3"
+      >
+        <legend class="sr-only"
+          >3. What do you already have? Tick everything that applies. This tells
+          us where we can start immediately.</legend
+        >
+
+        <legend class="sr-only"
+          >3. What do you already have? Tick everything that applies. This tells
+          us where we can start immediately.</legend
+        >
+        <div class="flex items-start gap-4 mb-6">
+          <div
+            class="w-10 h-10 bg-on-background dark:bg-white text-white dark:text-on-background flex items-center justify-center font-black text-lg shrink-0 mt-1"
+          >
+            3
+          </div>
+          <div>
+            <h2
+              class="text-2xl md:text-3xl font-black font-headline uppercase tracking-tighter text-on-background leading-tight"
+            >
+              What do you already have?
+            </h2>
+            <p class="text-sm font-medium opacity-60 text-on-background mt-1">
+              Tick everything that applies. This tells us where we can start
+              immediately.
+            </p>
+          </div>
+        </div>
+
+        <div
+          class="grid grid-cols-1 sm:grid-cols-2 gap-4 pl-14"
+          id="q3-options"
+        >
+          {
+            [
+              {
+                value: "has-logo",
+                icon: "logo_dev",
+                label: "A logo",
+                sub: "A file or image you use on your business materials.",
+              },
+              {
+                value: "has-photos",
+                icon: "camera_alt",
+                label: "Photos of your business",
+                sub: "Real photos of your work, products, premises or team.",
+              },
+              {
+                value: "has-domain",
+                icon: "language",
+                label: "A domain name",
+                sub: "A web address you own — like mybusiness.com.",
+              },
+              {
+                value: "has-copy",
+                icon: "description",
+                label: "Written content",
+                sub: "Text you're happy to use — about you, your services, etc.",
+              },
+              {
+                value: "has-reviews",
+                icon: "reviews",
+                label: "Customer reviews",
+                sub: "Google, Facebook or written testimonials from real customers.",
+              },
+              {
+                value: "has-nothing",
+                icon: "check_box_outline_blank",
+                label: "Starting from scratch",
+                sub: "That's absolutely fine — we can help with all of it.",
+              },
+            ].map((opt) => (
+              <label class="q3-option group relative flex items-start gap-4 p-5 bg-surface dark:bg-on-background border-[3px] border-on-background dark:border-white cursor-pointer hard-shadow-sm hover:-translate-y-1 hover:-translate-x-1 transition-all has-[:checked]:border-secondary-container has-[:checked]:bg-secondary-container/10">
+                <input
+                  type="checkbox"
+                  name="assets"
+                  value={opt.value}
+                  class="sr-only"
+                />
+                <div class="w-8 h-8 border-[3px] border-on-background dark:border-white flex-shrink-0 flex items-center justify-center group-has-[:checked]:bg-secondary-container transition-colors mt-0.5">
+                  <span
+                    class="material-symbols-outlined text-sm text-on-background hidden group-has-[:checked]:block"
+                    style="font-variation-settings: 'wght' 900;"
+                  >
+                    check
+                  </span>
+                </div>
+                <div>
+                  <div class="flex items-center gap-2 mb-1">
+                    <span class="material-symbols-outlined text-lg text-on-surface-variant group-has-[:checked]:opacity-100  transition-opacity">
+                      {opt.icon}
+                    </span>
+                    <span class="font-headline font-black text-sm uppercase tracking-tight text-on-background">
+                      {opt.label}
+                    </span>
+                  </div>
+                  <p class="text-xs font-medium opacity-50 text-on-background leading-relaxed">
+                    {opt.sub}
+                  </p>
+                </div>
+              </label>
+            ))
+          }
+        </div>
+      </fieldset>
+
+      <!-- ── Q4: Timeline ────────────────────────────────────────── -->
+      <fieldset
+        class="question-block text-on-surface-variant pointer-events-none transition-all duration-500"
+        data-question="4"
+      >
+        <legend class="sr-only"
+          >4. When would you like to go live? No pressure either way — this
+          helps us plan the build.</legend
+        >
+        <div class="flex items-start gap-4 mb-6">
+          <div
+            class="w-10 h-10 bg-on-background dark:bg-white text-white dark:text-on-background flex items-center justify-center font-black text-lg shrink-0 mt-1"
+          >
+            4
+          </div>
+          <div>
+            <h2
+              class="text-2xl md:text-3xl font-black font-headline uppercase tracking-tighter text-on-background leading-tight"
+            >
+              When would you like to go live?
+            </h2>
+            <p class="text-sm font-medium opacity-60 text-on-background mt-1">
+              No pressure either way — this helps us plan the build.
+            </p>
+          </div>
+        </div>
+
+        <div
+          class="grid grid-cols-1 sm:grid-cols-2 gap-4 pl-14"
+          id="q4-options"
+        >
+          {
+            [
+              {
+                value: "asap",
+                icon: "rocket_launch",
+                label: "As soon as possible",
+                sub: "I need this up within the next 2–4 weeks.",
+              },
+              {
+                value: "one-month",
+                icon: "schedule",
+                label: "Within the next month",
+                sub: "Roughly 4–6 weeks works for me.",
+              },
+              {
+                value: "two-months",
+                icon: "event",
+                label: "One to two months",
+                sub: "I have a bit of time — I want it done right.",
+              },
+              {
+                value: "no-rush",
+                icon: "hourglass_empty",
+                label: "No firm deadline yet",
+                sub: "I'm planning ahead and want to know the costs first.",
+              },
+            ].map((opt) => (
+              <label class="q4-option group relative flex items-start gap-4 p-5 bg-surface dark:bg-on-background border-[3px] border-on-background dark:border-white cursor-pointer hard-shadow-sm hover:-translate-y-1 hover:-translate-x-1 transition-all has-checked:border-secondary-container has-[:checked]:bg-secondary-container/10">
+                <input
+                  type="radio"
+                  name="timeline"
+                  value={opt.value}
+                  class="sr-only"
+                />
+                <div class="w-8 h-8 border-[3px] border-on-background dark:border-white shrink-0 flex items-center justify-center group-has-[:checked]:bg-secondary-container transition-colors mt-0.5">
+                  <span
+                    class="material-symbols-outlined text-sm text-on-background hidden group-has-"
+                    style="font-variation-settings: 'wght' 900;"
+                  >
+                    check
+                  </span>
+                </div>
+                <div>
+                  <div class="flex items-center gap-2 mb-1">
+                    <span class="material-symbols-outlined text-lg text-on-surface-variant group-has-checked:opacity-100 transition-opacity">
+                      {opt.icon}
+                    </span>
+                    <span class="font-headline font-black text-sm uppercase tracking-tight text-on-background">
+                      {opt.label}
+                    </span>
+                  </div>
+                  <p class="text-xs font-medium opacity-50 text-on-background leading-relaxed">
+                    {opt.sub}
+                  </p>
+                </div>
+              </label>
+            ))
+          }
+        </div>
+      </fieldset>
+    </div>
+
+    <!-- ── Recommendation reveal ───────────────────────────────────── -->
+    <div id="recommendation" class="hidden mt-20">
+      <div
+        class="p-10 bg-on-background text-white border-[3px] border-on-background relative overflow-hidden hard-shadow"
+      >
+        <div
+          class="grainy-overlay absolute inset-0 opacity-10 pointer-events-none"
+        >
+        </div>
+        <div class="relative z-10">
+          <!-- Header -->
+          <div class="flex items-start justify-between gap-6 mb-8">
+            <div>
+              <div
+                class="inline-block bg-secondary-container text-on-background text-[10px] font-black uppercase tracking-widest px-3 py-1 mb-3"
+              >
+                Based on your answers
+              </div>
+              <h3
+                class="text-3xl md:text-4xl font-black font-headline uppercase tracking-tighter leading-tight"
+              >
+                Here's what we'd<br />recommend for you
+              </h3>
+            </div>
+            <span
+              class="material-symbols-outlined text-5xl text-secondary-container shrink-0"
+              >auto_awesome</span
+            >
+          </div>
+
+          <!-- What we understood -->
+          <div
+            class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8"
+            id="profile-summary"
+          >
+            <!-- Populated by JS -->
+          </div>
+
+          <!-- Recommended blocks preview -->
+          <div class="border-t border-white/10 pt-8 mb-8">
+            <p
+              class="text-[10px] font-black uppercase tracking-widest opacity-50 mb-4"
+            >
+              Your recommended starting point includes
+            </p>
+            <div id="rec-blocks-preview" class="flex flex-wrap gap-2">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+
+          <!-- Important note -->
+          <div class="bg-white/5 border border-white/10 p-4 mb-8">
+            <p class="text-sm font-medium opacity-70 leading-relaxed">
+              <span class="text-secondary-container font-black"
+                >This is a starting point, not a final decision.</span
+              >
+              On the next screen you'll see every available element — tick, untick
+              and adjust until it's exactly right for your business. Nothing is locked
+              in until you say so.
+            </p>
+          </div>
+
+          <!-- CTA -->
+          <div class="flex flex-col sm:flex-row gap-4">
+            <button
+              id="go-to-configurator"
+              class="grow py-6 px-8 bg-secondary-container text-on-background font-headline font-black text-xl uppercase tracking-widest border-[3px] border-white shadow-[6px_6px_0px_0px_rgba(255,255,255,1)] hover:-translate-x-0.75 hover:-translate-y-0.75 transition-all flex items-center justify-between group"
+            >
+              <span>See my recommended build</span>
+              <span
+                class="material-symbols-outlined text-2xl group-hover:translate-x-1 transition-transform"
+                >arrow_forward</span
+              >
+            </button>
+            <button
+              id="start-from-scratch"
+              class="py-6 px-8 bg-transparent text-white font-headline font-black text-sm uppercase tracking-widest border-2 border-white/30 hover:border-white/60 transition-colors"
+            >
+              I'd rather start with a blank slate
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <Footer hideOnMobile={true} />
+</Layout>
+
+<script>
+  import { selectedBlockIds, profileData } from "../store/cart";
+  import {
+    BUSINESS_LABELS,
+    GOAL_LABELS,
+    TIMELINE_LABELS,
+  } from "../data/labels";
+
+  // ── Configuration Data ────────────────────────────────────────────────
+  const recommendations: Record<string, string[]> = {
+    "local-service": [
+      "responsive-layout",
+      "ssg-engine",
+      "responsive-navbar",
+      "hero-section",
+      "trust-badges",
+      "pricing-table",
+      "services-reservation",
+      "service-highlights",
+      "faq-accordion",
+      "contact-form-alt",
+      "location-maps",
+      "footer-complex",
+      "sticky-mobile-cta",
+      "whatsapp-strategy",
+    ],
+    "restaurant-cafe": [
+      "responsive-layout",
+      "ssg-engine",
+      "responsive-navbar",
+      "hero-section",
+      "trust-badges",
+      "fleet-showcase",
+      "google-reviews",
+      "faq-accordion",
+      "contact-form-alt",
+      "location-maps",
+      "footer-complex",
+      "sticky-mobile-cta",
+    ],
+    "retail-ecommerce": [
+      "responsive-layout",
+      "ssg-engine",
+      "responsive-navbar",
+      "hero-section",
+      "trust-badges",
+      "fleet-showcase",
+      "pricing-table",
+      "google-reviews",
+      "contact-form-alt",
+      "footer-complex",
+      "sticky-mobile-cta",
+      "whatsapp-strategy",
+    ],
+    "creative-portfolio": [
+      "responsive-layout",
+      "ssg-engine",
+      "responsive-navbar",
+      "hero-section",
+      "portfolio-grid",
+      "service-highlights",
+      "google-reviews",
+      "contact-form-alt",
+      "footer-complex",
+    ],
+    "professional-services": [
+      "responsive-layout",
+      "ssg-engine",
+      "responsive-navbar",
+      "hero-section",
+      "trust-badges",
+      "service-highlights",
+      "google-reviews",
+      "blog-engine",
+      "faq-accordion",
+      "contact-form-alt",
+      "footer-complex",
+    ],
+    "not-sure": [
+      "responsive-layout",
+      "ssg-engine",
+      "responsive-navbar",
+      "hero-section",
+      "trust-badges",
+      "service-highlights",
+      "contact-form-alt",
+      "footer-complex",
+      "sticky-mobile-cta",
+    ],
+  };
+
+  const blockLabels: Record<string, string> = {
+    "responsive-layout": "Mobile & Tablet Ready",
+    "ssg-engine": "Super-Fast Load Speeds",
+    "responsive-navbar": "Navigation Bar",
+    "hero-section": "Opening Statement",
+    "trust-badges": "Trust Strip",
+    "fleet-showcase": "Product & Service Cards",
+    "pricing-table": "Pricing — Clear & Upfront",
+    "services-reservation": "How to Book",
+    "service-highlights": "Why Choose You",
+    "google-reviews": "Customer Reviews",
+    "faq-accordion": "Common Questions Answered",
+    "contact-form-alt": "Multi-Channel Contact",
+    "contact-form": "Simple Contact Form",
+    "location-maps": "Where to Find You",
+    "footer-complex": "Professional Footer",
+    "sticky-mobile-cta": "Mobile Booking Bar",
+    "whatsapp-strategy": "WhatsApp Deep Links",
+    "blog-engine": "Easy-Post News & Blog",
+    "portfolio-grid": "Gallery of Work",
+    "ai-personalization": "Adaptive Experience",
+    "performance-optimization": "Google Speed Guarantee",
+  };
+
+  // ── State ─────────────────────────────────────────────────────────────
+  interface Answers {
+    businessType: string | null;
+    primaryGoal: string | null;
+    assets: string[];
+    timeline: string | null;
+  }
+
+  let answers: Answers = {
+    businessType: null,
+    primaryGoal: null,
+    assets: [],
+    timeline: null,
+  };
+
+  // ── Persistence & Initialization ─────────────────────────────────────
+  function init() {
+    const saved = profileData.get();
+    if (
+      !saved.businessType &&
+      !saved.primaryGoal &&
+      saved.assets.length === 0 &&
+      !saved.timeline
+    )
+      return;
+
+    if (saved.businessType) {
+      answers.businessType = saved.businessType;
+      const input = document.querySelector(
+        `.q1-option input[value="${saved.businessType}"]`,
+      ) as HTMLInputElement;
+      if (input) {
+        input.checked = true;
+        unlockQuestion(2, false);
+      }
+    }
+
+    if (saved.primaryGoal) {
+      answers.primaryGoal = saved.primaryGoal;
+      const input = document.querySelector(
+        `.q2-option input[value="${saved.primaryGoal}"]`,
+      ) as HTMLInputElement;
+      if (input) {
+        input.checked = true;
+        unlockQuestion(3, false);
+      }
+    }
+
+    if (saved.assets && saved.assets.length > 0) {
+      answers.assets = saved.assets;
+      saved.assets.forEach((val) => {
+        const input = document.querySelector(
+          `.q3-option input[value="${val}"]`,
+        ) as HTMLInputElement;
+        if (input) input.checked = true;
+      });
+      unlockQuestion(4, false);
+    }
+
+    if (saved.timeline) {
+      answers.timeline = saved.timeline;
+      const input = document.querySelector(
+        `.q4-option input[value="${saved.timeline}"]`,
+      ) as HTMLInputElement;
+      if (input) {
+        input.checked = true;
+      }
+    }
+
+    updateProgressBar();
+    maybeShowRecommendation(false);
+  }
+
+  function persist() {
+    profileData.set({
+      businessType: answers.businessType || "",
+      primaryGoal: answers.primaryGoal || "",
+      assets: answers.assets || [],
+      timeline: answers.timeline || "",
+    });
+
+    // Update recommended blocks in real-time so footer status bar updates
+    // This is commented out to prevent premature cart updates.
+    // if (answers.businessType) {
+    //     const recBlocks = recommendations[answers.businessType] || recommendations['not-sure'];
+    //     selectedBlockIds.set(recBlocks);
+    // }
+  }
+
+  // ── Progressive Unlocking ─────────────────────────────────────────────
+  function unlockQuestion(questionNum: number, scroll = true) {
+    const next = document.querySelector(
+      `[data-question="${questionNum}"]`,
+    ) as HTMLElement;
+    if (!next) return;
+
+    // Only unlock if it was locked
+    const wasLocked = next.classList.contains("text-on-surface-variant");
+    if (wasLocked) {
+      next.classList.remove("text-on-surface-variant", "pointer-events-none");
+      if (scroll) {
+        setTimeout(() => {
+          next.scrollIntoView({ behavior: "smooth", block: "center" });
+        }, 150);
+      }
+    }
+  }
+
+  // ── Event Listeners ───────────────────────────────────────────────────
+
+  // Q1, Q2, Q4 (Radio)
+  ["q1", "q2", "q4"].forEach((q) => {
+    const inputs = document.querySelectorAll(`.${q}-option input`);
+    inputs.forEach((input) => {
+      input.addEventListener("mousedown", function (this: HTMLInputElement) {
+        // Check if already checked to allow toggle
+        if (this.checked) {
+          setTimeout(() => {
+            this.checked = false;
+            const key =
+              q === "q1"
+                ? "businessType"
+                : q === "q2"
+                  ? "primaryGoal"
+                  : "timeline";
+            (answers as any)[key] = null;
+            if (q === "q1") selectedBlockIds.set([]); // Clear footer if business type cleared
+            persist();
+            updateProgressBar();
+          }, 0);
+        }
+      });
+
+      input.addEventListener("change", (e) => {
+        const val = (e.target as HTMLInputElement).value;
+        if (q === "q1") {
+          answers.businessType = val;
+          unlockQuestion(2);
+        } else if (q === "q2") {
+          answers.primaryGoal = val;
+          unlockQuestion(3);
+        } else {
+          answers.timeline = val;
+        }
+        persist();
+        updateProgressBar();
+        maybeShowRecommendation();
+      });
+    });
+  });
+
+  // Q3: Assets (checkbox)
+  document.querySelectorAll(".q3-option input").forEach((input) => {
+    input.addEventListener("change", (e) => {
+      const target = e.target as HTMLInputElement;
+      const val = target.value;
+      const checked = target.checked;
+
+      if (val === "has-nothing" && checked) {
+        answers.assets = ["has-nothing"];
+        document.querySelectorAll(".q3-option input").forEach((cb) => {
+          const checkbox = cb as HTMLInputElement;
+          if (checkbox.value !== "has-nothing") checkbox.checked = false;
+        });
+      } else if (checked) {
+        answers.assets = answers.assets.filter((a) => a !== "has-nothing");
+        const nothingCb = document.querySelector(
+          '.q3-option input[value="has-nothing"]',
+        ) as HTMLInputElement;
+        if (nothingCb) nothingCb.checked = false;
+        if (!answers.assets.includes(val)) answers.assets.push(val);
+      } else {
+        answers.assets = answers.assets.filter((a) => a !== val);
+      }
+
+      persist();
+      updateProgressBar();
+      if (answers.assets.length > 0) unlockQuestion(4);
+      maybeShowRecommendation();
+    });
+  });
+
+  // ── UI Updates ────────────────────────────────────────────────────────
+  function updateFooterProgress(
+    answeredCount: number,
+    questionsFinished: boolean,
+    recommendationsVisible: boolean,
+  ) {
+    const footerZone = document.getElementById("footer-progress-zone");
+    if (!footerZone) return;
+
+    // Create container if it doesn't exist
+    let progressContainer = document.getElementById("footer-momentum-ui");
+    if (!progressContainer) {
+      progressContainer = document.createElement("div");
+      progressContainer.id = "footer-momentum-ui";
+      progressContainer.className =
+        "flex items-center gap-8 border-r border-on-background/10 pr-8 mr-4 animate-in fade-in slide-in-from-left-4 duration-500";
+      footerZone.prepend(progressContainer);
+    }
+
+    // Generate Pips for 4 questions
+    const pips = [1, 2, 3, 4]
+      .map((i) => {
+        const isActive = i <= answeredCount;
+        return `<div class="w-3 h-3 border-[2px] border-on-background transition-all duration-300 ${isActive ? "bg-secondary-container" : "opacity-20"}"></div>`;
+      })
+      .join("");
+
+    const funnelStep = questionsFinished ? 2 : recommendationsVisible ? 2 : 1;
+
+    progressContainer.innerHTML = `
+            <div class="flex flex-col gap-1.5">
+                <span class="text-[9px] font-black uppercase text-on-surface-variant leading-none">Your Progress</span>
+                <div class="flex gap-1">
+                    ${pips}
+                </div>
+            </div>
+            <div class="h-8 w-[1px] bg-on-background/10"></div>
+            <div class="flex flex-col">
+                <span class="text-[9px] font-black uppercase text-on-surface-variant leading-none mb-1">Funnel Step</span>
+                <div class="flex items-center gap-2">
+                    <span class="font-headline font-black text-sm uppercase tracking-tight">${funnelStep}/3</span>
+                    <span class="text-[10px] font-bold uppercase opacity-60">${questionsFinished ? "Decision" : "Profiling"}</span>
+                </div>
+            </div>
+        `;
+  }
+
+  function updateProgressBar() {
+    let answeredCount = 0;
+
+    // Q1: Business Type
+    if (answers.businessType && answers.businessType !== "") answeredCount++;
+
+    // Q2: Primary Goal
+    if (answers.primaryGoal && answers.primaryGoal !== "") answeredCount++;
+
+    // Q3: Assets (Check if they picked items OR picked "nothing")
+    if (answers.assets && answers.assets.length > 0) answeredCount++;
+
+    // Q4: Timeline
+    if (answers.timeline && answers.timeline !== "") answeredCount++;
+
+    const recommendationsVisible = !!(
+      answers.businessType && answers.primaryGoal
+    );
+    const questionsFinished = answeredCount === 4;
+
+    // Update the sticky footer indicators
+    updateFooterProgress(
+      answeredCount,
+      questionsFinished,
+      recommendationsVisible,
+    );
+
+    // Update the top bar indicators
+    const line1 = document.getElementById("progress-line-1");
+    const line2 = document.getElementById("progress-line-2");
+    const step1Num = document.getElementById("step-1-num");
+    const step1Text = document.getElementById("step-1-text");
+    const step2 = document.getElementById("step-2-ui");
+    const step3 = document.getElementById("step-3-ui");
+
+    if (step1Num) {
+      if (questionsFinished) {
+        step1Num.innerHTML =
+          '<span class="material-symbols-outlined text-sm" style="font-variation-settings:\'wght\' 900;">check</span>';
+        step1Num.classList.add("bg-secondary-container");
+      } else {
+        step1Num.textContent = "1";
+        step1Num.classList.add("bg-secondary-container");
+      }
+    }
+    if (step1Text) {
+      step1Text.textContent = questionsFinished
+        ? "Questions Done"
+        : `Questions (${answeredCount}/4)`;
+    }
+
+    if (line1) {
+      const line1Progress = Math.min(answeredCount, 2);
+      const percent = (line1Progress / 2) * 100 - 100;
+      line1.style.transform = `translateX(${percent}%)`;
+    }
+
+    if (step2) {
+      step2.classList.toggle("opacity-30", !recommendationsVisible);
+      const num = document.getElementById("step-2-num");
+      if (num) {
+        if (questionsFinished && recommendationsVisible) {
+          num.innerHTML =
+            '<span class="material-symbols-outlined text-sm" style="font-variation-settings:\'wght\' 900;">check</span>';
+          num.classList.add("bg-secondary-container");
+        } else {
+          num.textContent = "2";
+          num.classList.toggle(
+            "bg-secondary-container",
+            !!recommendationsVisible,
+          );
+        }
+      }
+    }
+
+    if (line2) {
+      const line2Progress = Math.max(0, answeredCount - 2);
+      const percent = (line2Progress / 2) * 100 - 100;
+      line2.style.transform = `translateX(${percent}%)`;
+    }
+
+    if (step3) {
+      step3.classList.toggle("opacity-30", !questionsFinished);
+      const num = document.getElementById("step-3-num");
+      if (num)
+        num.classList.toggle("bg-secondary-container", !!questionsFinished);
+    }
+  }
+
+  function maybeShowRecommendation(scroll = true) {
+    if (!answers.businessType || !answers.primaryGoal) {
+      document.getElementById("recommendation")?.classList.add("hidden");
+      return;
+    }
+
+    const recEl = document.getElementById("recommendation");
+    if (!recEl) return;
+
+    const wasHidden = recEl.classList.contains("hidden");
+    recEl.classList.remove("hidden");
+
+    if (wasHidden && scroll) {
+      setTimeout(
+        () => recEl.scrollIntoView({ behavior: "smooth", block: "start" }),
+        300,
+      );
+    }
+
+    // Update Summary
+    const summaryEl = document.getElementById("profile-summary");
+    if (summaryEl) {
+      const items = [
+        {
+          icon: "business_center",
+          label: "Type",
+          value: BUSINESS_LABELS[answers.businessType] || "...",
+        },
+        {
+          icon: "flag",
+          label: "Goal",
+          value: GOAL_LABELS[answers.primaryGoal] || "...",
+        },
+        {
+          icon: "schedule",
+          label: "Timeline",
+          value: answers.timeline ? TIMELINE_LABELS[answers.timeline] : "...",
+        },
+      ];
+
+      summaryEl.innerHTML = items
+        .map(
+          (item) => `
+                <div class="flex items-start gap-3 bg-white/5 border border-white/10 p-4">
+                    <span class="material-symbols-outlined text-secondary-container text-xl shrink-0">${item.icon}</span>
+                    <div>
+                        <p class="text-[10px] font-black uppercase tracking-widest text-on-surface-variant mb-1">${item.label}</p>
+                        <p class="font-headline font-black text-sm uppercase tracking-tight">${item.value}</p>
+                    </div>
+                </div>
+            `,
+        )
+        .join("");
+    }
+
+    // Update Preview Pills
+    const previewEl = document.getElementById("rec-blocks-preview");
+    const recBlocks =
+      recommendations[answers.businessType] || recommendations["not-sure"];
+    if (previewEl) {
+      previewEl.innerHTML = recBlocks
+        .map(
+          (id: string) => `
+                <span class="inline-flex items-center gap-1 px-3 py-1.5 bg-white/10 border border-white/15 text-[11px] font-black uppercase tracking-wide">
+                    <span class="material-symbols-outlined text-secondary-container text-xs">check</span>
+                    ${blockLabels[id] || id}
+                </span>
+            `,
+        )
+        .join("");
+    }
+  }
+
+  // Final Actions
+  document
+    .getElementById("go-to-configurator")
+    ?.addEventListener("click", () => {
+      const recBlocks =
+        recommendations[answers.businessType || "not-sure"] ||
+        recommendations["not-sure"];
+      selectedBlockIds.set(recBlocks);
+      window.location.href = "/configurator";
+    });
+
+  document
+    .getElementById("start-from-scratch")
+    ?.addEventListener("click", () => {
+      selectedBlockIds.set([]);
+      profileData.set({
+        businessType: "",
+        primaryGoal: "",
+        assets: [],
+        timeline: "",
+      });
+      window.location.href = "/configurator";
+    });
+
+  init();
+</script>

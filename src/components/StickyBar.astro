@@ -1,0 +1,97 @@
+---
+export interface Props {
+  ctaLabel: string;
+  ctaHref: string;
+  showLog?: boolean;
+}
+
+const { ctaLabel, ctaHref, showLog = false } = Astro.props;
+---
+
+<div
+  class="fixed bottom-0 left-0 right-0 bg-on-background text-white border-t-[4px] border-white z-[100]"
+>
+  <div
+    class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between gap-4"
+  >
+    <div class="flex items-center gap-8">
+      <div>
+        <p
+          class="text-[10px] font-black uppercase tracking-[0.2em] opacity-50 mb-1"
+        >
+          Your running total
+        </p>
+        <div class="flex items-baseline gap-2">
+          <span
+            id="sticky-total-display"
+            class="text-2xl md:text-3xl font-headline font-black text-secondary-container"
+            >€0</span
+          >
+          <span
+            class="text-[9px] font-bold text-on-surface-variant uppercase hidden sm:inline"
+            >estimated</span
+          >
+        </div>
+      </div>
+      <div class="h-10 w-[2px] bg-white/10 hidden sm:block"></div>
+      <div class="hidden sm:block">
+        <p
+          class="text-[10px] font-black uppercase tracking-[0.2em] opacity-50 mb-1"
+        >
+          Items ticked
+        </p>
+        <p
+          id="sticky-count-display"
+          class="font-headline font-bold text-sm uppercase tracking-tight text-white"
+        >
+          Nothing selected yet
+        </p>
+      </div>
+      {
+        showLog && (
+          <>
+            <div class="h-10 w-[2px] bg-white/10 hidden lg:block" />
+            <div class="hidden lg:flex items-center gap-3">
+              <span class="w-1.5 h-1.5 bg-secondary-container animate-pulse rounded-full" />
+              <p
+                id="footer-build-log"
+                class="font-mono text-[11px] text-secondary-container uppercase tracking-tight truncate max-w-[200px]"
+              >
+                Ready to build...
+              </p>
+            </div>
+          </>
+        )
+      }
+    </div>
+    <a
+      href={ctaHref}
+      class="bg-secondary-container text-on-background px-6 md:px-8 py-3 font-headline font-black uppercase text-xs md:text-sm border-[3px] border-white hard-shadow hover:-translate-y-1 hover:-translate-x-1 active:translate-x-0 active:translate-y-0 active:shadow-none transition-all whitespace-nowrap"
+    >
+      {ctaLabel}
+    </a>
+  </div>
+</div>
+
+<script>
+  import { totalPrice, selectedBlockIds } from "../store/cart";
+
+  const stickyTotal = document.getElementById("sticky-total-display");
+  const stickyCount = document.getElementById("sticky-count-display");
+
+  if (stickyTotal) {
+    totalPrice.subscribe((price) => {
+      stickyTotal.textContent = `€${price.toLocaleString()}`;
+    });
+  }
+
+  if (stickyCount) {
+    selectedBlockIds.subscribe((ids) => {
+      const n = ids.length;
+      stickyCount.textContent =
+        n === 0
+          ? "Nothing selected yet"
+          : `${n} item${n === 1 ? "" : "s"} selected`;
+    });
+  }
+</script>

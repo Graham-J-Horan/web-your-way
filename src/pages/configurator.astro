@@ -1,0 +1,1571 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import StickyBar from "../components/StickyBar.astro";
+import { BLOCK_META } from "../store/blockRegistry";
+import { BLOCKS } from "../store/cart";
+
+const section01 = [
+  BLOCKS["hero-section"],
+  BLOCKS["trust-badges"],
+  BLOCKS["service-highlights"],
+];
+const section02 = [
+  BLOCKS["fleet-showcase"],
+  BLOCKS["pricing-table"],
+  BLOCKS["services-reservation"],
+  BLOCKS["portfolio-grid"],
+];
+const section03 = [
+  BLOCKS["google-reviews"],
+  BLOCKS["faq-accordion"],
+  BLOCKS["location-maps"],
+  BLOCKS["contact-form"],
+  BLOCKS["contact-form-alt"],
+];
+const section04 = [
+  BLOCKS["blog-engine"],
+  BLOCKS["ai-personalization"],
+  BLOCKS["whatsapp-strategy"],
+  BLOCKS["performance-optimization"],
+  BLOCKS["sticky-mobile-cta"],
+];
+
+const SECTIONS = [
+  {
+    id: "section-01",
+    num: "01",
+    name: "First impression",
+    desc: "What visitors see and feel in the first 8 seconds.",
+    blocks: section01,
+  },
+  {
+    id: "section-02",
+    num: "02",
+    name: "What you offer",
+    desc: "Your products, services and pricing — front and centre.",
+    blocks: section02,
+  },
+  {
+    id: "section-03",
+    num: "03",
+    name: "Build trust",
+    desc: "Reviews, answers and contact — close the sale.",
+    blocks: section03,
+  },
+  {
+    id: "section-04",
+    num: "04",
+    name: "Power it up",
+    desc: "Advanced tools for businesses ready to go further.",
+    blocks: section04,
+  },
+];
+
+const includedBlocks = [
+  BLOCKS["responsive-layout"],
+  BLOCKS["ssg-engine"],
+  BLOCKS["responsive-navbar"],
+  BLOCKS["footer-complex"],
+  BLOCKS["seo-supremacy"],
+  BLOCKS["brand-system"],
+  BLOCKS["discovery-ux"],
+];
+
+const getBlockMeta = (id: string) => {
+  return (
+    BLOCK_META[id as keyof typeof BLOCK_META] || {
+      icon: "help",
+      label: "Block",
+      description: "",
+      why: "",
+    }
+  );
+};
+---
+
+<Layout>
+  <div class="fixed inset-0 grainy-overlay z-50 pointer-events-none opacity-5">
+  </div>
+  <Header showDropdown={false} />
+
+  <main
+    id="main-content"
+    class="pt-32 pb-48 px-4 md:px-12 max-w-7xl mx-auto text-on-background"
+  >
+    <!-- Page header -->
+    <section class="mb-20">
+      <div class="relative inline-block">
+        <h1
+          class="text-6xl md:text-8xl font-black font-headline uppercase leading-[0.85] tracking-tighter relative z-10"
+        >
+          Build Your<br />Website
+        </h1>
+        <div
+          class="absolute -right-4 -bottom-2 bg-secondary-container w-full h-1/2 -z-0"
+        >
+        </div>
+      </div>
+      <p class="mt-8 text-lg font-bold max-w-2xl opacity-70 leading-relaxed">
+        Tick what you need. Leave out what you don't. Your running total updates
+        as you go — and the diagram on the right tracks every selection in real
+        time.
+      </p>
+    </section>
+
+    <!-- Sticky section nav -->
+    <nav
+      class="sticky top-20 md:top-24 z-40 bg-surface/95 dark:bg-on-background/95 backdrop-blur-md border-b-[3px] border-on-background dark:border-white py-3 md:py-4 overflow-hidden mb-12 md:mb-16"
+    >
+      <div class="relative px-4 md:px-1">
+        <div
+          id="section-nav-scroll"
+          class="flex gap-6 md:gap-10 overflow-x-auto no-scrollbar relative py-1"
+        >
+          {
+            SECTIONS.map((s) => (
+              <a
+                href={`#${s.id}`}
+                class="section-nav-link font-headline font-black text-[10px] md:text-xs uppercase tracking-widest text-on-background/40 dark:text-white/40 hover:text-on-background dark:hover:text-white transition-all shrink-0 pb-1"
+              >
+                {s.num}. {s.name}
+              </a>
+            ))
+          }
+          <a
+            href="#section-included"
+            class="section-nav-link font-headline font-black text-[10px] md:text-xs uppercase tracking-widest text-on-background/40 dark:text-white/40 hover:text-on-background dark:hover:text-white transition-all shrink-0 pb-1"
+          >
+            Included
+          </a>
+          <div
+            id="nav-indicator"
+            class="absolute bottom-0 h-[3px] bg-primary-container transition-all duration-300 ease-out opacity-0 pointer-events-none"
+          >
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <form id="configurator-form">
+      <!-- ══════════════════════════════════════════════════════════════
+                 PAIRED GRID — left cards + right schematic
+                 This wrapper div has id="sections-grid". JS measures its
+                 bottom edge and stops the right column sticking at that point.
+                 The always-included section and CTA live OUTSIDE this grid.
+            ══════════════════════════════════════════════════════════════ -->
+      <div
+        id="sections-grid"
+        class="grid grid-cols-1 lg:grid-cols-12 gap-x-12 items-start"
+      >
+        <!-- LEFT: four selectable sections only -->
+        <div class="lg:col-span-7 space-y-24" id="sections-left">
+          {
+            SECTIONS.map((section) => (
+              <section
+                id={section.id}
+                class="scroll-mt-40"
+                data-section-id={section.id}
+              >
+                <div class="flex items-center gap-4 mb-4">
+                  <div class="w-12 h-12 bg-on-background text-white flex items-center justify-center font-black text-2xl shrink-0">
+                    {section.num}
+                  </div>
+                  <h2 class="text-4xl font-black font-headline uppercase tracking-tighter">
+                    {section.name}
+                  </h2>
+                  <div class="flex-grow h-[3px] bg-on-background hidden md:block" />
+                </div>
+                <p class="text-sm font-medium opacity-60 mb-10 pl-16 leading-relaxed">
+                  {section.desc}
+                </p>
+
+                <fieldset class="space-y-4">
+                  <legend class="sr-only">
+                    Section {section.num}: {section.name}
+                  </legend>
+                  {section.blocks.map((block) => {
+                    const meta = getBlockMeta(block.id);
+                    return (
+                      <label
+                        class="group relative flex items-start gap-5 p-6 bg-surface border-[3px] border-on-background has-[:checked]:border-primary-container has-[:checked]:bg-secondary-container/5 hard-shadow-sm hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[6px_6px_0px_0px_rgba(28,27,27,1)] transition-all cursor-pointer"
+                        data-block-id={block.id}
+                      >
+                        <input
+                          class="sr-only block-checkbox"
+                          type="checkbox"
+                          data-id={block.id}
+                        />
+
+                        <div class="w-10 h-10 border-[3px] border-on-background flex-shrink-0 flex items-center justify-center group-has-[:checked]:bg-secondary-container transition-colors mt-0.5">
+                          <span
+                            class="material-symbols-outlined text-on-background hidden group-has-[:checked]:block"
+                            style="font-variation-settings:'wght' 900;"
+                          >
+                            check
+                          </span>
+                        </div>
+
+                        <div class="w-9 h-9 flex-shrink-0 flex items-center justify-center mt-0.5">
+                          <span class="material-symbols-outlined text-xl opacity-20 group-has-[:checked]:opacity-70 group-has-[:checked]:text-primary-container transition-all">
+                            {meta.icon}
+                          </span>
+                        </div>
+
+                        <div class="flex-grow min-w-0">
+                          <div class="flex justify-between items-start gap-4 mb-2">
+                            <h3 class="text-lg font-black font-headline uppercase tracking-tighter leading-tight">
+                              {meta.label}
+                            </h3>
+                            <span class="font-mono text-lg font-bold tracking-tight shrink-0 opacity-75">
+                              €{block.price}
+                            </span>
+                          </div>
+                          <p class="text-sm font-medium opacity-55 leading-relaxed mb-3">
+                            {meta.description}
+                          </p>
+                          <div class="border-l-[3px] border-primary-container pl-3 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity">
+                            <p class="text-xs font-bold text-on-surface-variant leading-relaxed italic">
+                              {meta.why}
+                            </p>
+                          </div>
+                        </div>
+                      </label>
+                    );
+                  })}
+                </fieldset>
+              </section>
+            ))
+          }
+        </div>
+        <!-- END LEFT -->
+
+        <!-- RIGHT: schematic — sticky, expires when sections-grid ends -->
+        <!--
+                    position:sticky top:6rem keeps the panel in view while
+                    the left cards scroll. Because this column lives inside
+                    sections-grid (which ends before always-included), the
+                    browser's native sticky expiry stops it exactly at the
+                    right point — no JS needed for the expiry, just the
+                    correct DOM boundary.
+                -->
+        <div
+          class="hidden lg:flex lg:col-span-5 flex-col gap-4 self-start"
+          id="schematic-col"
+          style="position: sticky; top: 7rem;"
+        >
+          <div
+            class="text-[10px] font-black uppercase tracking-[0.25em] text-on-surface-variant text-center"
+          >
+            Your page — tracking live
+          </div>
+
+          <!--
+                        Panel height is intentionally NOT fixed in px.
+                        Instead we use aspect-ratio so the panel is always
+                        proportional to its column width.
+                        The SVG viewBox (200 × 160 visible window) fills this
+                        proportionally — the panel is as tall as it needs to be.
+
+                        aspect-ratio: 200/160 = 1.25 → panel height = col width × 0.8
+                        At a typical lg breakpoint (~400px column) that gives ~320px.
+                        This is deliberately shorter than the left column so the
+                        sticky panel fits entirely in the viewport and the user
+                        can always see the schematic while selecting.
+
+                        If you prefer a taller panel, change to 200/200 (square)
+                        or 200/240. The SVG viewBox VIEW_H in the script controls
+                        how much of the illustration is visible at once.
+                    -->
+          <div
+            id="schematic-panel"
+            class="border-[3px] border-on-background/20 overflow-hidden bg-white relative w-full"
+            style="aspect-ratio: 200 / 200;"
+          >
+            <div
+              class="absolute inset-x-0 top-0 h-10 bg-gradient-to-b from-white/50 to-transparent z-10 pointer-events-none"
+            >
+            </div>
+            <div
+              class="absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-white/50 to-transparent z-10 pointer-events-none"
+            >
+            </div>
+
+            <svg
+              id="page-schematic"
+              viewBox="0 0 200 160"
+              xmlns="http://www.w3.org/2000/svg"
+              width="100%"
+              height="100%"
+              preserveAspectRatio="xMidYMid meet"
+              style="display:block;"
+            >
+              <rect x="0" y="0" width="200" height="600" fill="#FAFAFA"></rect>
+
+              <rect
+                id="highlight-band"
+                x="0"
+                y="24"
+                width="200"
+                height="40"
+                fill="#C1F100"
+                opacity="0"></rect>
+
+              <!-- NAVBAR always active -->
+              <g id="bp-responsive-navbar" style="opacity:1;">
+                <rect x="0" y="0" width="200" height="24" fill="#1E2A4A"></rect>
+                <rect
+                  x="8"
+                  y="7"
+                  width="22"
+                  height="10"
+                  rx="1"
+                  fill="rgba(252,183,20,0.85)"></rect>
+                <rect
+                  x="88"
+                  y="10"
+                  width="16"
+                  height="3"
+                  rx="1"
+                  fill="rgba(255,255,255,0.3)"></rect>
+                <rect
+                  x="110"
+                  y="10"
+                  width="16"
+                  height="3"
+                  rx="1"
+                  fill="rgba(255,255,255,0.3)"></rect>
+                <rect
+                  x="132"
+                  y="10"
+                  width="16"
+                  height="3"
+                  rx="1"
+                  fill="rgba(255,255,255,0.3)"></rect>
+                <rect x="156" y="7" width="36" height="10" rx="2" fill="#9C1F2D"
+                ></rect>
+              </g>
+
+              <!-- SECTION 01 -->
+              <g id="bp-hero-section" style="opacity:0.12;">
+                <rect x="0" y="24" width="200" height="66" fill="#F3F4F6"
+                ></rect>
+                <rect x="10" y="34" width="90" height="8" rx="1" fill="#1E2A4A"
+                ></rect>
+                <rect
+                  x="10"
+                  y="46"
+                  width="72"
+                  height="7"
+                  rx="1"
+                  fill="#1E2A4A"
+                  opacity="0.6"></rect>
+                <rect x="10" y="57" width="56" height="3" rx="1" fill="#9CA3AF"
+                ></rect>
+                <rect x="10" y="63" width="44" height="3" rx="1" fill="#9CA3AF"
+                ></rect>
+                <rect x="10" y="72" width="44" height="12" rx="2" fill="#9C1F2D"
+                ></rect>
+                <rect
+                  x="116"
+                  y="28"
+                  width="76"
+                  height="56"
+                  rx="2"
+                  fill="#D1D5DB"></rect>
+                <rect
+                  x="124"
+                  y="38"
+                  width="32"
+                  height="22"
+                  rx="1"
+                  fill="#9CA3AF"></rect>
+                <circle cx="162" cy="52" r="7" fill="white" opacity="0.55"
+                ></circle>
+              </g>
+              <g id="bp-trust-badges" style="opacity:0.12;">
+                <rect x="0" y="90" width="200" height="13" fill="#9C1F2D"
+                ></rect>
+                <rect
+                  x="6"
+                  y="94"
+                  width="40"
+                  height="4"
+                  rx="1"
+                  fill="rgba(255,255,255,0.45)"></rect>
+                <rect
+                  x="54"
+                  y="94"
+                  width="40"
+                  height="4"
+                  rx="1"
+                  fill="rgba(255,255,255,0.45)"></rect>
+                <rect
+                  x="102"
+                  y="94"
+                  width="40"
+                  height="4"
+                  rx="1"
+                  fill="rgba(255,255,255,0.45)"></rect>
+                <rect
+                  x="150"
+                  y="94"
+                  width="40"
+                  height="4"
+                  rx="1"
+                  fill="rgba(255,255,255,0.45)"></rect>
+              </g>
+              <g id="bp-service-highlights" style="opacity:0.12;">
+                <rect x="0" y="103" width="200" height="37" fill="#F9FAFB"
+                ></rect>
+                <rect
+                  x="6"
+                  y="111"
+                  width="56"
+                  height="22"
+                  rx="2"
+                  fill="white"
+                  stroke="#E5E7EB"
+                  stroke-width="0.5"></rect>
+                <rect
+                  x="72"
+                  y="111"
+                  width="56"
+                  height="22"
+                  rx="2"
+                  fill="white"
+                  stroke="#E5E7EB"
+                  stroke-width="0.5"></rect>
+                <rect
+                  x="138"
+                  y="111"
+                  width="56"
+                  height="22"
+                  rx="2"
+                  fill="white"
+                  stroke="#E5E7EB"
+                  stroke-width="0.5"></rect>
+                <circle cx="18" cy="120" r="4" fill="#FCB714"></circle>
+                <circle cx="84" cy="120" r="4" fill="#FCB714"></circle>
+                <circle cx="150" cy="120" r="4" fill="#FCB714"></circle>
+                <rect
+                  x="26"
+                  y="118"
+                  width="28"
+                  height="2.5"
+                  rx="1"
+                  fill="#D1D5DB"></rect>
+                <rect
+                  x="92"
+                  y="118"
+                  width="28"
+                  height="2.5"
+                  rx="1"
+                  fill="#D1D5DB"></rect>
+                <rect
+                  x="158"
+                  y="118"
+                  width="28"
+                  height="2.5"
+                  rx="1"
+                  fill="#D1D5DB"></rect>
+                <rect x="26" y="123" width="20" height="2" rx="1" fill="#E5E7EB"
+                ></rect>
+                <rect x="92" y="123" width="18" height="2" rx="1" fill="#E5E7EB"
+                ></rect>
+                <rect
+                  x="158"
+                  y="123"
+                  width="22"
+                  height="2"
+                  rx="1"
+                  fill="#E5E7EB"></rect>
+              </g>
+
+              <!-- SECTION 02 -->
+              <g id="bp-fleet-showcase" style="opacity:0.12;">
+                <rect x="0" y="140" width="200" height="50" fill="white"></rect>
+                <rect x="56" y="145" width="88" height="4" rx="1" fill="#D1D5DB"
+                ></rect>
+                <rect
+                  x="6"
+                  y="153"
+                  width="56"
+                  height="30"
+                  rx="2"
+                  fill="#F3F4F6"
+                  stroke="#E5E7EB"
+                  stroke-width="0.5"></rect>
+                <rect
+                  x="72"
+                  y="153"
+                  width="56"
+                  height="30"
+                  rx="2"
+                  fill="#1E2A4A"></rect>
+                <rect
+                  x="138"
+                  y="153"
+                  width="56"
+                  height="30"
+                  rx="2"
+                  fill="#F3F4F6"
+                  stroke="#E5E7EB"
+                  stroke-width="0.5"></rect>
+                <rect
+                  x="10"
+                  y="156"
+                  width="48"
+                  height="16"
+                  rx="1"
+                  fill="#E5E7EB"></rect>
+                <rect
+                  x="76"
+                  y="156"
+                  width="48"
+                  height="16"
+                  rx="1"
+                  fill="rgba(255,255,255,0.1)"></rect>
+                <rect
+                  x="142"
+                  y="156"
+                  width="48"
+                  height="16"
+                  rx="1"
+                  fill="#E5E7EB"></rect>
+              </g>
+              <g id="bp-pricing-table" style="opacity:0.12;">
+                <rect x="0" y="190" width="200" height="55" fill="#F9FAFB"
+                ></rect>
+                <rect x="56" y="195" width="88" height="4" rx="1" fill="#D1D5DB"
+                ></rect>
+                <rect
+                  x="6"
+                  y="203"
+                  width="56"
+                  height="36"
+                  rx="2"
+                  fill="white"
+                  stroke="#E5E7EB"
+                  stroke-width="0.5"></rect>
+                <rect
+                  x="72"
+                  y="199"
+                  width="56"
+                  height="42"
+                  rx="2"
+                  fill="#1E2A4A"></rect>
+                <rect
+                  x="138"
+                  y="203"
+                  width="56"
+                  height="36"
+                  rx="2"
+                  fill="white"
+                  stroke="#E5E7EB"
+                  stroke-width="0.5"></rect>
+                <rect x="78" y="196" width="44" height="5" rx="1" fill="#FCB714"
+                ></rect>
+                <rect x="14" y="212" width="28" height="6" rx="1" fill="#D1D5DB"
+                ></rect>
+                <rect
+                  x="80"
+                  y="208"
+                  width="28"
+                  height="8"
+                  rx="1"
+                  fill="rgba(255,255,255,0.3)"></rect>
+                <rect
+                  x="146"
+                  y="212"
+                  width="28"
+                  height="6"
+                  rx="1"
+                  fill="#D1D5DB"></rect>
+                <rect x="12" y="229" width="44" height="7" rx="2" fill="#E5E7EB"
+                ></rect>
+                <rect x="78" y="232" width="44" height="8" rx="2" fill="#25D366"
+                ></rect>
+                <rect
+                  x="144"
+                  y="229"
+                  width="44"
+                  height="7"
+                  rx="2"
+                  fill="#E5E7EB"></rect>
+              </g>
+              <g id="bp-services-reservation" style="opacity:0.12;">
+                <rect x="0" y="245" width="200" height="40" fill="white"></rect>
+                <rect x="0" y="245" width="94" height="40" fill="#1E2A4A"
+                ></rect>
+                <rect x="102" y="252" width="8" height="8" rx="1" fill="#9C1F2D"
+                ></rect>
+                <rect
+                  x="116"
+                  y="254"
+                  width="56"
+                  height="3"
+                  rx="1"
+                  fill="#D1D5DB"></rect>
+                <rect x="102" y="264" width="8" height="8" rx="1" fill="#9C1F2D"
+                ></rect>
+                <rect
+                  x="116"
+                  y="266"
+                  width="44"
+                  height="3"
+                  rx="1"
+                  fill="#D1D5DB"></rect>
+                <rect x="102" y="276" width="8" height="8" rx="1" fill="#9C1F2D"
+                ></rect>
+                <rect
+                  x="116"
+                  y="278"
+                  width="50"
+                  height="3"
+                  rx="1"
+                  fill="#D1D5DB"></rect>
+              </g>
+              <g id="bp-portfolio-grid" style="opacity:0.12;">
+                <rect x="0" y="285" width="200" height="45" fill="#F9FAFB"
+                ></rect>
+                <rect x="56" y="289" width="88" height="4" rx="1" fill="#D1D5DB"
+                ></rect>
+                <rect x="6" y="297" width="58" height="28" rx="1" fill="#E5E7EB"
+                ></rect>
+                <rect
+                  x="70"
+                  y="297"
+                  width="86"
+                  height="13"
+                  rx="1"
+                  fill="#D1D5DB"></rect>
+                <rect
+                  x="70"
+                  y="312"
+                  width="86"
+                  height="13"
+                  rx="1"
+                  fill="#D1D5DB"></rect>
+                <rect
+                  x="160"
+                  y="297"
+                  width="34"
+                  height="28"
+                  rx="1"
+                  fill="#1E2A4A"></rect>
+              </g>
+
+              <!-- SECTION 03 -->
+              <g id="bp-google-reviews" style="opacity:0.12;">
+                <rect x="0" y="330" width="200" height="42" fill="#1E2A4A"
+                ></rect>
+                <rect
+                  x="56"
+                  y="334"
+                  width="88"
+                  height="3"
+                  rx="1"
+                  fill="rgba(252,183,20,0.35)"></rect>
+                <rect
+                  x="6"
+                  y="341"
+                  width="56"
+                  height="24"
+                  rx="2"
+                  fill="rgba(255,255,255,0.06)"></rect>
+                <rect
+                  x="72"
+                  y="341"
+                  width="56"
+                  height="24"
+                  rx="2"
+                  fill="rgba(255,255,255,0.06)"></rect>
+                <rect
+                  x="138"
+                  y="341"
+                  width="56"
+                  height="24"
+                  rx="2"
+                  fill="rgba(255,255,255,0.06)"></rect>
+                <rect
+                  x="10"
+                  y="344"
+                  width="28"
+                  height="3"
+                  rx="1"
+                  fill="rgba(252,183,20,0.55)"></rect>
+                <rect
+                  x="76"
+                  y="344"
+                  width="28"
+                  height="3"
+                  rx="1"
+                  fill="rgba(252,183,20,0.55)"></rect>
+                <rect
+                  x="142"
+                  y="344"
+                  width="28"
+                  height="3"
+                  rx="1"
+                  fill="rgba(252,183,20,0.55)"></rect>
+                <rect
+                  x="10"
+                  y="351"
+                  width="44"
+                  height="2.5"
+                  rx="1"
+                  fill="rgba(255,255,255,0.2)"></rect>
+                <rect
+                  x="10"
+                  y="356"
+                  width="36"
+                  height="2"
+                  rx="1"
+                  fill="rgba(255,255,255,0.12)"></rect>
+                <rect
+                  x="76"
+                  y="351"
+                  width="44"
+                  height="2.5"
+                  rx="1"
+                  fill="rgba(255,255,255,0.2)"></rect>
+                <rect
+                  x="76"
+                  y="356"
+                  width="36"
+                  height="2"
+                  rx="1"
+                  fill="rgba(255,255,255,0.12)"></rect>
+                <rect
+                  x="142"
+                  y="351"
+                  width="44"
+                  height="2.5"
+                  rx="1"
+                  fill="rgba(255,255,255,0.2)"></rect>
+                <rect
+                  x="142"
+                  y="356"
+                  width="36"
+                  height="2"
+                  rx="1"
+                  fill="rgba(255,255,255,0.12)"></rect>
+              </g>
+              <g id="bp-faq-accordion" style="opacity:0.12;">
+                <rect x="0" y="372" width="200" height="46" fill="#F9FAFB"
+                ></rect>
+                <rect x="56" y="376" width="88" height="3" rx="1" fill="#D1D5DB"
+                ></rect>
+                <rect
+                  x="6"
+                  y="384"
+                  width="188"
+                  height="9"
+                  rx="1"
+                  fill="white"
+                  stroke="#E5E7EB"
+                  stroke-width="0.5"></rect>
+                <rect
+                  x="6"
+                  y="396"
+                  width="188"
+                  height="9"
+                  rx="1"
+                  fill="white"
+                  stroke="#E5E7EB"
+                  stroke-width="0.5"></rect>
+                <rect x="6" y="408" width="188" height="4" rx="1" fill="#E5E7EB"
+                ></rect>
+                <rect x="6" y="384" width="3" height="9" fill="#9C1F2D"></rect>
+                <rect x="6" y="396" width="3" height="9" fill="#9C1F2D"></rect>
+                <rect
+                  x="187"
+                  y="387"
+                  width="5"
+                  height="3"
+                  rx="0.5"
+                  fill="#9CA3AF"></rect>
+                <rect
+                  x="187"
+                  y="399"
+                  width="5"
+                  height="3"
+                  rx="0.5"
+                  fill="#9CA3AF"></rect>
+              </g>
+              <g id="bp-location-maps" style="opacity:0.12;">
+                <rect x="0" y="418" width="200" height="37" fill="white"></rect>
+                <rect x="0" y="418" width="112" height="37" fill="#D1D5DB"
+                ></rect>
+                <line
+                  x1="0"
+                  y1="428"
+                  x2="112"
+                  y2="428"
+                  stroke="white"
+                  stroke-width="0.5"
+                  opacity="0.4"></line>
+                <line
+                  x1="0"
+                  y1="438"
+                  x2="112"
+                  y2="438"
+                  stroke="white"
+                  stroke-width="0.5"
+                  opacity="0.4"></line>
+                <line
+                  x1="37"
+                  y1="418"
+                  x2="37"
+                  y2="455"
+                  stroke="white"
+                  stroke-width="0.5"
+                  opacity="0.4"></line>
+                <line
+                  x1="74"
+                  y1="418"
+                  x2="74"
+                  y2="455"
+                  stroke="white"
+                  stroke-width="0.5"
+                  opacity="0.4"></line>
+                <circle cx="56" cy="433" r="5" fill="#9C1F2D"></circle>
+                <circle cx="56" cy="433" r="2" fill="white"></circle>
+                <rect
+                  x="118"
+                  y="422"
+                  width="66"
+                  height="4"
+                  rx="1"
+                  fill="#D1D5DB"></rect>
+                <rect
+                  x="118"
+                  y="430"
+                  width="50"
+                  height="3"
+                  rx="1"
+                  fill="#E5E7EB"></rect>
+                <rect
+                  x="118"
+                  y="437"
+                  width="56"
+                  height="3"
+                  rx="1"
+                  fill="#E5E7EB"></rect>
+                <rect
+                  x="118"
+                  y="444"
+                  width="44"
+                  height="6"
+                  rx="1"
+                  fill="#25D366"></rect>
+              </g>
+              <g id="bp-contact-form" style="opacity:0.12;">
+                <rect x="0" y="455" width="200" height="40" fill="#F9FAFB"
+                ></rect>
+                <rect x="56" y="459" width="88" height="3" rx="1" fill="#D1D5DB"
+                ></rect>
+                <rect
+                  x="6"
+                  y="467"
+                  width="88"
+                  height="7"
+                  rx="1"
+                  fill="white"
+                  stroke="#E5E7EB"
+                  stroke-width="0.5"></rect>
+                <rect
+                  x="100"
+                  y="467"
+                  width="94"
+                  height="7"
+                  rx="1"
+                  fill="white"
+                  stroke="#E5E7EB"
+                  stroke-width="0.5"></rect>
+                <rect
+                  x="6"
+                  y="478"
+                  width="152"
+                  height="7"
+                  rx="1"
+                  fill="white"
+                  stroke="#E5E7EB"
+                  stroke-width="0.5"></rect>
+                <rect
+                  x="162"
+                  y="478"
+                  width="32"
+                  height="7"
+                  rx="2"
+                  fill="#1E2A4A"></rect>
+              </g>
+              <g id="bp-contact-form-alt" style="opacity:0.12;">
+                <rect x="0" y="495" width="200" height="35" fill="white"></rect>
+                <rect x="6" y="502" width="88" height="7" rx="1" fill="#F3F4F6"
+                ></rect>
+                <rect x="6" y="513" width="88" height="7" rx="1" fill="#F3F4F6"
+                ></rect>
+                <rect
+                  x="102"
+                  y="502"
+                  width="92"
+                  height="9"
+                  rx="2"
+                  fill="#1E2A4A"></rect>
+                <rect
+                  x="102"
+                  y="514"
+                  width="92"
+                  height="9"
+                  rx="2"
+                  fill="#25D366"></rect>
+              </g>
+
+              <!-- SECTION 04 -->
+              <g id="bp-blog-engine" style="opacity:0.12;">
+                <rect x="0" y="530" width="200" height="18" fill="white"></rect>
+                <rect
+                  x="6"
+                  y="534"
+                  width="188"
+                  height="10"
+                  rx="2"
+                  fill="#F3F4F6"
+                  stroke="#E5E7EB"
+                  stroke-width="0.5"></rect>
+                <rect x="10" y="537" width="40" height="4" rx="1" fill="#D1D5DB"
+                ></rect>
+                <rect x="56" y="537" width="88" height="4" rx="1" fill="#E5E7EB"
+                ></rect>
+                <rect
+                  x="150"
+                  y="537"
+                  width="28"
+                  height="4"
+                  rx="1"
+                  fill="#9CA3AF"></rect>
+              </g>
+              <g id="bp-ai-personalization" style="opacity:0.12;">
+                <rect x="0" y="548" width="200" height="10" fill="#F9FAFB"
+                ></rect>
+                <rect
+                  x="6"
+                  y="551"
+                  width="56"
+                  height="5"
+                  rx="2.5"
+                  fill="#7F77DD"></rect>
+                <rect
+                  x="68"
+                  y="551"
+                  width="56"
+                  height="5"
+                  rx="2.5"
+                  fill="#D1D5DB"></rect>
+                <rect
+                  x="130"
+                  y="551"
+                  width="56"
+                  height="5"
+                  rx="2.5"
+                  fill="#D1D5DB"></rect>
+              </g>
+              <g id="bp-whatsapp-strategy" style="opacity:0.12;">
+                <rect x="0" y="558" width="200" height="8" fill="white"></rect>
+                <rect x="6" y="561" width="24" height="4" rx="2" fill="#25D366"
+                ></rect>
+                <rect
+                  x="36"
+                  y="562"
+                  width="60"
+                  height="2.5"
+                  rx="1"
+                  fill="#E5E7EB"></rect>
+              </g>
+              <g id="bp-performance-optimization" style="opacity:0.12;">
+                <rect x="0" y="566" width="200" height="7" fill="#F9FAFB"
+                ></rect>
+                <rect
+                  x="6"
+                  y="569"
+                  width="14"
+                  height="2.5"
+                  rx="1"
+                  fill="#639922"></rect>
+                <rect
+                  x="26"
+                  y="569"
+                  width="14"
+                  height="2.5"
+                  rx="1"
+                  fill="#639922"></rect>
+                <rect
+                  x="46"
+                  y="569"
+                  width="14"
+                  height="2.5"
+                  rx="1"
+                  fill="#639922"></rect>
+                <rect
+                  x="66"
+                  y="569"
+                  width="14"
+                  height="2.5"
+                  rx="1"
+                  fill="#639922"></rect>
+              </g>
+
+              <!-- FOOTER always active -->
+              <g id="bp-footer-complex" style="opacity:1;">
+                <rect x="0" y="573" width="200" height="27" fill="#1E2A4A"
+                ></rect>
+                <rect
+                  x="8"
+                  y="579"
+                  width="22"
+                  height="3"
+                  rx="1"
+                  fill="rgba(252,183,20,0.5)"></rect>
+                <rect
+                  x="8"
+                  y="585"
+                  width="16"
+                  height="2"
+                  rx="1"
+                  fill="rgba(255,255,255,0.15)"></rect>
+                <rect
+                  x="58"
+                  y="579"
+                  width="22"
+                  height="3"
+                  rx="1"
+                  fill="rgba(252,183,20,0.5)"></rect>
+                <rect
+                  x="58"
+                  y="585"
+                  width="16"
+                  height="2"
+                  rx="1"
+                  fill="rgba(255,255,255,0.15)"></rect>
+                <rect
+                  x="108"
+                  y="579"
+                  width="22"
+                  height="3"
+                  rx="1"
+                  fill="rgba(252,183,20,0.5)"></rect>
+                <rect
+                  x="108"
+                  y="585"
+                  width="16"
+                  height="2"
+                  rx="1"
+                  fill="rgba(255,255,255,0.15)"></rect>
+                <rect
+                  x="158"
+                  y="579"
+                  width="22"
+                  height="3"
+                  rx="1"
+                  fill="rgba(252,183,20,0.5)"></rect>
+                <circle cx="162" cy="588" r="3" fill="rgba(255,255,255,0.1)"
+                ></circle>
+                <circle cx="170" cy="588" r="3" fill="rgba(255,255,255,0.1)"
+                ></circle>
+                <circle cx="178" cy="588" r="3" fill="rgba(255,255,255,0.1)"
+                ></circle>
+              </g>
+
+              <!-- MOBILE BAR -->
+              <g id="bp-sticky-mobile-cta" style="opacity:0.12;">
+                <rect
+                  x="0"
+                  y="573"
+                  width="200"
+                  height="27"
+                  fill="#111827"
+                  stroke="#FCB714"
+                  stroke-width="1.5"></rect>
+                <rect x="4" y="576" width="92" height="18" rx="1" fill="#9C1F2D"
+                ></rect>
+                <rect
+                  x="104"
+                  y="576"
+                  width="92"
+                  height="18"
+                  rx="1"
+                  fill="#25D366"></rect>
+                <text
+                  font-family="system-ui,sans-serif"
+                  font-size="5"
+                  fill="rgba(255,255,255,0.85)"
+                  x="50"
+                  y="586.5"
+                  text-anchor="middle">Call</text
+                >
+                <text
+                  font-family="system-ui,sans-serif"
+                  font-size="5"
+                  fill="rgba(255,255,255,0.85)"
+                  x="150"
+                  y="586.5"
+                  text-anchor="middle">WhatsApp</text
+                >
+              </g>
+
+              <rect
+                x="0"
+                y="0"
+                width="200"
+                height="600"
+                fill="none"
+                stroke="#E5E7EB"
+                stroke-width="0.5"></rect>
+            </svg>
+          </div>
+
+          <!-- Legend -->
+          <div
+            class="flex flex-col gap-2 p-4 border-[2px] border-on-background/10"
+          >
+            <div class="flex items-center gap-2">
+              <div class="w-3 h-3 shrink-0 bg-on-background"></div>
+              <span
+                class="text-[10px] font-black uppercase tracking-widest opacity-50"
+                >Selected — on your page</span
+              >
+            </div>
+            <div class="flex items-center gap-2">
+              <div
+                class="w-3 h-3 shrink-0 border border-on-background/20"
+                style="background:#E5E7EB;"
+              >
+              </div>
+              <span
+                class="text-[10px] font-black uppercase tracking-widest opacity-50"
+                >Not selected — greyed out</span
+              >
+            </div>
+            <div class="flex items-center gap-2">
+              <div class="w-3 h-3 shrink-0" style="background:#1E2A4A;"></div>
+              <span
+                class="text-[10px] font-black uppercase tracking-widest opacity-50"
+                >Always included free</span
+              >
+            </div>
+          </div>
+
+          <!-- Mini stats -->
+          <div class="grid grid-cols-2 gap-3">
+            <div class="p-4 border-[2px] border-on-background/10">
+              <p
+                class="text-[9px] font-black uppercase tracking-widest text-on-surface-variant mb-1"
+              >
+                Items added
+              </p>
+              <p
+                id="schematic-count"
+                class="font-headline font-black text-2xl tracking-tighter"
+              >
+                0
+              </p>
+            </div>
+            <div class="p-4 border-[2px] border-on-background/10">
+              <p
+                class="text-[9px] font-black uppercase tracking-widest text-on-surface-variant mb-1"
+              >
+                Your estimate
+              </p>
+              <p
+                id="schematic-total"
+                class="font-headline font-black text-2xl tracking-tighter text-primary-container"
+              >
+                €0
+              </p>
+            </div>
+          </div>
+        </div>
+        <!-- END RIGHT -->
+      </div>
+      <!-- END sections-grid -->
+
+      <!-- ══════════════════════════════════════════════════════════════
+                 ALWAYS INCLUDED — full width, outside the paired grid
+                 The right schematic column has already expired here.
+            ══════════════════════════════════════════════════════════════ -->
+      <section
+        id="section-included"
+        class="scroll-mt-40 mt-24 pt-20 border-t-[3px] border-on-background/10"
+      >
+        <div class="flex items-center gap-4 mb-4">
+          <div
+            class="w-12 h-12 bg-secondary-container text-on-background flex items-center justify-center shrink-0"
+          >
+            <span
+              class="material-symbols-outlined font-black"
+              style="font-variation-settings:'wght' 900;">check_circle</span
+            >
+          </div>
+          <h2
+            class="text-4xl font-black font-headline uppercase tracking-tighter"
+          >
+            Always included
+          </h2>
+          <div class="flex-grow h-[3px] bg-on-background hidden md:block"></div>
+        </div>
+        <p
+          class="text-sm font-medium opacity-60 mb-10 pl-16 leading-relaxed max-w-3xl"
+        >
+          Every build includes these foundations at no extra charge — the
+          professional baseline that underpins everything else. You don't tick
+          them. They're already in.
+        </p>
+        <div
+          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
+        >
+          {
+            includedBlocks.map((block) => {
+              const meta = getBlockMeta(block.id);
+              return (
+                <div class="relative flex items-start gap-4 p-5 bg-on-background text-white border-[3px] border-on-background overflow-hidden">
+                  <div class="grainy-overlay absolute inset-0 opacity-5 pointer-events-none" />
+                  <span class="material-symbols-outlined text-xl text-secondary-container shrink-0 mt-0.5 relative z-10">
+                    {meta.icon}
+                  </span>
+                  <div class="relative z-10 min-w-0">
+                    <div class="flex justify-between items-start gap-2 mb-1">
+                      <h3 class="text-sm font-black font-headline uppercase tracking-tighter leading-tight">
+                        {meta.label}
+                      </h3>
+                      <span class="bg-secondary-container text-on-background text-[9px] font-black uppercase tracking-widest px-2 py-0.5 shrink-0">
+                        Free
+                      </span>
+                    </div>
+                    <p class="text-xs font-medium opacity-55 leading-relaxed">
+                      {meta.description}
+                    </p>
+                  </div>
+                </div>
+              );
+            })
+          }
+        </div>
+      </section>
+
+      <!-- Final CTA -->
+      <section
+        class="mt-16 p-12 bg-on-background text-white flex flex-col items-center justify-center text-center relative overflow-hidden hard-shadow"
+      >
+        <div class="grainy-overlay absolute inset-0 opacity-10"></div>
+        <h2
+          class="text-5xl md:text-6xl font-black font-headline uppercase tracking-tighter mb-6 relative z-10"
+        >
+          Happy with your selections?
+        </h2>
+        <p class="text-lg font-bold max-w-xl opacity-60 mb-4 relative z-10">
+          Review your choices on the next screen. A free, no-obligation quote —
+          yours to keep with zero pressure to proceed.
+        </p>
+        <div class="relative z-10 w-full flex flex-col items-center gap-6 mt-8">
+          <div
+            class="font-headline font-black text-4xl uppercase tracking-tighter flex items-baseline gap-4"
+          >
+            <span class="opacity-50 text-xl">Your estimate:</span>
+            <span id="total-price-display-cta" class="text-secondary-container"
+              >€0</span
+            >
+          </div>
+          <a
+            href="/summary-and-quote"
+            class="w-full max-w-2xl py-8 bg-secondary-container text-on-background text-3xl md:text-4xl font-black font-headline uppercase tracking-widest border-[4px] border-white shadow-[12px_12px_0px_0px_rgba(255,255,255,1)] hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-[6px_6px_0px_0px_rgba(255,255,255,1)] active:translate-x-[12px] active:translate-y-[12px] active:shadow-none transition-all inline-block text-center"
+          >
+            See my full quote
+          </a>
+          <p class="text-xs opacity-25 uppercase tracking-widest">
+            Free · No obligation · No credit card
+          </p>
+        </div>
+      </section>
+    </form>
+  </main>
+
+  <Footer hideOnMobile={true} />
+  <StickyBar
+    ctaLabel="See my quote"
+    ctaHref="/summary-and-quote"
+    showLog={true}
+  />
+</Layout>
+
+<script>
+  import {
+    selectedBlockIds,
+    toggleBlock,
+    totalPrice,
+    BLOCKS,
+    ALWAYS_INCLUDED_IDS,
+  } from "../store/cart";
+
+  const SVG_TOTAL_H = 600;
+  const VIEW_H = 160;
+  const SVG_W = 200;
+
+  const BLOCK_SVG_Y: Record<string, number> = {
+    "responsive-navbar": 12,
+    "hero-section": 57,
+    "trust-badges": 97,
+    "service-highlights": 121,
+    "fleet-showcase": 168,
+    "pricing-table": 222,
+    "services-reservation": 265,
+    "portfolio-grid": 308,
+    "google-reviews": 351,
+    "faq-accordion": 395,
+    "location-maps": 436,
+    "contact-form": 475,
+    "contact-form-alt": 512,
+    "blog-engine": 539,
+    "ai-personalization": 553,
+    "whatsapp-strategy": 562,
+    "performance-optimization": 570,
+    "sticky-mobile-cta": 580,
+    "footer-complex": 586,
+  };
+
+  const ALWAYS_ACTIVE = new Set(ALWAYS_INCLUDED_IDS);
+
+  const svg = document.getElementById("page-schematic") as SVGSVGElement | null;
+  const highlightBand = document.getElementById(
+    "highlight-band",
+  ) as SVGRectElement | null;
+  const schematicCol = document.getElementById(
+    "schematic-col",
+  ) as HTMLElement | null;
+  const sectionsGrid = document.getElementById(
+    "sections-grid",
+  ) as HTMLElement | null;
+  const stickyTotal = document.getElementById("sticky-total-display");
+  const stickyCount = document.getElementById("sticky-count-display");
+  const schematicCount = document.getElementById("schematic-count");
+  const schematicTotal = document.getElementById("schematic-total");
+  const totalCTA = document.getElementById("total-price-display-cta");
+  const footerLog = document.getElementById("footer-build-log");
+  const navIndicator = document.getElementById("nav-indicator");
+  const navLinks = document.querySelectorAll(".section-nav-link");
+
+  // ── viewBox animation ──────────────────────────────────────────────────
+  let currentVY = 0;
+  let targetVY = 0;
+  let rafId: number | null = null;
+
+  function clampVY(y: number) {
+    return Math.max(0, Math.min(y, SVG_TOTAL_H - VIEW_H));
+  }
+
+  function applyViewBox(y: number) {
+    svg?.setAttribute("viewBox", `0 ${y.toFixed(2)} ${SVG_W} ${VIEW_H}`);
+  }
+
+  function animateViewBox() {
+    const diff = targetVY - currentVY;
+    if (Math.abs(diff) < 0.15) {
+      currentVY = targetVY;
+      applyViewBox(currentVY);
+      rafId = null;
+      return;
+    }
+    currentVY += diff * 0.12;
+    applyViewBox(currentVY);
+    rafId = requestAnimationFrame(animateViewBox);
+  }
+
+  function setTargetVY(svgCentreY: number) {
+    targetVY = clampVY(svgCentreY - VIEW_H / 2);
+    if (!rafId) rafId = requestAnimationFrame(animateViewBox);
+  }
+
+  // ── highlight band ─────────────────────────────────────────────────────
+  const BAND_H = 38;
+  let bandRafId: number | null = null;
+  let currentBandY = 24;
+  let targetBandY = 24;
+
+  function animateBand() {
+    const diff = targetBandY - currentBandY;
+    if (Math.abs(diff) < 0.2) {
+      currentBandY = targetBandY;
+      if (highlightBand) {
+        highlightBand.setAttribute("y", String(currentBandY));
+        highlightBand.setAttribute("height", String(BAND_H));
+        highlightBand.setAttribute("opacity", "0.08");
+      }
+      bandRafId = null;
+      return;
+    }
+    currentBandY += diff * 0.14;
+    if (highlightBand) {
+      highlightBand.setAttribute("y", String(currentBandY));
+      highlightBand.setAttribute("height", String(BAND_H));
+      highlightBand.setAttribute("opacity", "0.08");
+    }
+    bandRafId = requestAnimationFrame(animateBand);
+  }
+
+  function setHighlightBand(svgY: number) {
+    targetBandY = svgY - BAND_H / 2;
+    if (!bandRafId) bandRafId = requestAnimationFrame(animateBand);
+  }
+
+  // ── Find active block — only considers cards within sections-grid ──────
+  // Once the user has scrolled past sections-grid, tracking stops.
+  // The schematic freezes on the last active block — appropriate since
+  // the always-included and CTA sections don't correspond to SVG zones.
+
+  const allCards = document.querySelectorAll("label[data-block-id]");
+
+  function isGridInView(): boolean {
+    if (!sectionsGrid) return true;
+    const rect = sectionsGrid.getBoundingClientRect();
+    // Grid is "in view" if its bottom edge is still below screen centre
+    return rect.bottom > window.innerHeight * 0.4;
+  }
+
+  function findActiveBlock(): string | null {
+    const screenMid = window.innerHeight / 2;
+    let best: string | null = null;
+    let bestDist = Infinity;
+
+    allCards.forEach((card) => {
+      const rect = card.getBoundingClientRect();
+      const cardMid = rect.top + rect.height / 2;
+      const dist = Math.abs(cardMid - screenMid);
+      if (dist < bestDist) {
+        bestDist = dist;
+        best = (card as HTMLElement).dataset.blockId || null;
+      }
+    });
+    return best;
+  }
+
+  let scrollRaf: number | null = null;
+  let lastActiveBlock: string | null = null;
+
+  function onScroll() {
+    if (scrollRaf) return;
+    scrollRaf = requestAnimationFrame(() => {
+      scrollRaf = null;
+
+      // Stop tracking once the user is past the selectable sections
+      if (!isGridInView()) return;
+
+      const blockId = findActiveBlock();
+      if (!blockId || blockId === lastActiveBlock) return;
+      lastActiveBlock = blockId;
+
+      const svgY = BLOCK_SVG_Y[blockId];
+      if (svgY === undefined) return;
+
+      setTargetVY(svgY);
+      setHighlightBand(svgY);
+    });
+  }
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+
+  // ── Schematic opacity ──────────────────────────────────────────────────
+  function updateSchematic(selectedIds: string[]) {
+    document.querySelectorAll('[id^="bp-"]').forEach((el) => {
+      const id = (el as HTMLElement).id.replace("bp-", "");
+      const on = ALWAYS_ACTIVE.has(id) || selectedIds.includes(id);
+      (el as SVGGElement).style.opacity = on ? "1" : "0.12";
+      (el as SVGGElement).style.transition = "opacity 0.35s ease";
+    });
+    if (schematicCount) schematicCount.textContent = String(selectedIds.length);
+    if (schematicTotal)
+      schematicTotal.textContent = `€${totalPrice.get().toLocaleString()}`;
+  }
+
+  // ── Checkbox wiring ────────────────────────────────────────────────────
+  const checkboxes = document.querySelectorAll(
+    ".block-checkbox",
+  ) as NodeListOf<HTMLInputElement>;
+  selectedBlockIds.get().forEach((id) => {
+    const cb = document.querySelector(
+      `.block-checkbox[data-id="${id}"]`,
+    ) as HTMLInputElement | null;
+    if (cb) cb.checked = true;
+  });
+
+  checkboxes.forEach((checkbox) => {
+    const id = checkbox.dataset.id;
+    checkbox.addEventListener("change", () => {
+      if (!id) return;
+      const block = BLOCKS[id];
+      toggleBlock(id);
+      if (footerLog)
+        footerLog.textContent = checkbox.checked
+          ? `Added: ${block?.name || id}`
+          : `Removed: ${block?.name || id}`;
+      updateSchematic(selectedBlockIds.get());
+    });
+  });
+
+  // ── Store subscriptions ────────────────────────────────────────────────
+  totalPrice.subscribe((price) => {
+    const fmt = `€${price.toLocaleString()}`;
+    if (stickyTotal) stickyTotal.textContent = fmt;
+    if (totalCTA) totalCTA.textContent = fmt;
+    if (schematicTotal) schematicTotal.textContent = fmt;
+  });
+
+  selectedBlockIds.subscribe((ids) => {
+    const n = ids.length;
+    if (stickyCount)
+      stickyCount.textContent =
+        n === 0
+          ? "Nothing selected yet"
+          : `${n} item${n === 1 ? "" : "s"} selected`;
+    if (schematicCount) schematicCount.textContent = String(n);
+    updateSchematic(ids);
+  });
+
+  // ── Scroll spy nav ─────────────────────────────────────────────────────
+  const navObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const id =
+          entry.target.id ||
+          (entry.target as HTMLElement).dataset.sectionId ||
+          "";
+        navLinks.forEach((link) => {
+          const active = link.getAttribute("href")?.substring(1) === id;
+          link.classList.toggle("text-on-background", active);
+          link.classList.toggle("text-on-background/40", !active);
+          if (active && navIndicator) {
+            const el = link as HTMLElement;
+            navIndicator.style.width = `${el.offsetWidth}px`;
+            navIndicator.style.left = `${el.offsetLeft}px`;
+            navIndicator.style.opacity = "1";
+            link.scrollIntoView({ behavior: "smooth", inline: "nearest" });
+          }
+        });
+      });
+    },
+    { rootMargin: "-15% 0px -55% 0px" },
+  );
+
+  document
+    .querySelectorAll(
+      'section[data-section-id], section[id="section-included"]',
+    )
+    .forEach((s) => navObserver.observe(s));
+
+  // ── Initial render ─────────────────────────────────────────────────────
+  updateSchematic(selectedBlockIds.get());
+  applyViewBox(0);
+  requestAnimationFrame(onScroll);
+</script>

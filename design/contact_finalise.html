@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&amp;family=Inter:wght@100;200;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+     <link rel="preload" href="/fonts/material-symbols-subset.woff2" as="font" type="font/woff2" crossorigin>
+        <link rel="stylesheet" href="/fonts/material-symbols-subset.css" />
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-tint": "#8422dc",
+                        "secondary-fixed-dim": "#abd600",
+                        "surface-container-high": "#eae7e7",
+                        "surface-container-low": "#f6f3f2",
+                        "primary": "#6e00c1",
+                        "on-background": "#1c1b1b",
+                        "on-surface": "#1c1b1b",
+                        "on-secondary-fixed-variant": "#3c4d00",
+                        "surface-variant": "#e5e2e1",
+                        "surface-bright": "#fcf9f8",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-fixed-variant": "#6a3b00",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container": "#f0eded",
+                        "secondary-container": "#c1f100",
+                        "tertiary": "#713f00",
+                        "on-tertiary-fixed": "#2d1600",
+                        "primary-fixed-dim": "#dcb8ff",
+                        "on-error-container": "#93000a",
+                        "inverse-on-surface": "#f3f0ef",
+                        "surface": "#fcf9f8",
+                        "tertiary-container": "#935400",
+                        "error": "#ba1a1a",
+                        "surface-dim": "#dcd9d9",
+                        "primary-container": "#8a2be2",
+                        "secondary": "#506600",
+                        "outline-variant": "#cfc2d7",
+                        "on-primary-fixed": "#2c0051",
+                        "on-secondary-container": "#546b00",
+                        "surface-container-highest": "#e5e2e1",
+                        "on-tertiary-container": "#ffdaba",
+                        "on-secondary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "tertiary-fixed-dim": "#ffb873",
+                        "on-primary-container": "#eed9ff",
+                        "inverse-surface": "#313030",
+                        "primary-fixed": "#efdbff",
+                        "inverse-primary": "#dcb8ff",
+                        "outline": "#7e7386",
+                        "tertiary-fixed": "#ffdcbf",
+                        "on-surface-variant": "#4c4354",
+                        "on-secondary-fixed": "#161e00",
+                        "background": "#fcf9f8",
+                        "on-error": "#ffffff",
+                        "on-primary-fixed-variant": "#6700b5",
+                        "secondary-fixed": "#c3f400"
+                    },
+                    fontFamily: {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Inter"],
+                        "label": ["Space Grotesk"]
+                    },
+                    borderRadius: {"DEFAULT": "0px", "lg": "0px", "xl": "0px", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .grain-texture {
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.05;
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-background min-h-screen relative overflow-x-hidden">
+<!-- Top Navigation Bar -->
+<nav class="bg-[#FCF9F8] dark:bg-[#1A1A1A] flex justify-between items-center w-full px-8 py-6 h-24 docked full-width top-0 border-b-[3px] border-[#1A1A1A] shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] z-[100] fixed top-0">
+<div class="text-3xl font-black text-[#1A1A1A] dark:text-[#FCF9F8] tracking-widest font-['Space_Grotesk']">
+            WEB-YOUR-WAY
+        </div>
+<div class="hidden md:flex gap-8 items-center">
+<a class="font-['Space_Grotesk'] font-bold uppercase tracking-tighter text-[#1A1A1A] dark:text-[#FCF9F8] hover:bg-[#C1F100] hover:text-[#1A1A1A] transition-colors duration-150 px-2 py-1" href="#">Platform</a>
+<a class="font-['Space_Grotesk'] font-bold uppercase tracking-tighter text-[#1A1A1A] dark:text-[#FCF9F8] hover:bg-[#C1F100] hover:text-[#1A1A1A] transition-colors duration-150 px-2 py-1" href="#">Our Philosophy</a>
+<a class="font-['Space_Grotesk'] font-bold uppercase tracking-tighter text-[#1A1A1A] dark:text-[#FCF9F8] hover:bg-[#C1F100] hover:text-[#1A1A1A] transition-colors duration-150 px-2 py-1" href="#">Our Work</a>
+<button type="button" class="bg-primary-container text-white border-[3px] border-on-background px-6 py-2 font-headline font-bold uppercase tracking-tighter shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all">
+                Start Building
+            </button>
+</div>
+</nav>
+<!-- Background Watermark -->
+<div class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.03] pointer-events-none -z-10 select-none">
+<span class="material-symbols-outlined text-[600px]" style="font-variation-settings: 'FILL' 1;">architecture</span>
+</div>
+<main class="pt-32 pb-24 px-4 md:px-12 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12">
+<!-- Left Column: The Invoice Summary -->
+<div class="lg:col-span-7 space-y-8">
+<header class="space-y-2">
+<div class="inline-block bg-secondary-container text-on-background border-2 border-on-background px-3 py-1 font-label text-xs font-black uppercase tracking-widest">
+                    Quote #WYW-2024-881
+                </div>
+<h1 class="text-5xl md:text-7xl font-headline font-black uppercase tracking-tighter leading-none">
+                    Summary <span class="text-primary-container">&amp;</span> Quote
+                </h1>
+</header>
+<div class="bg-surface-container-lowest border-[3px] border-on-background shadow-[8px_8px_0px_0px_rgba(26,26,26,1)] relative overflow-hidden">
+<div class="grain-texture absolute inset-0 pointer-events-none"></div>
+<!-- Invoice Table Header -->
+<div class="grid grid-cols-12 border-b-[3px] border-on-background bg-surface-container font-label font-black text-sm uppercase tracking-wider p-4">
+<div class="col-span-8">Selected Item Description</div>
+<div class="col-span-4 text-right">Investment</div>
+</div>
+<!-- Selected Items List -->
+<div class="divide-y-[3px] divide-on-background">
+<!-- Item 1 -->
+<div class="grid grid-cols-12 p-6 hover:bg-secondary-fixed transition-colors">
+<div class="col-span-8 space-y-1">
+<h3 class="font-headline font-extrabold text-xl uppercase italic">Ultra-Responsive Core Shell</h3>
+<p class="text-on-surface-variant text-sm font-medium">Native-feel transitions with 0ms hydration lag.</p>
+</div>
+<div class="col-span-4 text-right flex flex-col justify-center">
+<span class="font-label font-bold text-lg">$2,450.00</span>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="grid grid-cols-12 p-6 hover:bg-secondary-fixed transition-colors">
+<div class="col-span-8 space-y-1">
+<h3 class="font-headline font-extrabold text-xl uppercase italic">Neo-Brutalism UI Kit</h3>
+<p class="text-on-surface-variant text-sm font-medium">Custom high-contrast components and 3px stroke library.</p>
+</div>
+<div class="col-span-4 text-right flex flex-col justify-center">
+<span class="font-label font-bold text-lg">$1,100.00</span>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="grid grid-cols-12 p-6 hover:bg-secondary-fixed transition-colors">
+<div class="col-span-8 space-y-1">
+<h3 class="font-headline font-extrabold text-xl uppercase italic">Dynamic Content API</h3>
+<p class="text-on-surface-variant text-sm font-medium">Real-time data streaming and automated schema generation.</p>
+</div>
+<div class="col-span-4 text-right flex flex-col justify-center">
+<span class="font-label font-bold text-lg">$850.00</span>
+</div>
+</div>
+</div>
+<!-- Total Section -->
+<div class="bg-on-background text-surface p-8 flex flex-col md:flex-row justify-between items-end md:items-center gap-4">
+<div class="font-headline font-black uppercase text-2xl tracking-tighter">Total Estimated Value</div>
+<div class="text-6xl md:text-8xl font-headline font-black tracking-tighter text-secondary-container">
+                        $4,400.00
+                    </div>
+</div>
+</div>
+</div>
+<!-- Right Column: Value Props & CTAs -->
+<div class="lg:col-span-5 space-y-8 flex flex-col">
+<!-- Value Analysis Card -->
+<div class="bg-primary-container text-white p-8 border-[3px] border-on-background shadow-[8px_8px_0px_0px_rgba(193,241,0,1)] relative overflow-hidden">
+<div class="grain-texture absolute inset-0 pointer-events-none"></div>
+<div class="relative z-10 space-y-6">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-4xl" data-icon="analytics">analytics</span>
+<h2 class="font-headline font-black text-2xl uppercase tracking-tighter leading-none">Why These Choices Work For You</h2>
+</div>
+<div class="h-[2px] bg-white opacity-30 w-full"></div>
+<p class="font-body text-lg leading-relaxed font-medium">
+                        Your selection balances <span class="text-secondary-container font-black">extreme performance</span> with a <span class="text-secondary-container font-black">bold visual identity</span>. By pairing the Core Shell with the Neo-Brutalism Kit, you're eliminating the typical 'soft' web look, while the Dynamic API ensures your high-end aesthetic is backed by industrial-grade data integrity.
+                    </p>
+<div class="flex flex-wrap gap-2 pt-2">
+<span class="bg-on-primary-fixed-variant text-xs font-label px-3 py-1 border border-white/20 uppercase">Conversion Optimized</span>
+<span class="bg-on-primary-fixed-variant text-xs font-label px-3 py-1 border border-white/20 uppercase">Dev-Ready</span>
+<span class="bg-on-primary-fixed-variant text-xs font-label px-3 py-1 border border-white/20 uppercase">Unique Alpha</span>
+</div>
+</div>
+</div>
+<!-- Call to Actions -->
+<div class="space-y-4 pt-4 flex-grow flex flex-col justify-end">
+<button type="button" class="w-full bg-secondary-container text-on-background border-[3px] border-on-background py-6 px-8 font-headline font-black text-2xl uppercase tracking-tighter shadow-[8px_8px_0px_0px_rgba(26,26,26,1)] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[12px_12px_0px_0px_rgba(26,26,26,1)] active:translate-x-0 active:translate-y-0 active:shadow-none transition-all flex items-center justify-between group">
+<span>Lock In This Quote</span>
+<span class="material-symbols-outlined text-3xl group-hover:translate-x-2 transition-transform" data-icon="arrow_forward">arrow_forward</span>
+</button>
+<button type="button"class="w-full bg-surface border-[3px] border-on-background py-4 px-8 font-headline font-bold text-lg uppercase tracking-tight hover:bg-surface-container-high transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined" data-icon="tune">tune</span>
+                    Refine My Selection
+                </button>
+<p class="text-center font-label text-[10px] text-on-surface-variant uppercase tracking-widest pt-4">
+                    Quote valid for 14 business days. Subject to technical audit.
+                </p>
+</div>
+</div>
+</main>
+<!-- Bottom Utility Nav (Mobile Only Item Labels) -->
+<footer class="md:hidden fixed bottom-0 left-0 w-full bg-[#FCF9F8] dark:bg-[#1A1A1A] flex justify-around items-center h-20 border-t-[3px] border-[#1A1A1A] z-50 px-4">
+<a class="flex flex-col items-center gap-1 text-on-background" href="#">
+<span class="material-symbols-outlined" data-icon="help_center">help_center</span>
+<span class="font-['Inter'] text-[10px] font-black uppercase">Support</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-primary-container" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span class="font-['Inter'] text-[10px] font-black uppercase">Costs</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-on-background" href="#">
+<span class="material-symbols-outlined" data-icon="mail">mail</span>
+<span class="font-['Inter'] text-[10px] font-black uppercase">Contact</span>
+</a>
+</footer>
+<!-- Desktop Sidebar Anchor (Simulated SideNavBar for consistent feeling) -->
+<div class="hidden lg:flex flex-col h-[calc(100vh-6rem)] fixed left-0 top-24 pt-4 bg-[#F0EDED] dark:bg-[#1A1A1A] w-20 border-r-[3px] border-[#1A1A1A] items-center gap-8 py-8">
+<div class="group relative flex flex-col items-center cursor-pointer">
+<span class="material-symbols-outlined text-on-background" data-icon="grid_view">grid_view</span>
+<div class="absolute left-full ml-4 bg-on-background text-white px-3 py-1 text-[10px] font-black uppercase whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">Layouts</div>
+</div>
+<div class="group relative flex flex-col items-center cursor-pointer">
+<span class="material-symbols-outlined text-on-background" data-icon="extension">extension</span>
+<div class="absolute left-full ml-4 bg-on-background text-white px-3 py-1 text-[10px] font-black uppercase whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">Components</div>
+</div>
+<div class="group relative flex flex-col items-center cursor-pointer">
+<span class="material-symbols-outlined text-on-background" data-icon="format_size">format_size</span>
+<div class="absolute left-full ml-4 bg-on-background text-white px-3 py-1 text-[10px] font-black uppercase whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">Typography</div>
+</div>
+<div class="group relative flex flex-col items-center cursor-pointer">
+<span class="material-symbols-outlined text-on-background" data-icon="folder_open">folder_open</span>
+<div class="absolute left-full ml-4 bg-on-background text-white px-3 py-1 text-[10px] font-black uppercase whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">Assets</div>
+</div>
+</div>
+</body></html>

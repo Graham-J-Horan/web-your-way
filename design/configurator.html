@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>WEB-YOUR-WAY | Configurator</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&amp;family=Inter:wght@400;700;900&amp;display=swap" rel="stylesheet"/>
+     <link rel="preload" href="/fonts/material-symbols-subset.woff2" as="font" type="font/woff2" crossorigin>
+        <link rel="stylesheet" href="/fonts/material-symbols-subset.css" />
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-tint": "#8422dc",
+                        "secondary-fixed-dim": "#abd600",
+                        "surface-container-high": "#eae7e7",
+                        "surface-container-low": "#f6f3f2",
+                        "primary": "#6e00c1",
+                        "on-background": "#1c1b1b",
+                        "on-surface": "#1c1b1b",
+                        "on-secondary-fixed-variant": "#3c4d00",
+                        "surface-variant": "#e5e2e1",
+                        "surface-bright": "#fcf9f8",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-fixed-variant": "#6a3b00",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container": "#f0eded",
+                        "secondary-container": "#c1f100",
+                        "tertiary": "#713f00",
+                        "on-tertiary-fixed": "#2d1600",
+                        "primary-fixed-dim": "#dcb8ff",
+                        "on-error-container": "#93000a",
+                        "inverse-on-surface": "#f3f0ef",
+                        "surface": "#fcf9f8",
+                        "tertiary-container": "#935400",
+                        "error": "#ba1a1a",
+                        "surface-dim": "#dcd9d9",
+                        "primary-container": "#8a2be2",
+                        "secondary": "#506600",
+                        "outline-variant": "#cfc2d7",
+                        "on-primary-fixed": "#2c0051",
+                        "on-secondary-container": "#546b00",
+                        "surface-container-highest": "#e5e2e1",
+                        "on-tertiary-container": "#ffdaba",
+                        "on-secondary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "tertiary-fixed-dim": "#ffb873",
+                        "on-primary-container": "#eed9ff",
+                        "inverse-surface": "#313030",
+                        "primary-fixed": "#efdbff",
+                        "inverse-primary": "#dcb8ff",
+                        "outline": "#7e7386",
+                        "tertiary-fixed": "#ffdcbf",
+                        "on-surface-variant": "#4c4354",
+                        "on-secondary-fixed": "#161e00",
+                        "background": "#fcf9f8",
+                        "on-error": "#ffffff",
+                        "on-primary-fixed-variant": "#6700b5",
+                        "secondary-fixed": "#c3f400"
+                    },
+                    fontFamily: {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Inter"],
+                        "label": ["Space Grotesk"]
+                    },
+                    borderRadius: {"DEFAULT": "0px", "lg": "0px", "xl": "0px", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .grainy-bg {
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.05;
+            pointer-events: none;
+        }
+        .hard-shadow {
+            box-shadow: 8px 8px 0px 0px #1c1b1b;
+        }
+        .hard-shadow-sm {
+            box-shadow: 4px 4px 0px 0px #1c1b1b;
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-background min-h-screen">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center w-full px-8 py-6 h-24 bg-[#FCF9F8] dark:bg-[#1A1A1A] fixed top-0 z-[100] border-b-[3px] border-[#1A1A1A] shadow-[4px_4px_0px_0px_rgba(26,26,26,1)]">
+<div class="text-3xl font-black text-[#1A1A1A] dark:text-[#FCF9F8] tracking-widest font-['Space_Grotesk']">
+            WEB-YOUR-WAY
+        </div>
+<nav class="hidden md:flex gap-12 items-center h-full">
+<a class="font-['Space_Grotesk'] font-bold uppercase tracking-tighter text-[#1A1A1A] dark:text-[#FCF9F8] hover:bg-[#C1F100] hover:text-[#1A1A1A] transition-colors duration-150 px-2 py-1" href="#">Platform</a>
+<a class="font-['Space_Grotesk'] font-bold uppercase tracking-tighter text-[#1A1A1A] dark:text-[#FCF9F8] hover:bg-[#C1F100] hover:text-[#1A1A1A] transition-colors duration-150 px-2 py-1" href="#">Our Philosophy</a>
+<a class="font-['Space_Grotesk'] font-bold uppercase tracking-tighter text-[#1A1A1A] dark:text-[#FCF9F8] hover:bg-[#C1F100] hover:text-[#1A1A1A] transition-colors duration-150 px-2 py-1" href="#">Our Work</a>
+</nav>
+<button type="button" class="bg-primary-container text-on-primary-container px-6 py-3 font-['Space_Grotesk'] font-bold uppercase tracking-tighter border-[3px] border-[#1A1A1A] hard-shadow-sm active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all">
+            Start Building
+        </button>
+</header>
+<!-- SideNavBar -->
+<aside class="hidden lg:flex flex-col h-screen fixed left-0 top-24 pt-4 bg-[#F0EDED] dark:bg-[#1A1A1A] w-64 border-r-[3px] border-[#1A1A1A] z-40">
+<div class="px-6 py-4 mb-4 border-b-[3px] border-[#1A1A1A]">
+<h2 class="text-lg font-bold text-[#1A1A1A] font-['Space_Grotesk'] uppercase">Building Blocks</h2>
+<p class="text-[10px] font-bold opacity-60 uppercase">Configurator v1.0</p>
+</div>
+<div class="flex flex-col flex-1 overflow-y-auto">
+<div class="flex items-center gap-4 px-6 py-5 bg-[#C1F100] text-[#1A1A1A] border-y-[3px] border-[#1A1A1A] -mr-[3px] z-10 font-['Space_Grotesk'] text-sm uppercase font-bold cursor-pointer">
+<span class="material-symbols-outlined" data-icon="grid_view">grid_view</span>
+                Layouts
+            </div>
+<div class="flex items-center gap-4 px-6 py-5 text-[#1A1A1A] dark:text-[#EAE7E7] border-b-[3px] border-[#1A1A1A] hover:bg-[#8A2BE2] hover:text-white transition-all duration-150 font-['Space_Grotesk'] text-sm uppercase font-bold cursor-pointer">
+<span class="material-symbols-outlined" data-icon="extension">extension</span>
+                Components
+            </div>
+<div class="flex items-center gap-4 px-6 py-5 text-[#1A1A1A] dark:text-[#EAE7E7] border-b-[3px] border-[#1A1A1A] hover:bg-[#8A2BE2] hover:text-white transition-all duration-150 font-['Space_Grotesk'] text-sm uppercase font-bold cursor-pointer">
+<span class="material-symbols-outlined" data-icon="format_size">format_size</span>
+                Typography
+            </div>
+<div class="flex items-center gap-4 px-6 py-5 text-[#1A1A1A] dark:text-[#EAE7E7] border-b-[3px] border-[#1A1A1A] hover:bg-[#8A2BE2] hover:text-white transition-all duration-150 font-['Space_Grotesk'] text-sm uppercase font-bold cursor-pointer">
+<span class="material-symbols-outlined" data-icon="folder_open">folder_open</span>
+                Assets
+            </div>
+</div>
+<!-- Live Cost Counter Widget -->
+<div class="p-6 mt-auto border-t-[3px] border-[#1A1A1A] bg-surface-container-highest">
+<span class="text-[10px] font-bold uppercase tracking-widest block mb-2">Current Total</span>
+<div class="flex items-baseline gap-1">
+<span class="text-3xl font-black font-headline tracking-tighter">$1,250</span>
+<span class="text-xs font-mono font-bold">.00</span>
+</div>
+<div class="mt-4 w-full h-2 bg-on-background/10 border border-on-background">
+<div class="h-full bg-secondary-container" style="width: 45%;"></div>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="pt-32 pb-32 lg:pl-64 px-4 md:px-12 max-w-7xl mx-auto">
+<!-- Hero Title -->
+<section class="mb-20">
+<div class="relative inline-block">
+<h1 class="text-6xl md:text-8xl font-black font-headline uppercase leading-[0.85] tracking-tighter relative z-10">
+                    Construct Your<br/>Digital Asset
+                </h1>
+<div class="absolute -right-4 -bottom-2 bg-secondary-container w-full h-1/2 -z-0"></div>
+</div>
+<p class="mt-8 text-xl font-bold max-w-2xl opacity-80 uppercase tracking-tight">
+                Select the structural components required for your build. Every block is precision-engineered for performance.
+            </p>
+</section>
+<form class="space-y-24">
+<!-- SECTION: FOUNDATION -->
+<section>
+<div class="flex items-center gap-4 mb-10">
+<div class="w-12 h-12 bg-on-background text-white flex items-center justify-center font-black text-2xl">01</div>
+<h2 class="text-4xl font-black font-headline uppercase tracking-tighter">Foundation</h2>
+<div class="flex-grow h-[3px] bg-on-background"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Item 1 -->
+<label class="group relative flex items-start gap-6 p-8 bg-surface border-[3px] border-on-background hard-shadow-sm hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[8px_8px_0px_0px_rgba(28,27,27,1)] transition-all cursor-pointer">
+<input checked="" class="hidden peer" type="checkbox"/>
+<div class="w-10 h-10 border-[3px] border-on-background flex-shrink-0 flex items-center justify-center peer-checked:bg-secondary-container transition-colors">
+<span class="material-symbols-outlined text-on-background hidden peer-checked:block font-black" style="font-variation-settings: 'wght' 900;">check</span>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-start mb-2">
+<h3 class="text-2xl font-black font-headline uppercase tracking-tighter">Responsive Layout</h3>
+<span class="font-mono text-xl font-bold tracking-tight">$450</span>
+</div>
+<p class="text-sm font-medium opacity-70 leading-relaxed uppercase">Fully fluid architecture that adapts to any screen resolution or device factor.</p>
+</div>
+</label>
+<!-- Item 2 -->
+<label class="group relative flex items-start gap-6 p-8 bg-surface border-[3px] border-on-background hard-shadow-sm hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[8px_8px_0px_0px_rgba(28,27,27,1)] transition-all cursor-pointer">
+<input class="hidden peer" type="checkbox"/>
+<div class="w-10 h-10 border-[3px] border-on-background flex-shrink-0 flex items-center justify-center peer-checked:bg-secondary-container transition-colors">
+<span class="material-symbols-outlined text-on-background hidden peer-checked:block font-black" style="font-variation-settings: 'wght' 900;">check</span>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-start mb-2">
+<h3 class="text-2xl font-black font-headline uppercase tracking-tighter">SSG Engine</h3>
+<span class="font-mono text-xl font-bold tracking-tight">$300</span>
+</div>
+<p class="text-sm font-medium opacity-70 leading-relaxed uppercase">Static Site Generation for lightning-fast delivery and absolute security protocols.</p>
+</div>
+</label>
+</div>
+</section>
+<!-- SECTION: CONTENT -->
+<section>
+<div class="flex items-center gap-4 mb-10">
+<div class="w-12 h-12 bg-on-background text-white flex items-center justify-center font-black text-2xl">02</div>
+<h2 class="text-4xl font-black font-headline uppercase tracking-tighter">Content Modules</h2>
+<div class="flex-grow h-[3px] bg-on-background"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Card 1 -->
+<label class="group relative flex flex-col p-8 bg-surface border-[3px] border-on-background hard-shadow-sm hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[8px_8px_0px_0px_rgba(28,27,27,1)] transition-all cursor-pointer">
+<input checked="" class="hidden peer" type="checkbox"/>
+<div class="flex justify-between items-center mb-6">
+<div class="w-10 h-10 border-[3px] border-on-background flex items-center justify-center peer-checked:bg-secondary-container transition-colors">
+<span class="material-symbols-outlined text-on-background hidden peer-checked:block font-black" style="font-variation-settings: 'wght' 900;">check</span>
+</div>
+<span class="font-mono text-lg font-bold bg-primary-container text-white px-2">$150</span>
+</div>
+<h3 class="text-xl font-black font-headline uppercase mb-2">Blog Engine</h3>
+<p class="text-xs font-medium opacity-70 uppercase mb-6">Dynamic content management system for frequent editorial updates.</p>
+<div class="mt-auto border-t-[2px] border-on-background pt-4 flex gap-2">
+<span class="px-2 py-0.5 border border-on-background text-[9px] font-bold uppercase">Dynamic</span>
+<span class="px-2 py-0.5 border border-on-background text-[9px] font-bold uppercase">SEO-Ready</span>
+</div>
+</label>
+<!-- Card 2 -->
+<label class="group relative flex flex-col p-8 bg-surface border-[3px] border-on-background hard-shadow-sm hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[8px_8px_0px_0px_rgba(28,27,27,1)] transition-all cursor-pointer">
+<input class="hidden peer" type="checkbox"/>
+<div class="flex justify-between items-center mb-6">
+<div class="w-10 h-10 border-[3px] border-on-background flex items-center justify-center peer-checked:bg-secondary-container transition-colors">
+<span class="material-symbols-outlined text-on-background hidden peer-checked:block font-black" style="font-variation-settings: 'wght' 900;">check</span>
+</div>
+<span class="font-mono text-lg font-bold bg-primary-container text-white px-2">$200</span>
+</div>
+<h3 class="text-xl font-black font-headline uppercase mb-2">Portfolio Grid</h3>
+<p class="text-xs font-medium opacity-70 uppercase mb-6">Highly visual bento-style grid for showcasing creative productions.</p>
+<div class="mt-auto border-t-[2px] border-on-background pt-4 flex gap-2">
+<span class="px-2 py-0.5 border border-on-background text-[9px] font-bold uppercase">Visual</span>
+<span class="px-2 py-0.5 border border-on-background text-[9px] font-bold uppercase">Masonry</span>
+</div>
+</label>
+<!-- Card 3 -->
+<label class="group relative flex flex-col p-8 bg-surface border-[3px] border-on-background hard-shadow-sm hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[8px_8px_0px_0px_rgba(28,27,27,1)] transition-all cursor-pointer">
+<input checked="" class="hidden peer" type="checkbox"/>
+<div class="flex justify-between items-center mb-6">
+<div class="w-10 h-10 border-[3px] border-on-background flex items-center justify-center peer-checked:bg-secondary-container transition-colors">
+<span class="material-symbols-outlined text-on-background hidden peer-checked:block font-black" style="font-variation-settings: 'wght' 900;">check</span>
+</div>
+<span class="font-mono text-lg font-bold bg-primary-container text-white px-2">$120</span>
+</div>
+<h3 class="text-xl font-black font-headline uppercase mb-2">Contact Form</h3>
+<p class="text-xs font-medium opacity-70 uppercase mb-6">Custom validation engine with direct server-side integration.</p>
+<div class="mt-auto border-t-[2px] border-on-background pt-4 flex gap-2">
+<span class="px-2 py-0.5 border border-on-background text-[9px] font-bold uppercase">Secure</span>
+<span class="px-2 py-0.5 border border-on-background text-[9px] font-bold uppercase">SMTP</span>
+</div>
+</label>
+</div>
+</section>
+<!-- SECTION: ADVANCED FEATURES -->
+<section>
+<div class="flex items-center gap-4 mb-10">
+<div class="w-12 h-12 bg-on-background text-white flex items-center justify-center font-black text-2xl">03</div>
+<h2 class="text-4xl font-black font-headline uppercase tracking-tighter">Advanced Features</h2>
+<div class="flex-grow h-[3px] bg-on-background"></div>
+</div>
+<div class="space-y-4">
+<!-- Full Width Item -->
+<label class="group relative flex items-center gap-8 p-6 bg-surface-container border-[3px] border-on-background hard-shadow-sm hover:bg-secondary-fixed transition-all cursor-pointer">
+<input class="hidden peer" type="checkbox"/>
+<div class="w-12 h-12 border-[3px] border-on-background flex-shrink-0 flex items-center justify-center bg-surface peer-checked:bg-on-background transition-colors">
+<span class="material-symbols-outlined text-secondary-container hidden peer-checked:block font-black" style="font-variation-settings: 'wght' 900;">check</span>
+</div>
+<div class="flex-grow">
+<h3 class="text-2xl font-black font-headline uppercase tracking-tighter">AI-Driven Personalization</h3>
+</div>
+<p class="hidden md:block text-xs font-bold uppercase max-w-xs opacity-60">Dynamic user-journey mapping based on behavioral patterns.</p>
+<div class="font-mono text-2xl font-black tracking-tighter border-l-[3px] border-on-background pl-8 ml-auto">
+                            $1,200
+                        </div>
+</label>
+<!-- Full Width Item -->
+<label class="group relative flex items-center gap-8 p-6 bg-surface-container border-[3px] border-on-background hard-shadow-sm hover:bg-secondary-fixed transition-all cursor-pointer">
+<input checked="" class="hidden peer" type="checkbox"/>
+<div class="w-12 h-12 border-[3px] border-on-background flex-shrink-0 flex items-center justify-center bg-surface peer-checked:bg-on-background transition-colors">
+<span class="material-symbols-outlined text-secondary-container hidden peer-checked:block font-black" style="font-variation-settings: 'wght' 900;">check</span>
+</div>
+<div class="flex-grow">
+<h3 class="text-2xl font-black font-headline uppercase tracking-tighter">SEO Supremacy Package</h3>
+</div>
+<p class="hidden md:block text-xs font-bold uppercase max-w-xs opacity-60">Deep technical metadata optimization and schema injection.</p>
+<div class="font-mono text-2xl font-black tracking-tighter border-l-[3px] border-on-background pl-8 ml-auto">
+                            $530
+                        </div>
+</label>
+</div>
+</section>
+<!-- Final Calculation CTA -->
+<section class="mt-32 p-12 bg-on-background text-white flex flex-col items-center justify-center text-center relative overflow-hidden">
+<div class="grainy-bg absolute inset-0"></div>
+<h2 class="text-5xl md:text-7xl font-black font-headline uppercase tracking-tighter mb-8 relative z-10">Ready for Execution?</h2>
+<p class="text-xl font-bold uppercase max-w-xl opacity-60 mb-12 relative z-10">Review your selected architectural blocks. Clicking below generates a finalized technical blueprint and formal quote.</p>
+<button class="group relative w-full max-w-2xl py-8 bg-secondary-container text-on-background text-4xl font-black font-headline uppercase tracking-widest border-[4px] border-white shadow-[12px_12px_0px_0px_rgba(255,255,255,1)] hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-[6px_6px_0px_0px_rgba(255,255,255,1)] active:translate-x-[12px] active:translate-y-[12px] active:shadow-none transition-all" type="button">
+                    CALCULATE FINAL TOTAL
+                </button>
+</section>
+</form>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-end items-center px-8 gap-0 bg-[#FCF9F8] dark:bg-[#1A1A1A] border-t-[3px] border-[#1A1A1A] z-50 h-20">
+<div class="flex items-center h-full">
+<div class="flex flex-col items-center justify-center text-[#1A1A1A] dark:text-[#FCF9F8] p-4 font-['Inter'] text-[12px] font-black uppercase hover:invert transition-all duration-100 cursor-pointer active:translate-y-1">
+<span class="material-symbols-outlined mb-1" data-icon="help_center">help_center</span>
+                Support
+            </div>
+<div class="flex flex-col items-center justify-center bg-[#8A2BE2] text-white p-4 h-full font-['Inter'] text-[12px] font-black uppercase hover:invert transition-all duration-100 cursor-pointer active:translate-y-1">
+<span class="material-symbols-outlined mb-1" data-icon="payments">payments</span>
+                Costs
+            </div>
+<div class="flex flex-col items-center justify-center text-[#1A1A1A] dark:text-[#FCF9F8] p-4 font-['Inter'] text-[12px] font-black uppercase hover:invert transition-all duration-100 cursor-pointer active:translate-y-1">
+<span class="material-symbols-outlined mb-1" data-icon="mail">mail</span>
+                Contact Us
+            </div>
+</div>
+</nav>
+<!-- Visual Decor Elements -->
+<div class="fixed top-0 right-0 w-64 h-64 border-l-[3px] border-b-[3px] border-on-background pointer-events-none opacity-5 -z-10"></div>
+<div class="fixed bottom-0 left-64 w-96 h-96 border-t-[3px] border-r-[3px] border-on-background pointer-events-none opacity-5 -z-10"></div>
+</body></html>

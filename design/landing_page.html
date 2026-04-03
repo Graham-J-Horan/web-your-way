@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>WEB-YOUR-WAY | Digital Architect</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;900&amp;family=Inter:wght@400;700;900&amp;display=swap" rel="stylesheet"/>
+     <link rel="preload" href="/fonts/material-symbols-subset.woff2" as="font" type="font/woff2" crossorigin>
+        <link rel="stylesheet" href="/fonts/material-symbols-subset.css" />
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-tint": "#8422dc",
+                        "secondary-fixed-dim": "#abd600",
+                        "surface-container-high": "#eae7e7",
+                        "surface-container-low": "#f6f3f2",
+                        "primary": "#6e00c1",
+                        "on-background": "#1c1b1b",
+                        "on-surface": "#1c1b1b",
+                        "on-secondary-fixed-variant": "#3c4d00",
+                        "surface-variant": "#e5e2e1",
+                        "surface-bright": "#fcf9f8",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-fixed-variant": "#6a3b00",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container": "#f0eded",
+                        "secondary-container": "#c1f100",
+                        "tertiary": "#713f00",
+                        "on-tertiary-fixed": "#2d1600",
+                        "primary-fixed-dim": "#dcb8ff",
+                        "on-error-container": "#93000a",
+                        "inverse-on-surface": "#f3f0ef",
+                        "surface": "#fcf9f8",
+                        "tertiary-container": "#935400",
+                        "error": "#ba1a1a",
+                        "surface-dim": "#dcd9d9",
+                        "primary-container": "#8a2be2",
+                        "secondary": "#506600",
+                        "outline-variant": "#cfc2d7",
+                        "on-primary-fixed": "#2c0051",
+                        "on-secondary-container": "#546b00",
+                        "surface-container-highest": "#e5e2e1",
+                        "on-tertiary-container": "#ffdaba",
+                        "on-secondary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "tertiary-fixed-dim": "#ffb873",
+                        "on-primary-container": "#eed9ff",
+                        "inverse-surface": "#313030",
+                        "primary-fixed": "#efdbff",
+                        "inverse-primary": "#dcb8ff",
+                        "outline": "#7e7386",
+                        "tertiary-fixed": "#ffdcbf",
+                        "on-surface-variant": "#4c4354",
+                        "on-secondary-fixed": "#161e00",
+                        "background": "#fcf9f8",
+                        "on-error": "#ffffff",
+                        "on-primary-fixed-variant": "#6700b5",
+                        "secondary-fixed": "#c3f400"
+                    },
+                    fontFamily: {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Inter"],
+                        "label": ["Space Grotesk"]
+                    },
+                    borderRadius: {"DEFAULT": "0px", "lg": "0px", "xl": "0px", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>.material-symbols-outlined {
+    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24
+    }
+.grainy-overlay {
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuAWlU5hx5RriK6dT4_bqANo7ioACgOhFVqMWOCrsVyAzeq-FrwzpGuRgy2WVYGMOz5AP_NPqtEnnz4qqpwRCilx2aH5rKWbRKhBx8wA2g0jndAe6aFl-fmryy4FUPik2M0W4zi3Sufbf6-H7_dT8IsOPMsFjiggKjolPk536MPKLmLFG40EpfBlYuPUI4Do6VLqO9YRFtFnFPiIixv8PSPKmfR0awT3yiIAaOhfpArRcUkN2W_Ys5rXDWjAf2m3e6mnr00nPESc6jE);
+    opacity: 0.08;
+    pointer-events: none
+    }
+.hard-shadow {
+    box-shadow: 8px 8px 0 0 #1c1b1b
+    }
+.hard-shadow-sm {
+    box-shadow: 4px 4px 0 0 #1c1b1b
+    }</style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-secondary-container selection:text-on-background">
+<div class="fixed inset-0 grainy-overlay z-50"></div>
+<!-- TopAppBar -->
+<header class="bg-[#FCF9F8] dark:bg-[#1A1A1A] border-b-[3px] border-[#1A1A1A] shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] flex justify-between items-center w-full px-8 py-6 h-24 sticky top-0 z-[100]">
+<div class="text-3xl font-black text-[#1A1A1A] dark:text-[#FCF9F8] tracking-widest font-['Space_Grotesk']">
+            WEB-YOUR-WAY
+        </div>
+<nav class="hidden md:flex gap-12 items-center">
+<a class="font-['Space_Grotesk'] font-bold uppercase tracking-tighter text-[#8A2BE2] underline decoration-[3px] underline-offset-8" href="#">Platform</a>
+<a class="font-['Space_Grotesk'] font-bold uppercase tracking-tighter text-[#1A1A1A] dark:text-[#FCF9F8] hover:bg-[#C1F100] hover:text-[#1A1A1A] transition-colors duration-150" href="#">Our Philosophy</a>
+<a class="font-['Space_Grotesk'] font-bold uppercase tracking-tighter text-[#1A1A1A] dark:text-[#FCF9F8] hover:bg-[#C1F100] hover:text-[#1A1A1A] transition-colors duration-150" href="#">Our Work</a>
+</nav>
+<button type="button" class="bg-primary-container text-on-primary border-[3px] border-on-background px-6 py-3 font-headline font-bold uppercase text-sm hard-shadow-sm active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all">
+            Start Building
+        </button>
+</header>
+<main class="relative">
+<!-- Hero Section -->
+<section class="min-h-[921px] flex flex-col items-center justify-center px-6 lg:px-24 py-20 relative overflow-hidden">
+<!-- Background Elements -->
+<div class="absolute top-20 right-10 w-64 h-64 bg-secondary-container/20 border-[3px] border-on-background -rotate-12 -z-10"></div>
+<div class="absolute bottom-40 left-10 w-48 h-48 bg-primary-container/10 border-[3px] border-on-background rotate-45 -z-10"></div>
+<div class="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+<div class="z-10 order-2 lg:order-1">
+<h1 class="font-headline font-black text-6xl md:text-8xl lg:text-9xl leading-[0.9] uppercase tracking-tighter mb-8 text-on-background">
+                        WEBSITE <span class="text-primary-container">ELEMENTS</span>: COMMODITIES, NOT MYSTERIES.
+                    </h1>
+<p class="font-body text-xl md:text-2xl text-on-surface-variant max-w-xl mb-12 border-l-[6px] border-secondary-container pl-6 leading-relaxed">
+                        We've broken down every part of a website into its core value and cost. You pick what you need. We build it. No hidden fees. No guesswork.
+                    </p>
+<button type="button"class="bg-secondary-container text-on-background border-[3px] border-on-background px-10 py-6 text-xl font-headline font-black uppercase tracking-widest hard-shadow hover:-translate-y-1 hover:-translate-x-1 transition-transform active:translate-x-0 active:translate-y-0 active:shadow-none">
+                        CONFIGURE YOUR SITE
+                    </button>
+</div>
+<div class="relative flex justify-center items-center order-1 lg:order-2">
+<!-- Glass Sculpture Simulation -->
+<div class="relative w-full aspect-square max-w-[500px]">
+<div class="absolute inset-0 bg-primary-container/5 backdrop-blur-xl border-[3px] border-on-background translate-x-4 translate-y-4"></div>
+<img alt="3D abstract glass structure" class="w-full h-full object-cover border-[3px] border-on-background grayscale contrast-125 mix-blend-multiply relative z-10 shadow-2xl" data-alt="Abstract 3D glass blocks geometric composition" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDphP9H-xKZ1xBe4QIb2ZgfiJeLewzxI1-dB--UmQT29zausknefgFo_LfvDusf3OgsP-583sUlE5nr-86_EYzVBHJxPxadl1aCdoGQ5xbrnw2_VB4VuJ6WLc3sSli8E2YH1e083Ylx7yqAbA_zNcdpy-B93Fi16g2E9cXXZsg4uJ9mE93sXUZBCwCIY3vFeFfdufTLdj5M2FXAEvPM85ozRmynhhwQejZwYoef1XOrGKyoa3RIPg7vIDrFKZcFIWUzFHYhf69gRTg"/>
+<div class="absolute -top-10 -right-10 bg-secondary-container border-[3px] border-on-background p-4 z-20 hard-shadow-sm font-label text-xs uppercase font-bold">
+                            ASSET ID: BLK_992
+                        </div>
+</div>
+</div>
+</div>
+</section>
+<!-- Bento Blueprint Section -->
+<section class="bg-surface-container border-y-[3px] border-on-background py-24 px-8">
+<div class="max-w-7xl mx-auto">
+<div class="mb-16">
+<span class="bg-tertiary-fixed text-on-tertiary-fixed border-[2px] border-on-background px-3 py-1 font-label text-xs font-bold uppercase">System Overview</span>
+<h2 class="font-headline font-black text-5xl uppercase mt-4 tracking-tighter">THE BUILDING BLOCKS</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-6 gap-6">
+<!-- Bento Box 1 -->
+<div class="md:col-span-2 lg:col-span-3 bg-surface-container-lowest border-[3px] border-on-background p-8 flex flex-col justify-between hover:bg-secondary-container transition-colors group">
+<div class="flex justify-between items-start mb-12">
+<span class="material-symbols-outlined text-4xl" data-icon="grid_view">grid_view</span>
+<span class="font-label text-sm font-bold opacity-40">01 / 04</span>
+</div>
+<div>
+<h3 class="font-headline font-bold text-3xl uppercase mb-2">DYNAMIC LAYOUTS</h3>
+<p class="font-body text-sm opacity-70">Structural foundations built for scalability and performance.</p>
+</div>
+</div>
+<!-- Bento Box 2 -->
+<div class="md:col-span-2 lg:col-span-3 bg-primary-container text-on-primary border-[3px] border-on-background p-8 relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4 font-label text-[100px] leading-none opacity-20 font-black">72%</div>
+<div class="relative z-10 flex flex-col h-full justify-between">
+<span class="material-symbols-outlined text-4xl" data-icon="speed">speed</span>
+<div>
+<h3 class="font-headline font-bold text-3xl uppercase mb-2">FASTER DELIVERY</h3>
+<p class="font-body text-sm opacity-80">Component-based assembly reduces traditional dev cycles by weeks.</p>
+</div>
+</div>
+</div>
+<!-- Bento Box 3 -->
+<div class="md:col-span-4 lg:col-span-2 bg-surface-container-highest border-[3px] border-on-background p-8 hover:bg-surface transition-colors">
+<div class="flex flex-col h-full justify-between">
+<div class="mb-8">
+<span class="material-symbols-outlined text-4xl mb-4" data-icon="currency_exchange">currency_exchange</span>
+<h3 class="font-headline font-bold text-3xl uppercase mb-2">FIXED PRICING</h3>
+</div>
+<div class="border-t-[3px] border-on-background pt-4">
+<span class="font-label font-bold text-2xl">$499 / BLOCK</span>
+</div>
+</div>
+</div>
+<!-- Bento Box 4 -->
+<div class="md:col-span-4 lg:col-span-4 bg-surface-container-lowest border-[3px] border-on-background p-8 grid grid-cols-1 sm:grid-cols-2 gap-8 items-center">
+<div>
+<h3 class="font-headline font-bold text-4xl uppercase mb-4 tracking-tighter">AUTHENTIC TRANSPARENCY</h3>
+<p class="font-body text-base mb-6">Every line of code is accounted for. Every component is priced fairly. No agency markup, just architectural excellence.</p>
+<a class="inline-flex items-center gap-2 font-headline font-bold uppercase text-sm border-b-[3px] border-primary-container pb-1 hover:text-primary-container transition-colors" href="#">
+                                View Component Catalog <span class="material-symbols-outlined">arrow_forward</span>
+</a>
+</div>
+<div class="h-48 bg-on-background relative overflow-hidden">
+<img alt="Technical circuit layout" class="w-full h-full object-cover opacity-50 grayscale contrast-150" data-alt="Macro photo of high-tech circuit boards" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDu7svzglrMUBSeEhJLe_Cj83BCeVsmf91VespmpPNpHDgsY25GKzpOSMOBcL-lqSxNFyaqPd2S4l7wAqhZH02icRxU02l8rV3RJnF2nzlSkUNFSxj2cjVoa2Wbmm-XR6uU0V0teoyIXwqLpiY7_xVSs4jv75scw3MSeSmY1OntzG5HE_CM9q4B7oVHa_biIhAkO8KMtKCBCmW1RO4NzlxiEEImgUtvv2152w-DUVuNjoiw2fwTetC2bGTyPvoWrnZ7v4XMgP21BMQ"/>
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="bg-secondary-container text-on-background px-4 py-2 font-label font-bold text-xs uppercase -rotate-12 border-[2px] border-on-background">SYSTEM_ACTIVE</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- SideNavBar (Desktop Configurator Trigger) -->
+<aside class="hidden lg:flex flex-col h-screen fixed left-0 top-24 pt-4 bg-[#F0EDED] dark:bg-[#1A1A1A] w-64 border-r-[3px] border-[#1A1A1A] z-40">
+<div class="px-6 py-6 border-b-[3px] border-[#1A1A1A]">
+<h4 class="font-['Space_Grotesk'] text-lg font-bold text-[#1A1A1A]">Building Blocks</h4>
+<p class="text-[10px] uppercase font-bold tracking-widest opacity-60">Configurator v1.0</p>
+</div>
+<div class="flex-1 overflow-y-auto">
+<nav class="flex flex-col">
+<a class="flex items-center gap-4 px-6 py-5 bg-[#C1F100] text-[#1A1A1A] border-y-[3px] border-[#1A1A1A] -mr-[3px] z-10 font-['Space_Grotesk'] text-sm uppercase font-bold" href="#">
+<span class="material-symbols-outlined">grid_view</span> Layouts
+                </a>
+<a class="flex items-center gap-4 px-6 py-5 text-[#1A1A1A] dark:text-[#EAE7E7] border-b-[3px] border-[#1A1A1A] hover:bg-[#8A2BE2] hover:text-white transition-all duration-150 font-['Space_Grotesk'] text-sm uppercase font-bold active:scale-95" href="#">
+<span class="material-symbols-outlined">extension</span> Components
+                </a>
+<a class="flex items-center gap-4 px-6 py-5 text-[#1A1A1A] dark:text-[#EAE7E7] border-b-[3px] border-[#1A1A1A] hover:bg-[#8A2BE2] hover:text-white transition-all duration-150 font-['Space_Grotesk'] text-sm uppercase font-bold active:scale-95" href="#">
+<span class="material-symbols-outlined">format_size</span> Typography
+                </a>
+<a class="flex items-center gap-4 px-6 py-5 text-[#1A1A1A] dark:text-[#EAE7E7] border-b-[3px] border-[#1A1A1A] hover:bg-[#8A2BE2] hover:text-white transition-all duration-150 font-['Space_Grotesk'] text-sm uppercase font-bold active:scale-95" href="#">
+<span class="material-symbols-outlined">folder_open</span> Assets
+                </a>
+</nav>
+</div>
+</aside>
+<!-- BottomNavBar (Mobile & Global Secondary Actions) -->
+<footer class="fixed bottom-0 left-0 w-full flex justify-end items-center px-8 gap-0 bg-[#FCF9F8] dark:bg-[#1A1A1A] border-t-[3px] border-[#1A1A1A] z-50 h-20">
+<div class="flex h-full">
+<button type="button"class="flex items-center gap-2 text-[#1A1A1A] dark:text-[#FCF9F8] p-4 font-['Inter'] text-[12px] font-black uppercase hover:invert transition-all duration-100 active:translate-y-1 border-x-[1px] border-on-background/10">
+<span class="material-symbols-outlined">help_center</span> Support
+            </button>
+<button type="button"class="flex items-center gap-2 text-[#1A1A1A] dark:text-[#FCF9F8] p-4 font-['Inter'] text-[12px] font-black uppercase hover:invert transition-all duration-100 active:translate-y-1 border-r-[1px] border-on-background/10">
+<span class="material-symbols-outlined">payments</span> Costs
+            </button>
+<button type="button"class="flex items-center gap-2 bg-[#8A2BE2] text-white p-4 font-['Inter'] text-[12px] font-black uppercase hover:invert transition-all duration-100 active:translate-y-1">
+<span class="material-symbols-outlined">mail</span> Contact Us
+            </button>
+</div>
+</footer>
+<!-- FAB Suppression Applied: No Floating Action Button as this is a Landing Page Focus -->
+<div class="hidden lg:block fixed bottom-24 right-8 z-[60]">
+<div class="bg-on-background text-surface px-6 py-4 hard-shadow-sm border-[2px] border-primary-container">
+<p class="font-label text-[10px] uppercase font-black mb-1 opacity-50">Current Status</p>
+<p class="font-headline font-bold text-sm tracking-widest flex items-center gap-2">
+<span class="w-2 h-2 bg-secondary-container inline-block"></span>
+                SYSTEMS ONLINE_
+            </p>
+</div>
+</div>
+</body></html>
