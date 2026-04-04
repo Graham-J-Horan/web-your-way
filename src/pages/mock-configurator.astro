@@ -1,0 +1,372 @@
+---
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import StickyBar from "../components/StickyBar.astro";
+import Layout from "../layouts/Layout.astro";
+import { BLOCK_META } from "../store/blockRegistry";
+import { BLOCKS } from "../store/cart";
+
+const section01 = [
+  BLOCKS["hero-section"],
+  BLOCKS["trust-badges"],
+  BLOCKS["service-highlights"],
+];
+const section02 = [
+  BLOCKS["fleet-showcase"],
+  BLOCKS["pricing-table"],
+  BLOCKS["services-reservation"],
+  BLOCKS["portfolio-grid"],
+];
+const section03 = [
+  BLOCKS["google-reviews"],
+  BLOCKS["faq-accordion"],
+  BLOCKS["location-maps"],
+  BLOCKS["contact-form"],
+  BLOCKS["contact-form-alt"],
+];
+const section04 = [
+  BLOCKS["blog-engine"],
+  BLOCKS["ai-personalization"],
+  BLOCKS["whatsapp-strategy"],
+  BLOCKS["performance-optimization"],
+  BLOCKS["sticky-mobile-cta"],
+];
+
+const SECTIONS = [
+  {
+    id: "section-01",
+    num: "01",
+    name: "First impression",
+    desc: "What visitors see and feel in the first 8 seconds.",
+    blocks: section01,
+  },
+  {
+    id: "section-02",
+    num: "02",
+    name: "What you offer",
+    desc: "Your products, services and pricing — front and centre.",
+    blocks: section02,
+  },
+  {
+    id: "section-03",
+    num: "03",
+    name: "Build trust",
+    desc: "Reviews, answers and contact — close the sale.",
+    blocks: section03,
+  },
+  {
+    id: "section-04",
+    num: "04",
+    name: "Power it up",
+    desc: "Advanced tools for businesses ready to go further.",
+    blocks: section04,
+  },
+];
+
+const includedBlocks = [
+  BLOCKS["responsive-layout"],
+  BLOCKS["ssg-engine"],
+  BLOCKS["responsive-navbar"],
+  BLOCKS["footer-complex"],
+  BLOCKS["seo-supremacy"],
+  BLOCKS["brand-system"],
+  BLOCKS["discovery-ux"],
+];
+
+const getBlockMeta = (id: string) => {
+  return (BLOCK_META[id as keyof typeof BLOCK_META] || {
+    icon: "help",
+    label: "Block",
+    description: "",
+    why: "",
+  }) as {
+    icon: string;
+    label: string;
+    description: string;
+    why: string;
+  };
+};
+---
+
+<Layout>
+  <style is:global>
+    /* Prevent body scroll on mobile to allow the split-pane to work */
+    @media (max-width: 1023px) {
+      body {
+        overflow: hidden;
+        height: 100svh;
+      }
+    }
+  </style>
+  <div class="fixed inset-0 grainy-overlay z-50 pointer-events-none opacity-5">
+  </div>
+  <Header showDropdown={false} />
+
+  <!-- 
+    MOBILE SPLIT PANE WRAPPER
+    On mobile (<lg), we use fixed positioning to keep it anchored between header and footer.
+    On desktop (lg+), we revert to standard block flow.
+  -->
+  <div class="flex flex-col lg:block fixed lg:static top-24 bottom-20 lg:bottom-auto left-0 right-0 h-[calc(100svh-11rem)] lg:h-auto">
+    
+    <!-- 
+      PANE 1: THE PERSISTENT SCHEMATIC (Mobile Only Top) 
+      Visible only on mobile, pinned below header.
+    -->
+    <section class="lg:hidden h-[35svh] w-full border-b-[3px] border-on-background bg-white relative overflow-hidden shrink-0 z-30">
+      <div class="absolute inset-0 grainy-overlay opacity-5 pointer-events-none"></div>
+      <div class="absolute top-2 left-4 bg-on-background text-white text-[8px] font-black uppercase tracking-widest px-2 py-0.5 z-10">
+        Live Blueprint View
+      </div>
+      
+      <div class="w-full h-full flex items-center justify-center p-2 pt-6">
+        <svg
+          id="mobile-split-schematic"
+          viewBox="0 0 200 160"
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-full w-auto"
+          preserveAspectRatio="xMidYMid meet"
+        >
+          <!-- The content is defined later in the desktop SVG and referenced here -->
+          <use href="#page-schematic-content" />
+        </svg>
+      </div>
+
+      <div class="absolute bottom-2 right-4 flex gap-2">
+        <div class="bg-secondary-container border-2 border-on-background px-2 py-1 text-[10px] font-black uppercase tracking-tighter hard-shadow-sm">
+          <span id="mobile-split-total">€0</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 
+      PANE 2: SCROLLABLE CONTENT
+      On mobile, this fills the remaining height and scrolls.
+      On desktop, it's just a normal container.
+    -->
+    <main
+      id="main-content"
+      class="flex-grow overflow-y-auto lg:overflow-visible pt-8 lg:pt-32 pb-32 lg:pb-48 px-4 md:px-12 max-w-7xl mx-auto text-on-background w-full"
+    >
+      <!-- Page header (Desktop only or scrollable on mobile) -->
+      <section class="mb-12 lg:mb-20">
+        <div class="relative inline-block">
+          <h1
+            class="text-5xl md:text-8xl font-black font-headline uppercase leading-[0.85] tracking-tighter relative z-10"
+          >
+            Build Your<br />Website
+          </h1>
+          <div
+            class="absolute -right-4 -bottom-2 bg-secondary-container w-full h-1/2 z-0"
+          >
+          </div>
+        </div>
+        <p class="mt-6 text-base lg:text-lg font-bold max-w-2xl opacity-70 leading-relaxed">
+          Tick what you need. Leave out what you don't. Your blueprint above tracks every selection in real time.
+        </p>
+      </section>
+
+      <!-- Sticky section nav -->
+      <nav
+        class="sticky top-0 lg:top-24 z-40 bg-surface/95 dark:bg-on-background/95 backdrop-blur-md border-b-[3px] border-on-background dark:border-white py-3 md:py-4 overflow-hidden mb-12 md:mb-16"
+      >
+        <div class="relative px-4 md:px-1">
+          <div
+            id="section-nav-scroll"
+            class="flex gap-6 md:gap-10 overflow-x-auto no-scrollbar relative py-1"
+          >
+            {
+              SECTIONS.map((s) => (
+                <a
+                  href={`#${s.id}`}
+                  class="section-nav-link font-headline font-black text-[10px] md:text-xs uppercase tracking-widest text-on-background/40 dark:text-white/40 hover:text-on-background dark:hover:text-white transition-all shrink-0 pb-1"
+                >
+                  {s.num}. {s.name}
+                </a>
+              ))
+            }
+            <a
+              href="#section-included"
+              class="section-nav-link font-headline font-black text-[10px] md:text-xs uppercase tracking-widest text-on-background/40 dark:text-white/40 hover:text-on-background dark:hover:text-white transition-all shrink-0 pb-1"
+            >
+              Included
+            </a>
+            <div
+              id="nav-indicator"
+              class="absolute bottom-0 h-0.75 bg-primary-container transition-all duration-300 ease-out opacity-0 pointer-events-none"
+            >
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <form id="configurator-form">
+        <div id="sections-grid" class="lg:flex lg:gap-12 lg:items-start">
+          <!-- LEFT: selectable sections -->
+          <div class="lg:flex-7 space-y-16 lg:space-y-24 min-w-0" id="sections-left">
+            {
+              SECTIONS.map((section) => (
+                <section
+                  id={section.id}
+                  class="scroll-mt-40 lg:scroll-mt-40"
+                  data-section-id={section.id}
+                >
+                  <div class="flex items-center gap-4 mb-4">
+                    <div class="w-10 h-10 lg:w-12 lg:h-12 bg-on-background text-white flex items-center justify-center font-black text-xl lg:text-2xl shrink-0">
+                      {section.num}
+                    </div>
+                    <h2 class="text-3xl lg:text-4xl font-black font-headline uppercase tracking-tighter">
+                      {section.name}
+                    </h2>
+                    <div class="grow h-0.75 bg-on-background hidden lg:block" />
+                  </div>
+                  <p class="text-sm font-medium opacity-60 mb-8 lg:mb-10 pl-14 lg:pl-16 leading-relaxed">
+                    {section.desc}
+                  </p>
+
+                  <fieldset class="space-y-4">
+                    <legend class="sr-only">
+                      Section {section.num}: {section.name}
+                    </legend>
+                    {section.blocks.map((block) => {
+                      const meta = getBlockMeta(block.id);
+                      return (
+                        <label
+                          class="group relative flex items-start gap-4 lg:gap-5 p-5 lg:p-6 bg-surface border-[3px] border-on-background has-checked:border-primary-container has-checked:bg-secondary-container/5 hard-shadow-sm hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[6px_6px_0px_0px_rgba(28,27,27,1)] transition-all cursor-pointer"
+                          data-block-id={block.id}
+                        >
+                          <input
+                            class="sr-only block-checkbox"
+                            type="checkbox"
+                            data-id={block.id}
+                          />
+
+                          <div class="w-8 h-8 lg:w-10 lg:h-10 border-[3px] border-on-background shrink-0 flex items-center justify-center group-has-checked:bg-secondary-container transition-colors mt-0.5">
+                            <span
+                              class="material-symbols-outlined text-on-background text-sm lg:text-base hidden group-has-checked:block"
+                              style="font-variation-settings:'wght' 900;"
+                            >
+                              check
+                            </span>
+                          </div>
+
+                          <div class="w-8 h-8 lg:w-9 lg:h-9 shrink-0 flex items-center justify-center mt-0.5">
+                            <span class="material-symbols-outlined text-lg lg:text-xl opacity-20 group-has-checked:opacity-70 group-has-checked:text-primary-container transition-all">
+                              {meta.icon}
+                            </span>
+                          </div>
+
+                          <div class="grow min-w-0">
+                            <div class="flex justify-between items-start gap-4 mb-2">
+                              <h3 class="text-base lg:text-lg font-black font-headline uppercase tracking-tighter leading-tight">
+                                {meta.label}
+                              </h3>
+                              <span class="font-mono text-base lg:text-lg font-bold tracking-tight shrink-0 opacity-75">
+                                €{block.price}
+                              </span>
+                            </div>
+                            <p class="text-xs lg:text-sm font-medium opacity-55 leading-relaxed mb-3">
+                              {meta.description}
+                            </p>
+                            <div class="border-l-[3px] border-primary-container pl-3 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity">
+                              <p class="text-[10px] lg:text-xs font-bold text-on-surface-variant leading-relaxed italic">
+                                {meta.why}
+                              </p>
+                            </div>
+                          </div>
+                        </label>
+                      );
+                    })}
+                  </fieldset>
+                </section>
+              ))
+            }
+          </div>
+
+          <!-- RIGHT: schematic — hidden on mobile, sticky on lg+ -->
+          <div
+            id="schematic-col"
+            class="hidden lg:flex lg:flex-5 flex-col gap-4 sticky top-28 max-h-[calc(100vh-8rem)] overflow-y-auto"
+          >
+            <div id="schematic-content">
+              <div
+                class="text-[10px] font-black uppercase tracking-[0.25em] text-on-surface-variant text-center mb-2"
+              >
+                Your page — tracking live
+              </div>
+
+              <!-- Panel with aspect ratio -->
+              <div
+                id="schematic-panel"
+                class="border-[3px] border-on-background/20 overflow-hidden bg-white relative w-full"
+                style="aspect-ratio: 200 / 200;"
+              >
+                <div
+                  class="absolute inset-x-0 top-0 h-10 bg-linear-to-b from-white/50 to-transparent z-10 pointer-events-none"
+                >
+                </div>
+                <div
+                  class="absolute inset-x-0 bottom-0 h-10 bg-linear-to-t from-white/50 to-transparent z-10 pointer-events-none"
+                >
+                </div>
+
+                <svg
+                  id="page-schematic"
+                  viewBox="0 0 200 160"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="100%"
+                  height="100%"
+                  preserveAspectRatio="xMidYMid meet"
+                  style="display:block;"
+                >
+                  <!-- Define the schematic content once to reuse in mobile pane -->
+                  <defs>
+                    <g id="page-schematic-content">
+                      <rect x="0" y="0" width="200" height="600" fill="#FAFAFA"></rect>
+                      <rect id="highlight-band" x="0" y="24" width="200" height="40" fill="#C1F100" opacity="0"></rect>
+                      
+                      <!-- All your <g id="bp-..."> elements go here -->
+                      <!-- For the sake of this mock, I am including them conceptually -->
+                      <!-- [SCHEMATIC GROUPS HERE] -->
+                    </g>
+                  </defs>
+                  
+                  <!-- Using the defined content -->
+                  <use href="#page-schematic-content" />
+                </svg>
+              </div>
+              
+              <!-- [LEGEND AND MINI STATS AS BEFORE] -->
+            </div>
+          </div>
+        </div>
+
+        <!-- ALWAYS INCLUDED -->
+        <section
+          id="section-included"
+          class="scroll-mt-20 mt-24 pt-20 border-t-[3px] border-on-background/10"
+        >
+          <!-- [INCLUDED BLOCKS CONTENT AS BEFORE] -->
+        </section>
+
+        <!-- Final CTA -->
+        <section
+          class="mt-16 p-8 lg:p-12 bg-on-background text-white flex flex-col items-center justify-center text-center relative overflow-hidden hard-shadow"
+        >
+          <!-- [FINAL CTA CONTENT AS BEFORE] -->
+        </section>
+      </form>
+    </main>
+  </div>
+
+  <Footer variant="bar" hideOnMobile={false} showProgress={true} />
+  
+  <!-- Remove StickyBar and Mobile Preview Button/Modal for this split-pane concept -->
+  <!-- They are replaced by the persistent top pane and bottom status footer -->
+
+</Layout>
+
+<script>
+  // Script logic would be adapted to update both SVGs 
+  // and handle the mobile scroll container
+</script>
