@@ -1420,16 +1420,17 @@ const getBlockMeta = (id: string) => {
   </button>
 
   <!-- ── Mobile preview modal — full-screen overlay ── -->
+  <!-- Uses inline styles deliberately to avoid Tailwind specificity fights with md:hidden at open time -->
   <div
     id="preview-modal"
-    class="fixed inset-0 z-200 bg-[#1c1b1b] flex-col md:hidden"
-    style="display:none;"
     aria-modal="true"
     role="dialog"
+    style="display:none; position:fixed; inset:0; z-index:200; background:#1c1b1b; flex-direction:column; height:100%; width:100%; overflow:hidden;"
   >
     <!-- Modal Header -->
     <div
-      class="flex justify-between items-center p-4 border-b border-white/10 bg-[#1c1b1b] sticky top-0 z-10"
+      style="flex-shrink:0;"
+      class="flex justify-between items-center p-4 border-b border-white/10 bg-[#1c1b1b]"
     >
       <div>
         <h3
@@ -1444,14 +1445,14 @@ const getBlockMeta = (id: string) => {
       <button
         id="close-modal"
         type="button"
-        class="text-white p-2 hover:bg-white/10 transition-colors"
+        class="text-white p-2"
       >
         <span class="material-symbols-outlined">close</span>
       </button>
     </div>
 
-    <!-- Scrollable content -->
-    <div class="flex-1 overflow-y-auto p-4 space-y-6">
+    <!-- Scrollable content — flex:1 with overflow -->
+    <div style="flex:1; overflow-y:auto; -webkit-overflow-scrolling:touch;" class="p-4 space-y-6">
       <!-- Full schematic -->
       <div class="bg-white overflow-hidden border-[3px] border-white/20">
         <div
@@ -1477,7 +1478,7 @@ const getBlockMeta = (id: string) => {
             style="display:block;"
           >
             <rect x="0" y="0" width="200" height="600" fill="#FAFAFA"></rect>
-            <g id="bp-responsive-navbar" style="opacity:1;"
+            <g id="mbp-responsive-navbar" style="opacity:1;"
               ><rect x="0" y="0" width="200" height="24" fill="#1E2A4A"
               ></rect><rect
                 x="8"
@@ -1511,7 +1512,7 @@ const getBlockMeta = (id: string) => {
                 rx="2"
                 fill="#9C1F2D"></rect></g
             >
-            <g id="bp-hero-section" style="opacity:0.12;"
+            <g id="mbp-hero-section" style="opacity:0.12;"
               ><rect x="0" y="24" width="200" height="66" fill="#F3F4F6"
               ></rect><rect
                 x="10"
@@ -1563,7 +1564,7 @@ const getBlockMeta = (id: string) => {
                 fill="white"
                 opacity="0.55"></circle></g
             >
-            <g id="bp-trust-badges" style="opacity:0.12;"
+            <g id="mbp-trust-badges" style="opacity:0.12;"
               ><rect x="0" y="90" width="200" height="13" fill="#9C1F2D"
               ></rect><rect
                 x="6"
@@ -1591,7 +1592,7 @@ const getBlockMeta = (id: string) => {
                 rx="1"
                 fill="rgba(255,255,255,0.45)"></rect></g
             >
-            <g id="bp-service-highlights" style="opacity:0.12;"
+            <g id="mbp-service-highlights" style="opacity:0.12;"
               ><rect x="0" y="103" width="200" height="37" fill="#F9FAFB"
               ></rect><rect
                 x="6"
@@ -1649,7 +1650,7 @@ const getBlockMeta = (id: string) => {
                 rx="1"
                 fill="#D1D5DB"></rect></g
             >
-            <g id="bp-fleet-showcase" style="opacity:0.12;"
+            <g id="mbp-fleet-showcase" style="opacity:0.12;"
               ><rect x="0" y="140" width="200" height="50" fill="white"
               ></rect><rect
                 x="56"
@@ -1699,7 +1700,7 @@ const getBlockMeta = (id: string) => {
                 rx="1"
                 fill="#E5E7EB"></rect></g
             >
-            <g id="bp-pricing-table" style="opacity:0.12;"
+            <g id="mbp-pricing-table" style="opacity:0.12;"
               ><rect x="0" y="190" width="200" height="55" fill="#F9FAFB"
               ></rect><rect
                 x="56"
@@ -1731,7 +1732,7 @@ const getBlockMeta = (id: string) => {
                 stroke="#E5E7EB"
                 stroke-width="0.5"></rect></g
             >
-            <g id="bp-services-reservation" style="opacity:0.12;"
+            <g id="mbp-services-reservation" style="opacity:0.12;"
               ><rect x="0" y="245" width="200" height="40" fill="white"
               ></rect><rect
                 x="6"
@@ -1749,7 +1750,7 @@ const getBlockMeta = (id: string) => {
                 rx="2"
                 fill="#1E2A4A"></rect></g
             >
-            <g id="bp-portfolio-grid" style="opacity:0.12;"
+            <g id="mbp-portfolio-grid" style="opacity:0.12;"
               ><rect x="0" y="285" width="200" height="40" fill="#F9FAFB"
               ></rect><rect
                 x="6"
@@ -1771,7 +1772,7 @@ const getBlockMeta = (id: string) => {
                 rx="1"
                 fill="#D1D5DB"></rect></g
             >
-            <g id="bp-google-reviews" style="opacity:0.12;"
+            <g id="mbp-google-reviews" style="opacity:0.12;"
               ><rect x="0" y="325" width="200" height="47" fill="white"
               ></rect><rect
                 x="56"
@@ -1805,7 +1806,7 @@ const getBlockMeta = (id: string) => {
                 stroke="#E5E7EB"
                 stroke-width="0.5"></rect></g
             >
-            <g id="bp-faq-accordion" style="opacity:0.12;"
+            <g id="mbp-faq-accordion" style="opacity:0.12;"
               ><rect x="0" y="372" width="200" height="46" fill="#F9FAFB"
               ></rect><rect
                 x="6"
@@ -1835,7 +1836,7 @@ const getBlockMeta = (id: string) => {
                 height="9"
                 fill="#9C1F2D"></rect></g
             >
-            <g id="bp-location-maps" style="opacity:0.12;"
+            <g id="mbp-location-maps" style="opacity:0.12;"
               ><rect x="0" y="418" width="200" height="37" fill="white"
               ></rect><rect x="0" y="418" width="112" height="37" fill="#D1D5DB"
               ></rect><circle cx="56" cy="433" r="5" fill="#9C1F2D"
@@ -1854,7 +1855,7 @@ const getBlockMeta = (id: string) => {
                 rx="1"
                 fill="#25D366"></rect></g
             >
-            <g id="bp-contact-form" style="opacity:0.12;"
+            <g id="mbp-contact-form" style="opacity:0.12;"
               ><rect x="0" y="455" width="200" height="40" fill="#F9FAFB"
               ></rect><rect
                 x="6"
@@ -1888,7 +1889,7 @@ const getBlockMeta = (id: string) => {
                 rx="2"
                 fill="#1E2A4A"></rect></g
             >
-            <g id="bp-contact-form-alt" style="opacity:0.12;"
+            <g id="mbp-contact-form-alt" style="opacity:0.12;"
               ><rect x="0" y="495" width="200" height="35" fill="white"
               ></rect><rect
                 x="6"
@@ -1910,7 +1911,7 @@ const getBlockMeta = (id: string) => {
                 rx="2"
                 fill="#25D366"></rect></g
             >
-            <g id="bp-blog-engine" style="opacity:0.12;"
+            <g id="mbp-blog-engine" style="opacity:0.12;"
               ><rect x="0" y="530" width="200" height="18" fill="white"
               ></rect><rect
                 x="6"
@@ -1928,7 +1929,7 @@ const getBlockMeta = (id: string) => {
                 rx="1"
                 fill="#D1D5DB"></rect></g
             >
-            <g id="bp-ai-personalization" style="opacity:0.12;"
+            <g id="mbp-ai-personalization" style="opacity:0.12;"
               ><rect x="0" y="548" width="200" height="10" fill="#F9FAFB"
               ></rect><rect
                 x="6"
@@ -1950,7 +1951,7 @@ const getBlockMeta = (id: string) => {
                 rx="2.5"
                 fill="#D1D5DB"></rect></g
             >
-            <g id="bp-whatsapp-strategy" style="opacity:0.12;"
+            <g id="mbp-whatsapp-strategy" style="opacity:0.12;"
               ><rect x="0" y="558" width="200" height="8" fill="white"
               ></rect><rect
                 x="6"
@@ -1960,7 +1961,7 @@ const getBlockMeta = (id: string) => {
                 rx="2"
                 fill="#25D366"></rect></g
             >
-            <g id="bp-performance-optimization" style="opacity:0.12;"
+            <g id="mbp-performance-optimization" style="opacity:0.12;"
               ><rect x="0" y="566" width="200" height="7" fill="#F9FAFB"
               ></rect><rect
                 x="6"
@@ -1988,7 +1989,7 @@ const getBlockMeta = (id: string) => {
                 rx="1"
                 fill="#639922"></rect></g
             >
-            <g id="bp-footer-complex" style="opacity:1;"
+            <g id="mbp-footer-complex" style="opacity:1;"
               ><rect x="0" y="573" width="200" height="27" fill="#1E2A4A"
               ></rect><rect
                 x="8"
@@ -2028,7 +2029,7 @@ const getBlockMeta = (id: string) => {
                 r="3"
                 fill="rgba(255,255,255,0.1)"></circle></g
             >
-            <g id="bp-sticky-mobile-cta" style="opacity:0.12;"
+            <g id="mbp-sticky-mobile-cta" style="opacity:0.12;"
               ><rect
                 x="0"
                 y="573"
@@ -2115,7 +2116,7 @@ const getBlockMeta = (id: string) => {
     </div>
 
     <!-- Modal footer CTA -->
-    <div class="p-4 border-t border-white/10 bg-[#1c1b1b] shrink-0">
+    <div style="flex-shrink:0;" class="p-4 border-t border-white/10 bg-[#1c1b1b]">
       <a
         href="/summary-and-quote"
         class="flex items-center justify-between w-full bg-[#C1F100] text-[#1c1b1b] py-4 px-6 font-headline font-black text-base uppercase tracking-wider hard-shadow hover:-translate-y-0.5 transition-all group"
@@ -2332,17 +2333,31 @@ const getBlockMeta = (id: string) => {
   }
 
   function updateSchematic(selectedIds: readonly string[], changedId?: string) {
-    document.querySelectorAll('[id^="bp-"]').forEach((el) => {
-      const id = (el as HTMLElement).id.replace("bp-", "");
-      const on = ALWAYS_ACTIVE.has(id) || selectedIds.includes(id);
-      (el as SVGGElement).style.opacity = on ? "1" : "0.12";
-      (el as SVGGElement).style.transition = "opacity 0.35s ease";
-    });
+    // Desktop schematic — bp- prefix
+    const desktopSvg = document.getElementById("page-schematic");
+    if (desktopSvg) {
+      desktopSvg.querySelectorAll('[id^="bp-"]').forEach((el) => {
+        const id = (el as HTMLElement).id.replace("bp-", "");
+        const on = ALWAYS_ACTIVE.has(id) || selectedIds.includes(id);
+        (el as SVGGElement).style.opacity = on ? "1" : "0.12";
+        (el as SVGGElement).style.transition = "opacity 0.35s ease";
+      });
+    }
+    // Modal schematic — mbp- prefix
+    const modalSvg = document.getElementById("modal-schematic");
+    if (modalSvg) {
+      modalSvg.querySelectorAll('[id^="mbp-"]').forEach((el) => {
+        const id = (el as HTMLElement).id.replace("mbp-", "");
+        const on = ALWAYS_ACTIVE.has(id) || selectedIds.includes(id);
+        (el as SVGGElement).style.opacity = on ? "1" : "0.12";
+        (el as SVGGElement).style.transition = "opacity 0.35s ease";
+      });
+    }
     // Pulse the newly toggled block in both schematics
     if (changedId) {
       const targets = [
-        document.getElementById(`bp-${changedId}`),
-        document.querySelector(`#modal-schematic #bp-${changedId}`),
+        document.querySelector(`#page-schematic #bp-${changedId}`),
+        document.querySelector(`#modal-schematic #mbp-${changedId}`),
       ];
       targets.forEach(t => { if (t) pulseElement(t as SVGGElement); });
     }
@@ -2438,8 +2453,8 @@ const getBlockMeta = (id: string) => {
     if (modalCount) modalCount.textContent = String(selectedIds.length);
     if (modalTotal) modalTotal.textContent = `€${total.toLocaleString()}`;
 
-    document.querySelectorAll('#modal-schematic [id^="bp-"]').forEach((el) => {
-      const id = (el as HTMLElement).id.replace("bp-", "");
+    document.querySelectorAll('#modal-schematic [id^="mbp-"]').forEach((el) => {
+      const id = (el as HTMLElement).id.replace("mbp-", "");
       const on = ALWAYS_ACTIVE.has(id) || selectedIds.includes(id);
       (el as SVGGElement).style.opacity = on ? "1" : "0.12";
     });
@@ -2482,7 +2497,9 @@ const getBlockMeta = (id: string) => {
       updateModal(ids, total);
       if (modal) {
         modal.style.display = "flex";
+        modal.style.flexDirection = "column";
         document.body.style.overflow = "hidden";
+        document.documentElement.style.overflow = "hidden";
       }
     });
   }
@@ -2493,6 +2510,7 @@ const getBlockMeta = (id: string) => {
       if (modal) {
         modal.style.display = "none";
         document.body.style.overflow = "";
+        document.documentElement.style.overflow = "";
       }
     });
   }
@@ -2503,6 +2521,7 @@ const getBlockMeta = (id: string) => {
       if (e.target === modal) {
         modal.style.display = "none";
         document.body.style.overflow = "";
+        document.documentElement.style.overflow = "";
       }
     });
   }
