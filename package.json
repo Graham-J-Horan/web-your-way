@@ -27,6 +27,7 @@
 	"devDependencies": {
 		"@astrojs/check": "^0.9.8",
 		"@biomejs/biome": "^2.4.10",
+		"@playform/format": "^0.0.8",
 		"@types/alpinejs": "^3.13.11",
 		"typescript": "^5.9.3"
 	}

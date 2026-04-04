@@ -1,18 +1,16 @@
 ---
 interface Props {
-  showDropdown?: boolean;
-  showBackButton?: boolean;
-  isFunnel?: boolean;
-  backHref?: string;
-  backLabel?: string;
+	showDropdown?: boolean;
+	isFunnel?: boolean;
+	backHref?: string;
+	backLabel?: string;
 }
 
 const {
-  showDropdown = true,
-  showBackButton = false,
-  isFunnel = false,
-  backHref = "/configurator",
-  backLabel = "Back to Configurator",
+	showDropdown = true,
+	isFunnel = false,
+	backHref = "/configurator",
+	backLabel = "Back to Configurator",
 } = Astro.props;
 ---
 
@@ -60,11 +58,11 @@ const {
     {
       isFunnel ? (
         <a
-          href="/configurator"
+          href={backHref}
           class="bg-surface text-on-background border-[3px] border-on-background px-6 py-3 font-headline font-bold uppercase text-sm hard-shadow-sm hover:bg-secondary-container transition-all flex items-center gap-2"
         >
           <span class="material-symbols-outlined text-sm" aria-hidden="true">tune</span>
-          Back to Configurator
+          {backLabel}
         </a>
       ) : (
         showDropdown && (

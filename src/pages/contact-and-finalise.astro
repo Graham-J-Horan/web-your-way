@@ -1,108 +1,108 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import Layout from "../layouts/Layout.astro";
 
 const PALETTES = [
-  {
-    id: "classic-corporate",
-    name: "Classic & Professional",
-    personality: "Trusted · Established · Serious",
-    swatch: ["#0A5C8E", "#1C4E80", "#FFFFFF"],
-    for: "Solicitors, accountants, finance, estate agents",
-  },
-  {
-    id: "warm-local",
-    name: "Warm & Welcoming",
-    personality: "Friendly · Approachable · Local",
-    swatch: ["#1E6F5C", "#E6B422", "#F4EBD0"],
-    for: "Restaurants, cafés, health, wellness, hospitality",
-  },
-  {
-    id: "bold-creative",
-    name: "Bold & Creative",
-    personality: "Energetic · Confident · Memorable",
-    swatch: ["#FF6B6B", "#4ECDC4", "#FFE66D"],
-    for: "Designers, photographers, agencies, entertainment",
-  },
-  {
-    id: "minimal-luxe",
-    name: "Minimal & Premium",
-    personality: "Clean · Refined · Understated luxury",
-    swatch: ["#111111", "#C4A484", "#F5F5F0"],
-    for: "Fashion, beauty, interior design, premium brands",
-  },
-  {
-    id: "nature-sustainable",
-    name: "Natural & Sustainable",
-    personality: "Organic · Calm · Eco-conscious",
-    swatch: ["#2F5D3A", "#7DA98A", "#C17B4C"],
-    for: "Eco, garden, food, wellness, outdoor businesses",
-  },
-  {
-    id: "modern-tech",
-    name: "Modern & Technical",
-    personality: "Sharp · Digital-native · Forward",
-    swatch: ["#635BFF", "#0A0A0F", "#00D09C"],
-    for: "Tech, SaaS, startups, digital services",
-  },
+	{
+		id: "classic-corporate",
+		name: "Classic & Professional",
+		personality: "Trusted · Established · Serious",
+		swatch: ["#0A5C8E", "#1C4E80", "#FFFFFF"],
+		for: "Solicitors, accountants, finance, estate agents",
+	},
+	{
+		id: "warm-local",
+		name: "Warm & Welcoming",
+		personality: "Friendly · Approachable · Local",
+		swatch: ["#1E6F5C", "#E6B422", "#F4EBD0"],
+		for: "Restaurants, cafés, health, wellness, hospitality",
+	},
+	{
+		id: "bold-creative",
+		name: "Bold & Creative",
+		personality: "Energetic · Confident · Memorable",
+		swatch: ["#FF6B6B", "#4ECDC4", "#FFE66D"],
+		for: "Designers, photographers, agencies, entertainment",
+	},
+	{
+		id: "minimal-luxe",
+		name: "Minimal & Premium",
+		personality: "Clean · Refined · Understated luxury",
+		swatch: ["#111111", "#C4A484", "#F5F5F0"],
+		for: "Fashion, beauty, interior design, premium brands",
+	},
+	{
+		id: "nature-sustainable",
+		name: "Natural & Sustainable",
+		personality: "Organic · Calm · Eco-conscious",
+		swatch: ["#2F5D3A", "#7DA98A", "#C17B4C"],
+		for: "Eco, garden, food, wellness, outdoor businesses",
+	},
+	{
+		id: "modern-tech",
+		name: "Modern & Technical",
+		personality: "Sharp · Digital-native · Forward",
+		swatch: ["#635BFF", "#0A0A0F", "#00D09C"],
+		for: "Tech, SaaS, startups, digital services",
+	},
 ];
 
 const FONT_PAIRS = [
-  {
-    id: "classic-authority",
-    name: "Classic Authority",
-    feeling: "Established · Trustworthy · Traditional",
-    sample: "Your Business Name",
-    sampleBody: "Quality service you can rely on.",
-    headStyle: "font-family:Georgia,serif;font-weight:700;font-size:1.3rem;",
-    bodyStyle:
-      "font-family:Arial,sans-serif;font-weight:400;font-size:0.85rem;",
-  },
-  {
-    id: "modern-clean",
-    name: "Modern & Clean",
-    feeling: "Contemporary · Confident · Clear",
-    sample: "Your Business Name",
-    sampleBody: "Quality service you can rely on.",
-    headStyle:
-      "font-family:Arial,sans-serif;font-weight:900;letter-spacing:-0.02em;font-size:1.3rem;",
-    bodyStyle:
-      "font-family:Arial,sans-serif;font-weight:400;font-size:0.85rem;",
-  },
-  {
-    id: "warm-friendly",
-    name: "Warm & Friendly",
-    feeling: "Approachable · Human · Local",
-    sample: "Your Business Name",
-    sampleBody: "Quality service you can rely on.",
-    headStyle:
-      "font-family:Georgia,serif;font-weight:600;font-style:italic;font-size:1.3rem;",
-    bodyStyle:
-      "font-family:Arial,sans-serif;font-weight:400;letter-spacing:0.01em;font-size:0.85rem;",
-  },
-  {
-    id: "bold-statement",
-    name: "Bold Statement",
-    feeling: "Direct · Energetic · Impactful",
-    sample: "YOUR BUSINESS NAME",
-    sampleBody: "Quality service you can rely on.",
-    headStyle:
-      "font-family:Arial,sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:0.05em;font-size:1.2rem;",
-    bodyStyle:
-      "font-family:Arial,sans-serif;font-weight:400;font-size:0.85rem;",
-  },
-  {
-    id: "refined-minimal",
-    name: "Refined & Minimal",
-    feeling: "Premium · Understated · Editorial",
-    sample: "Your Business Name",
-    sampleBody: "Quality service you can rely on.",
-    headStyle:
-      "font-family:Georgia,serif;font-weight:300;letter-spacing:0.04em;font-size:1.35rem;",
-    bodyStyle:
-      "font-family:Arial,sans-serif;font-weight:300;letter-spacing:0.03em;font-size:0.85rem;",
-  },
+	{
+		id: "classic-authority",
+		name: "Classic Authority",
+		feeling: "Established · Trustworthy · Traditional",
+		sample: "Your Business Name",
+		sampleBody: "Quality service you can rely on.",
+		headStyle: "font-family:Georgia,serif;font-weight:700;font-size:1.3rem;",
+		bodyStyle:
+			"font-family:Arial,sans-serif;font-weight:400;font-size:0.85rem;",
+	},
+	{
+		id: "modern-clean",
+		name: "Modern & Clean",
+		feeling: "Contemporary · Confident · Clear",
+		sample: "Your Business Name",
+		sampleBody: "Quality service you can rely on.",
+		headStyle:
+			"font-family:Arial,sans-serif;font-weight:900;letter-spacing:-0.02em;font-size:1.3rem;",
+		bodyStyle:
+			"font-family:Arial,sans-serif;font-weight:400;font-size:0.85rem;",
+	},
+	{
+		id: "warm-friendly",
+		name: "Warm & Friendly",
+		feeling: "Approachable · Human · Local",
+		sample: "Your Business Name",
+		sampleBody: "Quality service you can rely on.",
+		headStyle:
+			"font-family:Georgia,serif;font-weight:600;font-style:italic;font-size:1.3rem;",
+		bodyStyle:
+			"font-family:Arial,sans-serif;font-weight:400;letter-spacing:0.01em;font-size:0.85rem;",
+	},
+	{
+		id: "bold-statement",
+		name: "Bold Statement",
+		feeling: "Direct · Energetic · Impactful",
+		sample: "YOUR BUSINESS NAME",
+		sampleBody: "Quality service you can rely on.",
+		headStyle:
+			"font-family:Arial,sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:0.05em;font-size:1.2rem;",
+		bodyStyle:
+			"font-family:Arial,sans-serif;font-weight:400;font-size:0.85rem;",
+	},
+	{
+		id: "refined-minimal",
+		name: "Refined & Minimal",
+		feeling: "Premium · Understated · Editorial",
+		sample: "Your Business Name",
+		sampleBody: "Quality service you can rely on.",
+		headStyle:
+			"font-family:Georgia,serif;font-weight:300;letter-spacing:0.04em;font-size:1.35rem;",
+		bodyStyle:
+			"font-family:Arial,sans-serif;font-weight:300;letter-spacing:0.03em;font-size:0.85rem;",
+	},
 ];
 ---
 
@@ -1181,10 +1181,10 @@ const FONT_PAIRS = [
           payment: fd.get("strategy"),
         },
         profile: {
-          businessType: pf.businessType,
-          primaryGoal: pf.primaryGoal,
+          businessType: BUSINESS_LABELS[pf.businessType] || pf.businessType,
+          primaryGoal: GOAL_LABELS[pf.primaryGoal] || pf.primaryGoal,
           assets: pf.assets,
-          timeline: pf.timeline,
+          timeline: pf.timeline ? TIMELINE_LABELS[pf.timeline] : "Not specified",
         },
       };
 

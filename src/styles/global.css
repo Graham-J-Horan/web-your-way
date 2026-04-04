@@ -118,43 +118,43 @@
 
 /* Mobile preview button animation */
 #mobile-preview-btn {
-  transition: all 0.2s ease;
-  backdrop-filter: blur(8px);
-  background-color: rgba(28, 27, 27, 0.95);
+	transition: all 0.2s ease;
+	backdrop-filter: blur(8px);
+	background-color: rgba(28, 27, 27, 0.95);
 }
 
 #mobile-preview-btn:active {
-  transform: translateY(2px);
+	transform: translateY(2px);
 }
 
 /* Modal animations */
 #preview-modal {
-  transition: opacity 0.3s ease;
+	transition: opacity 0.3s ease;
 }
 
 #preview-modal:not(.hidden) {
-  animation: modalFadeIn 0.3s ease;
+	animation: modalFadeIn 0.3s ease;
 }
 
 @keyframes modalFadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
 }
 
 /* Scrollbar styling for modal */
 #preview-modal .overflow-y-auto::-webkit-scrollbar {
-  width: 4px;
+	width: 4px;
 }
 
 #preview-modal .overflow-y-auto::-webkit-scrollbar-track {
-  background: rgba(255,255,255,0.1);
+	background: rgba(255, 255, 255, 0.1);
 }
 
 #preview-modal .overflow-y-auto::-webkit-scrollbar-thumb {
-  background: #C1F100;
-  border-radius: 4px;
+	background: #c1f100;
+	border-radius: 4px;
 }

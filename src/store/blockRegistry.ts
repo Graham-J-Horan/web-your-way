@@ -1,8 +1,5 @@
 // store/blocksRegistry.ts
-import type {
-	BlockMeta,
-	BlockWithMeta,
-} from "../types/blocks";
+import type { BlockMeta, BlockWithMeta } from "../types/blocks";
 import { BLOCKS } from "./cart";
 
 // Block metadata that was previously hard-coded in the component
@@ -130,18 +127,18 @@ export const BLOCK_META: Record<string, BlockMeta> = {
 };
 
 // Combine block data with metadata
-export const BLOCKS_WITH_META: Record<string, BlockWithMeta> = Object.entries(
-	BLOCKS,
-).reduce(
-	(acc, [id, block]) => ({
-		...acc,
-		[id]: {
-			...block,
-			...BLOCK_META[id],
+export const BLOCK_META_WITH_DATA: Record<string, BlockWithMeta> =
+	Object.entries(BLOCK_META).reduce(
+		(acc, [id, meta]) => {
+			const block = BLOCKS[id];
+			acc[id] = {
+				...block,
+				...meta,
+			};
+			return acc;
 		},
-	}),
-	{} as Record<string, BlockWithMeta>,
-);
+		{} as Record<string, BlockWithMeta>,
+	);
 
 // SVG Coordinates - Now dynamically generated from block IDs
 export const SVG_COORDINATES: Record<string, number> = {
