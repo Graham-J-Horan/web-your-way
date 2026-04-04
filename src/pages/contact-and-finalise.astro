@@ -1058,6 +1058,8 @@ const FONT_PAIRS = [
     "Brief prepared successfully.",
   ];
 
+  let submissionInterval: any = null;
+
   function addLog(msg: string, isError = false) {
     if (!techLogs) return;
     const div = document.createElement("div");
@@ -1290,7 +1292,7 @@ const FONT_PAIRS = [
           const retryBtn = document.getElementById("retry-submit");
           if (retryBtn) {
             retryBtn.addEventListener("click", () => {
-              errorBox.remove();
+              if (errorBox) errorBox.remove();
               if (statusEl) {
                 statusEl.textContent = "Preparing your quote...";
                 statusEl.classList.remove(

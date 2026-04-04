@@ -51,7 +51,7 @@ const {
     />
     <script>
       import Alpine from "alpinejs";
-      window.Alpine = Alpine;
+      (window as any).Alpine = Alpine;
       Alpine.start();
     </script>
 
