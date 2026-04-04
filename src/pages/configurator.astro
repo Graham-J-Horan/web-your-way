@@ -95,10 +95,10 @@ const getBlockMeta = (id: string) => {
 
   <main
     id="main-content"
-    class="pt-20 pb-48 px-4 md:px-12 max-w-7xl mx-auto text-on-background"
+    class="pt-4 md:pt-20 pb-48 px-4 md:px-12 max-w-7xl mx-auto text-on-background"
   >
-    <!-- Page header -->
-    <section class="mb-10">
+    <!-- Page header — hidden on mobile (split layout has no room) -->
+    <section class="hidden md:block mb-10">
       <div class="relative inline-block">
         <h1
           class="text-5xl md:text-7xl font-black font-headline uppercase leading-[0.85] tracking-tighter relative z-10"
@@ -116,35 +116,37 @@ const getBlockMeta = (id: string) => {
       </p>
     </section>
 
-    <!-- ── Mobile schematic strip — always visible on small screens, hidden md+ ── -->
-    <!-- Sits sticky just below the site header. User sees their page building as they scroll. -->
+    <!-- ── MOBILE SPLIT-SCREEN LAYOUT ──────────────────────────────────────
+         Top half: schematic fixed to top 45vh — always visible
+         Bottom half: block selection cards scroll underneath
+         Hidden on md+ (desktop uses the sidebar sticky column instead)
+    ──────────────────────────────────────────────────────────────────────── -->
+
+    <!-- Fixed schematic panel — top half of screen on mobile only -->
     <div
-      id="mobile-schematic-strip"
-      class="md:hidden sticky top-0 z-30 bg-on-background border-b-[3px] border-secondary-container mb-6 -mx-4"
-      style="touch-action: none;"
+      id="mobile-schematic-panel"
+      class="md:hidden"
+      style="position:fixed; top:0; left:0; right:0; height:45vh; z-index:40; background:#1c1b1b; display:flex; flex-direction:column;"
     >
-      <!-- Top bar: label + live stats -->
-      <div class="flex items-center justify-between px-4 py-2 border-b border-white/10">
-        <div class="flex items-center gap-2">
-          <span class="w-1.5 h-1.5 rounded-full bg-secondary-container animate-pulse inline-block"></span>
-          <span class="text-[9px] font-black uppercase tracking-widest text-white/60">Your page — live</span>
+      <!-- Header bar -->
+      <div style="flex-shrink:0; padding:10px 16px 8px; border-bottom:1px solid rgba(255,255,255,0.1); display:flex; align-items:center; justify-content:space-between;">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="width:7px; height:7px; border-radius:50%; background:#C1F100; display:inline-block; animation:pulse 2s infinite;"></span>
+          <span style="font-size:9px; font-weight:900; letter-spacing:0.2em; text-transform:uppercase; color:rgba(255,255,255,0.5);">Your page — live</span>
         </div>
-        <div class="flex items-center gap-4">
-          <div class="text-right">
-            <span class="text-[8px] font-black uppercase tracking-widest text-white/40 block">Blocks</span>
-            <span id="mobile-strip-count" class="font-headline font-black text-sm tracking-tighter text-white leading-none">0</span>
+        <div style="display:flex; gap:16px;">
+          <div style="text-align:right;">
+            <span style="display:block; font-size:8px; font-weight:900; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.35);">Blocks</span>
+            <span id="mobile-strip-count" style="font-size:16px; font-weight:900; letter-spacing:-0.03em; color:#fff; line-height:1;">0</span>
           </div>
-          <div class="text-right">
-            <span class="text-[8px] font-black uppercase tracking-widest text-white/40 block">Estimate</span>
-            <span id="mobile-strip-total" class="font-headline font-black text-sm tracking-tighter text-secondary-container leading-none">€0</span>
+          <div style="text-align:right;">
+            <span style="display:block; font-size:8px; font-weight:900; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.35);">Estimate</span>
+            <span id="mobile-strip-total" style="font-size:16px; font-weight:900; letter-spacing:-0.03em; color:#C1F100; line-height:1;">€0</span>
           </div>
         </div>
       </div>
-      <!-- Schematic: full-width horizontal scroll view of the page SVG -->
-      <div class="overflow-hidden bg-white relative" style="height:88px;">
-        <!-- Fade edges -->
-        <div class="absolute inset-y-0 left-0 w-6 bg-gradient-to-r from-white/60 to-transparent z-10 pointer-events-none"></div>
-        <div class="absolute inset-y-0 right-0 w-6 bg-gradient-to-l from-white/60 to-transparent z-10 pointer-events-none"></div>
+      <!-- SVG schematic — fills remaining height -->
+      <div style="flex:1; overflow:hidden; background:#fff; position:relative;">
         <svg
           id="mobile-schematic"
           viewBox="0 0 200 600"
@@ -172,13 +174,17 @@ const getBlockMeta = (id: string) => {
           <g id="sbp-performance-optimization" style="opacity:0.12;"><rect x="0" y="566" width="200" height="7" fill="#F9FAFB"></rect><rect x="6" y="569" width="14" height="2.5" rx="1" fill="#639922"></rect><rect x="26" y="569" width="14" height="2.5" rx="1" fill="#639922"></rect></g>
           <g id="sbp-sticky-mobile-cta" style="opacity:0.12;"><rect x="0" y="573" width="200" height="27" fill="#111827" stroke="#FCB714" stroke-width="1.5"></rect><rect x="4" y="576" width="92" height="18" rx="1" fill="#9C1F2D"></rect><rect x="104" y="576" width="92" height="18" rx="1" fill="#25D366"></rect></g>
           <g id="sbp-footer-complex" style="opacity:1;"><rect x="0" y="573" width="200" height="27" fill="#1E2A4A"></rect><rect x="8" y="579" width="22" height="3" rx="1" fill="rgba(252,183,20,0.5)"></rect><rect x="58" y="579" width="22" height="3" rx="1" fill="rgba(252,183,20,0.5)"></rect><rect x="108" y="579" width="22" height="3" rx="1" fill="rgba(252,183,20,0.5)"></rect><rect x="158" y="579" width="22" height="3" rx="1" fill="rgba(252,183,20,0.5)"></rect></g>
-        </svg>
-        <!-- Highlight band for the strip -->
-        <svg id="mobile-strip-highlight" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;" viewBox="0 0 200 600" preserveAspectRatio="xMidYMin meet">
+          <!-- Highlight band -->
           <rect id="mobile-highlight-band" x="0" y="24" width="200" height="40" fill="#C1F100" opacity="0"></rect>
         </svg>
       </div>
     </div>
+
+    <!-- Spacer on mobile only — pushes content below the fixed schematic panel -->
+    <div class="md:hidden" style="height:45vh;"></div>
+
+    <!-- Section nav: compact pill row, desktop only -->
+    <nav
       id="section-nav-bar"
       class="hidden md:flex gap-2 mb-8 flex-wrap"
       aria-label="Jump to section"
